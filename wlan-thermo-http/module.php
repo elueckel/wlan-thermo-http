@@ -97,7 +97,7 @@ if (!defined('vtBoolean')) {
 				$ChannelActive = $this->ReadPropertyBoolean("Channel".$channel."Active");
 				$this->SendDebug(($this->Translate('Channel ').$channel),$ChannelActive,0);
 
-				$temp = $data->channel[$i]->temp;
+				$temp = $Readings->channel[$i]->temp;
 				$this->SendDebug(($this->Translate('Channel ').$channel),"Temp ".$temp,0);
 
 			}
