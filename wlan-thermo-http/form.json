@@ -42,15 +42,34 @@
 		},
 		{
 			"type": "CheckBox",
-			"name": "Channel1",
+			"name": "Channel1Active",
 			"caption": "Channel 1"
 		},
 		{
 			"type": "CheckBox",
-			"name": "Channel2",
+			"name": "Channel2Active",
 			"caption": "Channel 2"
-		}
-		
+		},
+		{
+			"type": "CheckBox",
+			"name": "Channel3Active",
+			"caption": "Channel 3"
+		},
+		{
+			"type": "CheckBox",
+			"name": "Channel4Active",
+			"caption": "Channel 4"
+		},
+		{
+			"type": "CheckBox",
+			"name": "Channel5Active",
+			"caption": "Channel 5"
+		},
+		{
+			"type": "CheckBox",
+			"name": "Channel6Active",
+			"caption": "Channel 6"
+		}		
     ],
 	  "actions":
 	  [
