@@ -102,6 +102,12 @@ if (!defined('vtBoolean')) {
 					$Temperature = $data->channel[$i]->temp;
 					$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature ".$Temperature,0);
 					SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), $Temperature);
+					$Temperature_Min = $data->channel[$i]->min;
+					$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature Minimum ".$Temperature_Min,0);
+					SetValue($this->GetIDForIdent("Channel".$Channel."_LowerTarget"), $Temperature_Min);
+					$Temperature_Max = $data->channel[$i]->max;
+					$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature Maximum ".$Temperature_Max,0);
+					SetValue($this->GetIDForIdent("Channel".$Channel."_HigherTarget"), $Temperature_Max);
 					$i++;
 				}
 
