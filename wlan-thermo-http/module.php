@@ -86,10 +86,11 @@ if (!defined('vtBoolean')) {
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_VERBOSE, 0);
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+			var_dump($ch);
 			$result = json_decode(curl_exec($ch),true) or die("WLAN Thermo no reachable\n");
 			
 			//var_dump($result);
-			$this->SetBuffer("Readings",$result);
+			$this->SetBuffer("Readings",string($result));
 			$this->ProcessReadings();
 			
 		}
