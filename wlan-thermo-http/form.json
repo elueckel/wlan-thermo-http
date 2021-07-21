@@ -16,7 +16,7 @@
 			"caption": "IP Adress or Network Name"
 		},
 		{
-			"type": "Checkbox",
+			"type": "CheckBox",
 			"name": "System_Data",
 			"caption": "System Data"
 		},
