@@ -10,7 +10,7 @@ if (!defined('vtBoolean')) {
 }
 
 
-	class SureFlap extends IPSModule
+	class WLAN_BBQ_Thermo_HTTP extends IPSModule
 	
 	{
 		
