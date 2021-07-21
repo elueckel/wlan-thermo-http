@@ -81,15 +81,19 @@ if (!defined('vtBoolean')) {
 				
 		if ($IP != "") {
 			
-			$ch = curl_init("http://".$IP."/data");
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_VERBOSE, 0);
-			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-			$Readings = json_decode(curl_exec($ch),true) or die("WLAN Thermo no reachable\n");
-			$temp = $Readings->channel[0]->temp;
-			var_dump(temp);
+			$curl = curl_init("http://".$IP."/data");
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+			curl_setopt($curl, CURLOPT_TIMEOUT, 5);
+			curl_setopt($curl, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
 
+			$json = curl_exec($curl);
+			$data = json_decode($json);
+
+			$temp = $data->channel[0]->temp;
+			var_dump(temp);
+/*
 			$i = 0;
 			$channels = array(1,2,3,4,5,6);
 
@@ -108,6 +112,7 @@ if (!defined('vtBoolean')) {
 			//var_dump($result);
 			
 			//$this->ProcessReadings();
+			*/
 			
 		}
 		else {
