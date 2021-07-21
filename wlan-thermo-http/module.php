@@ -91,9 +91,9 @@ if (!defined('vtBoolean')) {
 			$json = curl_exec($curl);
 			$data = json_decode($json);
 
-			$temp = $data->channel[0]->temp;
-			var_dump($temp);
-/*
+			//$temp = $data->channel[0]->temp;
+			//var_dump($temp);
+
 			$i = 0;
 			$channels = array(1,2,3,4,5,6);
 
@@ -101,19 +101,16 @@ if (!defined('vtBoolean')) {
 
 				$ChannelActive = $this->ReadPropertyBoolean("Channel".$channel."Active");
 				$this->SendDebug(($this->Translate('Channel ').$channel),$ChannelActive,0);
-				var_dump(Readings);
-				$temp = $Readings->channel[$i]->temp;
+				//var_dump(Readings);
+				var_dump($i);
+				$temp = $data->channel[$i]->temp;
+				var_dump($temp);
 				$this->SendDebug(($this->Translate('Channel ').$channel),"Temp ".$temp,0);
 
 				$i++;
 
 			}
-			
-			//var_dump($result);
-			
-			//$this->ProcessReadings();
-			*/
-			
+						
 		}
 		else {
 			$this->SendDebug($this->Translate('WLAN BBQ Thermometer'),$this->Translate('No IP or Device Name configured'),0);
