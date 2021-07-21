@@ -86,10 +86,10 @@ if (!defined('vtBoolean')) {
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_VERBOSE, 0);
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-			//$result = json_decode(curl_exec($ch),true) or die("WLAN Thermo no reachable\n");
-			$result = curl_exec($ch);
+			$result = json_decode(curl_exec($ch),true) or die("WLAN Thermo no reachable\n");
+			
 			//var_dump($result);
-			$this->SetBuffer("Readings",$ch);
+			$this->SetBuffer("Readings",$result);
 			$this->ProcessReadings();
 			
 		}
@@ -103,8 +103,7 @@ if (!defined('vtBoolean')) {
 	public function ProcessReadings() {
 
 		$Readings = $this->GetBuffer("Readings");
-		$result = json_decode(curl_exec($Readings),true) or die("WLAN Thermo no reachable\n");
-
+		
 		$i = 1;
 		$channels = array(1,2,3,4,5,6);
 
