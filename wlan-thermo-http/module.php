@@ -92,7 +92,7 @@ if (!defined('vtBoolean')) {
 			$data = json_decode($json);
 
 			$temp = $data->channel[0]->temp;
-			var_dump(temp);
+			var_dump($temp);
 /*
 			$i = 0;
 			$channels = array(1,2,3,4,5,6);
