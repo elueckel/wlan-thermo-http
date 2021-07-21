@@ -41,12 +41,12 @@
 			"label": "Please select which channels should be read."
 		},
 		{
-			"type": "Checkbox",
+			"type": "CheckBox",
 			"name": "Channel1",
 			"caption": "Channel 1"
 		},
 		{
-			"type": "Checkbox",
+			"type": "CheckBox",
 			"name": "Channel2",
 			"caption": "Channel 2"
 		}
