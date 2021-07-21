@@ -88,7 +88,7 @@ if (!defined('vtBoolean')) {
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
 			var_dump($ch);
 			$Readings = json_decode(curl_exec($ch),true) or die("WLAN Thermo no reachable\n");
-
+var_dump($Readings);
 			$i = 0;
 			$channels = array(1,2,3,4,5,6);
 
@@ -97,8 +97,8 @@ if (!defined('vtBoolean')) {
 				$ChannelActive = $this->ReadPropertyBoolean("Channel".$channel."Active");
 				$this->SendDebug(($this->Translate('Channel ').$channel),$ChannelActive,0);
 
-				$temp = $Readings->channel[$i]->temp;
-				$this->SendDebug(($this->Translate('Channel ').$channel),"Temp ".$temp,0);
+				//$temp = $Readings->channel[$i]->temp;
+				//$this->SendDebug(($this->Translate('Channel ').$channel),"Temp ".$temp,0);
 
 			}
 			
