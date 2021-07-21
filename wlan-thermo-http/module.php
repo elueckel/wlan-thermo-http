@@ -28,8 +28,8 @@ if (!defined('vtBoolean')) {
 			$this->RegisterPropertyInteger("Timer", 0);
 			
 			$this->RegisterPropertyBoolean("Channel1Active", 0);
-			$this->RegisterPropertyBoolean("Channel1Active", 0);
-			$this->RegisterPropertyBoolean("Channel1Active", 0);
+			$this->RegisterPropertyBoolean("Channel2Active", 0);
+			$this->RegisterPropertyBoolean("Channel3Active", 0);
 			$this->RegisterPropertyBoolean("Channel4Active", 0);
 			$this->RegisterPropertyBoolean("Channel5Active", 0);
 			$this->RegisterPropertyBoolean("Channel6Active", 0);
