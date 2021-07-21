@@ -37,7 +37,7 @@ if (!defined('vtBoolean')) {
 			
 
 			if (IPS_VariableProfileExists("WT.Channel_Status") == false){
-					IPS_CreateVariableProfile("WT.Channel_Status", 2);
+					IPS_CreateVariableProfile("WT.Channel_Status", 1);
 					IPS_SetVariableProfileValues("WT.Channel_Status", 0, 0, 1);
 					IPS_SetVariableProfileDigits("WT.Channel_Status", 1);
 					IPS_SetVariableProfileIcon("WT.Channel_Status",  "WindSpeed");
