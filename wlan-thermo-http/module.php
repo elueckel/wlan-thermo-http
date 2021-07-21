@@ -68,6 +68,12 @@ if (!defined('vtBoolean')) {
 		$this->MaintainVariable('Channel1_LowerTarget', $this->Translate('Channel 1 Lower Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel1Active") == 1);
 		$this->MaintainVariable('Channel1_HigherTarget', $this->Translate('Channel 1 Higher Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel1Active") == 1);
 		$this->MaintainVariable('Channel1_Status', $this->Translate('Channel 1 Status'), vtInteger, "WT.Channel_Status", $vpos++, $this->ReadPropertyBoolean("Channel1Active") == 1);
+
+		$vpos = 110;
+		$this->MaintainVariable('Channel2_Temperature', $this->Translate('Channel 2 Current Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel2Active") == 1);
+		$this->MaintainVariable('Channel2_LowerTarget', $this->Translate('Channel 2 Lower Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel2Active") == 1);
+		$this->MaintainVariable('Channel2_HigherTarget', $this->Translate('Channel 2 Higher Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel2Active") == 1);
+		$this->MaintainVariable('Channel2_Status', $this->Translate('Channel 2 Status'), vtInteger, "WT.Channel_Status", $vpos++, $this->ReadPropertyBoolean("Channel2Active") == 1);
 		
 		
 		$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
