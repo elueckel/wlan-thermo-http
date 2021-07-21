@@ -77,7 +77,7 @@ if (!defined('vtBoolean')) {
 		
 	public function GetReadings() {
 
-		$email_address = $this->ReadPropertyString("IP");
+		$IP = $this->ReadPropertyString("IP");
 				
 		if ($IP != "") {
 			
