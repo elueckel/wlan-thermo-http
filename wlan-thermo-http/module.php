@@ -63,6 +63,20 @@ if (!defined('vtBoolean')) {
 		$vpos = 10;
 		$this->MaintainVariable('WT_SOC', $this->Translate('Batterie Charge'), vtInteger, "~Battery.100", $vpos++, $this->ReadPropertyBoolean("System_Data") == 1);
 
+		$Channels = array(1,2,3,4,5,6);
+		$vpos = 100;
+
+		foreach ($Channels as $Channel) {
+			$vpos = $vpos;
+			$this->MaintainVariable('Channel'.$Channel.'_Temperature', $this->Translate('Channel '.$Channel.' Current Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel'.$Channel.'Active") == 1);
+			$this->MaintainVariable('Channel'.$Channel.'_LowerTarget', $this->Translate('Channel '.$Channel.' Lower Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel'.$Channel.'Active") == 1);
+			$this->MaintainVariable('Channel'.$Channel.'_HigherTarget', $this->Translate('Channel '.$Channel.' Higher Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel'.$Channel.'Active") == 1);
+			$this->MaintainVariable('Channel'.$Channel.'_Status', $this->Translate('Channel '.$Channel.' Status'), vtInteger, "WT.Channel_Status", $vpos++, $this->ReadPropertyBoolean("Channel'.$Channel.'Active") == 1);
+			$vpos = 10 * ceil($vpos/10);
+		}
+
+
+/*
 		$vpos = 100;
 		$this->MaintainVariable('Channel1_Temperature', $this->Translate('Channel 1 Current Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel1Active") == 1);
 		$this->MaintainVariable('Channel1_LowerTarget', $this->Translate('Channel 1 Lower Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel1Active") == 1);
@@ -98,7 +112,7 @@ if (!defined('vtBoolean')) {
 		$this->MaintainVariable('Channel6_LowerTarget', $this->Translate('Channel 6 Lower Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel6Active") == 1);
 		$this->MaintainVariable('Channel6_HigherTarget', $this->Translate('Channel 6 Higher Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel6Active") == 1);
 		$this->MaintainVariable('Channel6_Status', $this->Translate('Channel 6 Status'), vtInteger, "WT.Channel_Status", $vpos++, $this->ReadPropertyBoolean("Channel6Active") == 1);
-		
+		*/
 		$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
 		$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
 					
