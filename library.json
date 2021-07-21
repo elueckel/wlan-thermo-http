@@ -1,7 +1,7 @@
 {
     "id": "{EBE2D3D0-86A1-B244-90B1-6F06849BE6EE}",
-    "name": "WLAN BBQ Thermo HTTP",
-    "author": "WLAN-Thermo",
+    "name": "WLAN_BBQ_Thermo_HTTP",
+    "author": "elueckel",
     "url": "https://github.com/elueckel/wlan-thermo-http",
     "compatibility": {
         "version": "5.5"
