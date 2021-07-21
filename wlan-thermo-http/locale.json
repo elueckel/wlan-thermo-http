@@ -1,0 +1,37 @@
+{
+	"translations": {
+		"de": { 
+			"Sureflap Configuration": "Sureflap Konfiguration",
+			"Please enter your Sureflap credentials and click on Initialize.\nThis will also add new pets once learned to the flapdoor.": "Bitte Sureflap Zugangsdaten eingeben und auf einrichten klicken.\nMit dieser Funktion können auch neue Haustiere hinzugefügt werden.",
+			"User Name": "Anmeldename",
+			"Password": "Passwort",
+			"Update Timer (0 = off)": "Aktualisierungsinterval (0 = aus)",
+			"Serialnumber": "Seriennummer",
+			"seconds - 0 is off": "Sekunden - 0 ist aus",
+			"Inside": "Drinnen",
+			"Outside": "Draußen",
+			"Household ID": "Haushalts ID",
+			"Household Name": "Haushalts Name",
+			"No Household found - please check login data": "Kein Haushalt gefunden - Bitte Zugangsdaten prüfen",
+			"Login data is missing": "Zugangsdaten fehlen",
+			"Cat": "Katze",
+			"Dog": "Hund",
+			"Device ": "Gerät ",
+			" Serialnumber": " Seriennummer",
+			" ID": " ID",
+			" Type": " Typ",
+			" Mode": " Modus",
+			"Pets": "Haustier Anzahl",
+			"Pet ": "Haustier ",
+			" Name": " Name",
+			" Species": " Geschlecht",
+			" Comment": " Kommentar",
+			" Location": " Ort",
+			" Last detected by": " Zuletzt erkannt von",
+			"No movement detected": "Noch keine Bewegung erkannt",
+			"Initialize": "Einrichten",
+			"Get Flap Status": "Klappe Abfragen",
+			"Get Pet Location": "Haustier Ort Abfragen"
+		}
+	}
+}

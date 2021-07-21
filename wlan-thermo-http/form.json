@@ -1,0 +1,63 @@
+  
+{
+    "elements":
+    [
+		{
+			"type": "Label",
+			"label": "WLAN Thermo Configuration"
+		},
+		{
+			"type": "Label",
+			"label": "Please enter the basic Login Information"
+		},
+		{
+			"type": "ValidationTextBox",
+			"name": "IP",
+			"caption": "IP Adress or Network Name"
+		},
+		{
+			"type": "Checkbox",
+			"name": "System_Data",
+			"caption": "System Data"
+		},
+		{
+			"type": "ValidationTextBox",
+			"name": "UserName",
+			"caption": "User Name"
+		},
+		{
+			"type": "PasswordTextBox",
+			"name": "Password",
+			"caption": "Password"
+		},
+		{
+			"type": "NumberSpinner",
+			"name": "Timer",
+			"caption": "Update Frequency",
+			"suffix": "seconds - 0 is off"
+		},
+		{
+			"type": "Label",
+			"label": "Please select which channels should be read."
+		},
+		{
+			"type": "Checkbox",
+			"name": "Channel1",
+			"caption": "Channel 1"
+		},
+		{
+			"type": "Checkbox",
+			"name": "Channel2",
+			"caption": "Channel 2"
+		}
+		
+    ],
+	  "actions":
+	  [
+		{
+			"type": "Button",
+			"label": "Get Readings",
+			"onClick": "WT_GetReadings($id);"
+		}
+  	]
+}
