@@ -27,12 +27,12 @@ if (!defined('vtBoolean')) {
 			$this->RegisterPropertyString("Password","");
 			$this->RegisterPropertyInteger("Timer", 0);
 			
-			$this->RegisterPropertyBoolean("Channel1", 0);
-			$this->RegisterPropertyBoolean("Channel2", 0);
-			$this->RegisterPropertyBoolean("Channel3", 0);
-			$this->RegisterPropertyBoolean("Channel4", 0);
-			$this->RegisterPropertyBoolean("Channel5", 0);
-			$this->RegisterPropertyBoolean("Channel6", 0);
+			$this->RegisterPropertyBoolean("Channel1Active", 0);
+			$this->RegisterPropertyBoolean("Channel1Active", 0);
+			$this->RegisterPropertyBoolean("Channel1Active", 0);
+			$this->RegisterPropertyBoolean("Channel4Active", 0);
+			$this->RegisterPropertyBoolean("Channel5Active", 0);
+			$this->RegisterPropertyBoolean("Channel6Active", 0);
 			
 			
 
@@ -64,10 +64,10 @@ if (!defined('vtBoolean')) {
 		$this->MaintainVariable('WT_SOC', $this->Translate('Batterie Charge'), vtInteger, "~Battery.100", $vpos++, $this->ReadPropertyBoolean("System_Data") == 1);
 
 		$vpos = 100;
-		$this->MaintainVariable('Channel1_Temperature', $this->Translate('Channel 1 Current Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel1") == 1);
-		$this->MaintainVariable('Channel1_LowerTarget', $this->Translate('Channel 1 Lower Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel1") == 1);
-		$this->MaintainVariable('Channel1_HigherTarget', $this->Translate('Channel 1 Higher Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel1") == 1);
-		$this->MaintainVariable('Channel1_Status', $this->Translate('Channel 1 Status'), vtFloat, "WT.Channel_Status", $vpos++, $this->ReadPropertyBoolean("Channel1") == 1);
+		$this->MaintainVariable('Channel1_Temperature', $this->Translate('Channel 1 Current Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel1Active") == 1);
+		$this->MaintainVariable('Channel1_LowerTarget', $this->Translate('Channel 1 Lower Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel1Active") == 1);
+		$this->MaintainVariable('Channel1_HigherTarget', $this->Translate('Channel 1 Higher Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel1Active") == 1);
+		$this->MaintainVariable('Channel1_Status', $this->Translate('Channel 1 Status'), vtFloat, "WT.Channel_Status", $vpos++, $this->ReadPropertyBoolean("Channel1Active") == 1);
 		
 		
 		$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
@@ -83,19 +83,62 @@ if (!defined('vtBoolean')) {
 			
 			$ch = curl_init("http://".$IP."/data");
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_VERBOSE, 0);
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json","Content-Length: ".strlen($json)));
 			$result = json_decode(curl_exec($ch),true) or die("WLAN Thermo no reachable\n");
-			var_dump($result);
+			//var_dump($result);
+			$this->SetBuffer("Readings",$result);
+			$this->ProcessReadings();
 			
 		}
 		else {
 			$this->SendDebug($this->Translate('WLAN BBQ Thermometer'),$this->Translate('No IP or Device Name configured'),0);
 			echo 'Login data is missing';
 		}
+
+	}
+
+	public function ProcessReadings() {
+
+		$Readings = $this->GetBuffer("Readings");
+
+		$i = 1;
+		$channels = array(1,2,3,4,5,6);
+
+		foreach ($channels as $channel) {
+
+			$ChannelActive = $this->ReadPropertyBoolean("Channel".$channel."Active");
+			$this->SendDebug(($this->Translate('Channel ').$channel),$ChannelActive,0);
+
+
+
+		}
+
+/*
+
+		$Channel1Active = $this->ReadPropertyBoolean("Channel1Active");
+		$Channel2Active = $this->ReadPropertyBoolean("Channel2Active");
+		$Channel3Active = $this->ReadPropertyBoolean("Channel3Active");
+		$Channel4Active = $this->ReadPropertyBoolean("Channel4Active");
+		$Channel5Active = $this->ReadPropertyBoolean("Channel5Active");
+		$Channel6Active = $this->ReadPropertyBoolean("Channel6Active");
+
+		if ($Channel1Active == 1) {
+			$Channel1Temperature = $Readings->channel[0]->temp;
+			$Channel1LowerTarget = $Readings->channel[0]->min;
+			$Channel1HigherTarget = $Readings->channel[0]->max;
+			
+			if (isset($Channel1Temperature)) {
+				SetValue($this->GetIDForIdent($i.'Pet_LastDetectedBy'), $Pet_LastDetectedByName);
+			}
+			
+
+		}
+*/
+
+
+
 
 	}
 
