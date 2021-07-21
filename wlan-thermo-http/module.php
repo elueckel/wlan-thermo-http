@@ -92,15 +92,15 @@ if (!defined('vtBoolean')) {
 			$data = json_decode($json);
 
 			$i = 0;
-			$channels = array(1,2,3,4,5,6);
+			$Channels = array(1,2,3,4,5,6);
 
-			foreach ($channels as $channel) {
+			foreach ($Channels as $Channel) {
 
-				$ChannelActive = $this->ReadPropertyBoolean("Channel".$channel."Active");
-				$this->SendDebug(($this->Translate('Channel ').$channel),$ChannelActive,0);
+				$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
+				$this->SendDebug(($this->Translate('Channel ').$Channel),$ChannelActive,0);
 				if ($ChannelActive == 1) {
 					$Temperature = $data->channel[$i]->temp;
-					$this->SendDebug(($this->Translate('Channel ').$channel),"Temperature ".$Temperature,0);
+					$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature ".$Temperature,0);
 					SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), $Temperature);
 					$i++;
 				}
