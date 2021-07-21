@@ -98,9 +98,12 @@ if (!defined('vtBoolean')) {
 
 				$ChannelActive = $this->ReadPropertyBoolean("Channel".$channel."Active");
 				$this->SendDebug(($this->Translate('Channel ').$channel),$ChannelActive,0);
-				$temp = $data->channel[$i]->temp;
-				$this->SendDebug(($this->Translate('Channel ').$channel),"Temp ".$temp,0);
-				$i++;
+				if ($ChannelActive == 1) {
+					$Temperature = $data->channel[$i]->temp;
+					$this->SendDebug(($this->Translate('Channel ').$channel),"Temperature ".$Temperature,0);
+					SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), $Temperature);
+					$i++;
+				}
 
 			}
 						
