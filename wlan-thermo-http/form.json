@@ -21,11 +21,6 @@
 			"caption": "System Data"
 		},
 		{
-			"type": "CheckBox",
-			"name": "System_BatterieWarning",
-			"caption": "Batterie Warning"
-		},
-		{
 			"type": "NumberSpinner",
 			"name": "System_BatterieThreshold",
 			"caption": "Batterie Threshold",
@@ -34,21 +29,30 @@
 			"maximum": "100" 
 		},
 		{
+			"type": "ValidationTextBox",
+			"name": "SystemBatteryText",
+			"caption": "Text if battery is running getting empty"
+		},
+		{
 			"type": "NumberSpinner",
 			"name": "System_AutoOff",
-			"caption": "Auto off",
+			"caption": "Auto off Cycles",
 			"suffix": "Cycles",
 			"minimum": "0"
 		},
 		{
-			"type": "CheckBox",
-			"name": "System_AutoOffWarning",
-			"caption": "Auto OffWarning"
+			"type": "ValidationTextBox",
+			"name": "System_OffWarningText",
+			"caption": "Warning if thermometer is not reachable"
+		},{
+			"type": "ValidationTextBox",
+			"name": "System_OffText",
+			"caption": "Text thermometer is shut off"
 		},
 		{
 			"type": "CheckBox",
-			"name": "System_OffMeesage",
-			"caption": "Offmessage"
+			"name": "System_Messages",
+			"caption": "System_Messages"
 		},
 		{
 			"type": "NumberSpinner",
