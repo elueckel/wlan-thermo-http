@@ -75,11 +75,7 @@ if (!defined('vtBoolean')) {
 			$this->MaintainVariable('Channel'.$Channel.'_HigherTarget', $this->Translate('Channel '.$Channel.' Higher Target Temperature'), vtFloat, '~Temperature', $vpos++, $this->ReadPropertyBoolean('Channel'.$Channel.'Active') == 1);
 			$this->MaintainVariable('Channel'.$Channel.'_Status', $this->Translate('Channel '.$Channel.' Status'), vtInteger, 'WT.Channel_Status', $vpos++, $this->ReadPropertyBoolean('Channel'.$Channel.'Active') == 1);
 			$vpos = 10 * ceil($vpos/10);
-		}
 
-		$Channels = array(1,2,3,4,5,6);
-
-		foreach ($Channels as $Channel) {
 			$Channel_LowerTargetID= @IPS_GetObjectIDByIdent('Channel'.$Channel.'_LowerTarget', $this->InstanceID);	
 			if (IPS_GetObject($Channel_LowerTargetID)['ObjectType'] == 2) {
 					$this->RegisterMessage($Channel_LowerTargetID, VM_UPDATE);
@@ -89,14 +85,9 @@ if (!defined('vtBoolean')) {
 			if (IPS_GetObject($Channel_HigherTargetID)['ObjectType'] == 2) {
 					$this->RegisterMessage($Channel_HigherTargetID, VM_UPDATE);
 			}
-/*
-			$BlockVariableID = @IPS_GetObjectIDByIdent("ManualBlock", $this->InstanceID);	
-				if (IPS_GetObject($BlockVariableID)['ObjectType'] == 2) {
-						$this->RegisterMessage($BlockVariableID, VM_UPDATE);
-				}*/
+
+
 		}
-
-
 
 		$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
 		$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
