@@ -127,37 +127,39 @@ if (!defined('vtBoolean')) {
 				$this->SendDebug(($this->Translate('Channel ').$Channel),$ChannelActive,0);
 				if ($ChannelActive == 1) {
 					$Temperature = $data->channel[$i]->temp;
-					$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature ".$Temperature,0);
-					SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), $Temperature);
-					$Temperature_Min = $data->channel[$i]->min;
-					$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature Minimum ".$Temperature_Min,0);
-					SetValue($this->GetIDForIdent("Channel".$Channel."_LowerTarget"), $Temperature_Min);
-					$Temperature_Max = $data->channel[$i]->max;
-					$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature Maximum ".$Temperature_Max,0);
-					SetValue($this->GetIDForIdent("Channel".$Channel."_HigherTarget"), $Temperature_Max);
-					$i++;
+					if ($Temperature != "999") {
+						$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature ".$Temperature,0);
+						SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), $Temperature);
+						$Temperature_Min = $data->channel[$i]->min;
+						$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature Minimum ".$Temperature_Min,0);
+						SetValue($this->GetIDForIdent("Channel".$Channel."_LowerTarget"), $Temperature_Min);
+						$Temperature_Max = $data->channel[$i]->max;
+						$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature Maximum ".$Temperature_Max,0);
+						SetValue($this->GetIDForIdent("Channel".$Channel."_HigherTarget"), $Temperature_Max);
+						$i++;
 
-					//Actions
+						//Actions
 
-					if (isset($Temperature_Min)) {
-						if ($Temperatur < $Temperature_Min) {
-							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Warming Up - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
+						if (isset($Temperature_Min)) {
+							if ($Temperatur < $Temperature_Min) {
+								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Warming Up - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
+							}
+							elseif ($Temperatur >= $Temperature_Min AND $Temperatur < $Temperature_Max) {
+								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
+							}
+							elseif ($Temperatur >= $Temperature_Max) {
+								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 1",0);
+							}
 						}
-						elseif ($Temperatur >= $Temperature_Min AND $Temperatur < $Temperature_Max) {
-							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
+						elseif ($Temperatur < $Temperature_Max) {
+							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 2",0);
 						}
 						elseif ($Temperatur >= $Temperature_Max) {
-							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 1",0);
+							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 3",0);
 						}
-					}
-					elseif ($Temperatur < $Temperature_Max) {
-						$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 2",0);
-					}
-					elseif ($Temperatur >= $Temperature_Max) {
-						$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 3",0);
-					}
-					else {
-						
+						else {
+
+						}
 					}
 
 				}
@@ -176,10 +178,6 @@ if (!defined('vtBoolean')) {
 			//echo $SenderId." ".$Data;
 			//$this->SetResetTimerInterval();
 			$IP = $this->ReadPropertyString("IP");
-
-			$this->SendDebug($this->Translate('Variable Update'),$SenderID." Message ".$Message." Data ".$Data,0);
-
-
 
 			if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget")) OR ($this->GetIDForIdent("Channel1_HigherTarget"))) {
 				$this->SendDebug($this->Translate('Variable Update')," Match Lower ".$Data,0);
