@@ -97,8 +97,10 @@ if (!defined('vtBoolean')) {
 	public function CyclicTask() {
 
 		$IP = $this->ReadPropertyString("IP");
+		$Port = 80;
+		$WaitTimeoutInSeconds = 1;
 
-		if($fp = fsockopen($IP)){   
+		if($fp = fsockopen($IP,$Port,$errCode,$errStr,$WaitTimeoutInSeconds)){   
 			$this->GetReadings();
 		} 
 		else {
