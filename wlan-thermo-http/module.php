@@ -22,9 +22,14 @@ if (!defined('vtBoolean')) {
 			//Properties
 			
 			$this->RegisterPropertyString("IP","");
-			$this->RegisterPropertyBoolean("System_Data", 0);
-			$this->RegisterPropertyInteger("Timer", 0);
-			
+			$this->RegisterPropertyBoolean("System_Messages", 0);
+			$this->RegisterPropertyInteger("Timer", "60");
+			$this->RegisterPropertyInteger("System_BatteryThreshold", "15");
+			$this->RegisterPropertyString("SystemBatteryText", "Die Batterie ist fast leer");
+			$this->RegisterPropertyInteger("System_AutoOff", 0);
+			$this->RegisterPropertyString("System_OffWarningText", "Das Thermometer ist nicht erreichbar - prüfen?");
+			$this->RegisterPropertyString("System_OffText", "Das Thermometer Modul wurde ausgeschaltet");
+
 			$this->RegisterPropertyBoolean("Channel1Active", 0);
 			$this->RegisterPropertyBoolean("Channel2Active", 0);
 			$this->RegisterPropertyBoolean("Channel3Active", 0);
@@ -65,6 +70,7 @@ if (!defined('vtBoolean')) {
 			//Fixed Variables
 
 			$this->RegisterVariableBoolean('Active', $this->Translate('Active'),"~Switch");
+			$this->RegisterVariableInteger('Battery', $this->Translate('Active'),"~Battery.100");
 
 
 
@@ -82,9 +88,6 @@ if (!defined('vtBoolean')) {
 		if (IPS_GetObject($ActiveID)['ObjectType'] == 2) {
 				$this->RegisterMessage($ActiveID, VM_UPDATE);
 		}
-
-		$vpos = 10;
-		$this->MaintainVariable('WT_SOC', $this->Translate('Batterie Charge'), vtInteger, "~Battery.100", $vpos++, $this->ReadPropertyBoolean("System_Data") == 1);
 
 		$Channels = array(1,2,3,4,5,6);
 		$vpos = 100;
@@ -117,21 +120,84 @@ if (!defined('vtBoolean')) {
 
 	public function CyclicTask() {
 
+		$BatteryThreshold = $this->ReadPropertyInteger("BatteryThreshold");
+		$SystemBatteryText = $this->ReadPropertyString("SystemBatteryText");
+		$System_AutoOff = $this->ReadPropertyInteger("System_AutoOff");
+		$System_OffWarningText = $this->ReadPropertyString("System_OffWarningText");
+		$System_OffText = $this->ReadPropertyString("System_OffText");
+		$System_Messages = $this->ReadPropertyBoolean("System_Messages");
+
+		$NotifyByApp = $this->ReadPropertyBoolean("NotifyByApp");
+		$NotifyByEmail = $this->ReadPropertyString("NotifyByEmail");
+
 		$IP = $this->ReadPropertyString("IP");
 		$Port = 80;
 		$WaitTimeoutInSeconds = 1;
 
-		if($fp = fsockopen($IP,$Port,$errCode,$errStr,$WaitTimeoutInSeconds)){   
+		if($fp = fsockopen($IP,$Port,$errCode,$errStr,$WaitTimeoutInSeconds)){
+			
+			$curl = curl_init("http://".$IP."/data");
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+			curl_setopt($curl, CURLOPT_TIMEOUT, 5);
+			curl_setopt($curl, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+			$json = curl_exec($curl);
+			$data = json_decode($json);
+			
+			$Battery = $data->system->soc;
+			SetValue($this->GetIDForIdent("Battery",$Battery));
+
+			if ($Battery < $BatteryThreshold) {
+				$this->SetBuffer("NotifierMessage",$MessageBatteryText." ".$Battery."%");
+				if ($System_Messages == 1) {
+					if ($NotifyByApp == 1) {
+						$this->NotifyApp();
+					}
+					if ($NotifyByEmail == 1) {
+						$this->EmailApp();
+					}
+				}
+			}
+
+			$UnreachCounter = 0;
 			$this->GetReadings();
 		} 
 		else {
 			$this->SendDebug($this->Translate('System'),$this->Translate('Thermometer not reachable on IP ').$IP,0);
+
+			$UnreachCounter = $UnreachCounter + 1;
+			
+			if ($UnreachCounter == ($System_AutoOff / 2)) {
+				//Nachricht
+				$this->SetBuffer("NotifierMessage",$System_OffWarningText);
+				if ($System_Messages == 1) {
+					if ($System_Messages == 1) {
+						if ($NotifyByApp == 1) {
+							$this->NotifyApp();
+						}
+						if ($NotifyByEmail == 1) {
+							$this->EmailApp();
+						}
+					}
+				}
+			}
+			elseif ($UnreachCounter == $System_AutoOff) {
+				//Nachricht + Aus
+				SetValue($this->GetIDForIdent("Active"), 0);
+				
+				$this->SetBuffer("NotifierMessage",$System_OffText);
+				if ($NotifyByApp == 1) {
+					$this->NotifyApp();
+				}
+				if ($NotifyByEmail == 1) {
+					$this->EmailApp();
+				}
+
+			}
+
 		} 
 		fclose($fp);
 
 	}
-
-
 		
 	public function GetReadings() {
 
@@ -153,8 +219,8 @@ if (!defined('vtBoolean')) {
 			
 			$curl = curl_init("http://".$IP."/data");
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+			//curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+			//curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
 			curl_setopt($curl, CURLOPT_TIMEOUT, 5);
 			curl_setopt($curl, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
 
@@ -251,14 +317,14 @@ if (!defined('vtBoolean')) {
 							// check if message should be send
 							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status Changed - Check if message should be send",0);
 							if (isset($NotifierMessage)) {
-									$this->SetBuffer("NotifierMessage",$NotifierMessage);
-									if ($NotifyByApp == 1) {
-										$this->NotifyApp();
-									}
-									if ($NotifyByEmail == 1) {
-										$this->EmailApp();
-									}
+								$this->SetBuffer("NotifierMessage",$NotifierMessage);
+								if ($NotifyByApp == 1) {
+									$this->NotifyApp();
 								}
+								if ($NotifyByEmail == 1) {
+									$this->EmailApp();
+								}
+							}
 						}
 						else {
 							//do nothing
@@ -266,10 +332,8 @@ if (!defined('vtBoolean')) {
 					}
 
 				}	
-
 			}
-
-						
+			
 		}
 		else {
 			$this->SendDebug($this->Translate('WLAN BBQ Thermometer'),$this->Translate('No IP or Device Name configured'),0);
