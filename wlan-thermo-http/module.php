@@ -77,6 +77,22 @@ if (!defined('vtBoolean')) {
 			$vpos = 10 * ceil($vpos/10);
 		}
 
+		$Channels = array(1,2,3,4,5,6);
+
+		foreach ($Channels as $Channel) {
+			$Channel_LowerTargetID= @IPS_GetObjectIDByIdent('Channel'.$Channel.'_LowerTarget', $this->InstanceID);	
+				if (IPS_GetObject($Channel_LowerTargetID)['ObjectType'] == 2) {
+						$this->RegisterMessage($Channel_LowerTargetID, VM_UPDATE);
+				}
+/*
+			$BlockVariableID = @IPS_GetObjectIDByIdent("ManualBlock", $this->InstanceID);	
+				if (IPS_GetObject($BlockVariableID)['ObjectType'] == 2) {
+						$this->RegisterMessage($BlockVariableID, VM_UPDATE);
+				}*/
+		}
+
+
+
 		$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
 		$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
 					
