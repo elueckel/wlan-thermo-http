@@ -98,8 +98,8 @@ if (!defined('vtBoolean')) {
 
 		}
 
-		$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
-		$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
+		//$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
+		//$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
 					
 	}
 
