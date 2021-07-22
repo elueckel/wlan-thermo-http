@@ -21,16 +21,6 @@
 			"caption": "System Data"
 		},
 		{
-			"type": "ValidationTextBox",
-			"name": "UserName",
-			"caption": "User Name"
-		},
-		{
-			"type": "PasswordTextBox",
-			"name": "Password",
-			"caption": "Password"
-		},
-		{
 			"type": "NumberSpinner",
 			"name": "Timer",
 			"caption": "Update Frequency",

@@ -227,7 +227,8 @@ if (!defined('vtBoolean')) {
 
 	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)	{
 			//echo $SenderId." ".$Data;
-			$this->SendDebug("Sender",$SenderId." ".$Data, 0);
+			$this->SendDebug("Sender",$SenderID." ".$Message." ".$Data, 0);
+			
 			$IP = $this->ReadPropertyString("IP");
 
 			if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget")) OR ($this->GetIDForIdent("Channel1_HigherTarget")) OR 
