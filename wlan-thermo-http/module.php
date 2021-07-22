@@ -141,11 +141,11 @@ if (!defined('vtBoolean')) {
 						//Actions
 
 						if ($Temperature_Min> "0") {
-							if ($Temperature < ($Temperature_Min * 0.8) {
+							if ($Temperature < ($Temperature_Min * 0.8)) {
 								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Warming Up - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
 								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 2);
 							}
-							elseif (($Temperature < $Temperature_Min) AND ($Temperature > $Temperature_Min 0.8)) {
+							elseif (($Temperature < $Temperature_Min) AND ($Temperature > $Temperature_Min * 0.8)) {
 								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too Cold - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
 								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 3);
 							}
