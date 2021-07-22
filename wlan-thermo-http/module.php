@@ -166,20 +166,35 @@ if (!defined('vtBoolean')) {
 				$SenderValue = GetValue($SenderID);
 				$SenderName = IPS_GetName($SenderID);
 
-				if (str_contains($SenderName, '1')) {
+				if (strpos($SenderName, '1')) {
 					$Channel = "1";
-				} elseif (str_contains($SenderName, '2')) {
+				} elseif (strpos($SenderName, '2')) {
 					$Channel = "2";
 				}
+				} elseif (strpos($SenderName, '3')) {
+					$Channel = "3";
+				}
+				} elseif (strpos($SenderName, '4')) {
+					$Channel = "4";
+				}
+				} elseif (strpos($SenderName, '5')) {
+					$Channel = "5";
+				}
+				} elseif (strpos($SenderName, '6')) {
+					$Channel = "6";
+				}
 				else {
-
 				}
 
-				$this->SendDebug($this->Translate('Variable Update'),"Channel ".$Channel." Variable ".$SenderName." Value ".$SenderValue,0);
+				if (strpos($SenderName, 'Lower')) {
+					$set_temp_min = $SenderValue;
+				} elseif (strpos($SenderName, 'Higher')) {
+					$set_temp_max = $SenderValue;
+				}
 
 				$set_channel = $Channel;
-				$set_temp_max = '40';
-				$set_temp_min = $SenderValue;
+				//$set_temp_max = '40';
+				//$set_temp_min = $SenderValue;
 				$set_alarm = '0';
 
 				$data = array(
