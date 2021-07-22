@@ -96,7 +96,7 @@ if (!defined('vtBoolean')) {
 
 	public function CyclicTask() {
 		
-		this->GetReadings();
+		$this->GetReadings();
 
 	}
 
