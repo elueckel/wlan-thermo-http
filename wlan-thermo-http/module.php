@@ -144,7 +144,7 @@ if (!defined('vtBoolean')) {
 							if ($Temperature < $Temperature_Min) {
 								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Warming Up - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
 							}
-							elseif ($Temperature >= $Temperature_Min AND $Temperatur < $Temperature_Max) {
+							elseif ($Temperature >= $Temperature_Min AND $Temperature < $Temperature_Max) {
 								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
 							}
 							elseif ($Temperature >= $Temperature_Max) {
