@@ -170,20 +170,15 @@ if (!defined('vtBoolean')) {
 					$Channel = "1";
 				} elseif (strpos($SenderName, '2')) {
 					$Channel = "2";
-				}
 				} elseif (strpos($SenderName, '3')) {
 					$Channel = "3";
-				}
 				} elseif (strpos($SenderName, '4')) {
 					$Channel = "4";
-				}
 				} elseif (strpos($SenderName, '5')) {
 					$Channel = "5";
-				}
 				} elseif (strpos($SenderName, '6')) {
 					$Channel = "6";
-				}
-				else {
+				} else {
 				}
 
 				if (strpos($SenderName, 'Lower')) {
