@@ -180,7 +180,6 @@ if (!defined('vtBoolean')) {
 			$IP = $this->ReadPropertyString("IP");
 
 			if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget")) OR ($this->GetIDForIdent("Channel1_HigherTarget"))) {
-				$this->SendDebug($this->Translate('Variable Update')," Match Lower ".$Data,0);
 				$SenderValue = GetValue($SenderID);
 				$SenderName = IPS_GetName($SenderID);
 
