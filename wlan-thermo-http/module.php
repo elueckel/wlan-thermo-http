@@ -133,7 +133,7 @@ if (!defined('vtBoolean')) {
 
 			foreach ($Channels as $Channel) {
 
-				$OldStatus = $this->GetIDForIdent("Channel".$Channel."_Status");
+				$OldStatus = GetValue($this->GetIDForIdent("Channel".$Channel."_Status"));
 				$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
 				//$this->SendDebug(($this->Translate('Channel ').$Channel),$ChannelActive,0);
 				if ($ChannelActive == 1) {
@@ -202,7 +202,7 @@ if (!defined('vtBoolean')) {
 							//do nothing
 						}
 					}
-					
+
 				}	
 
 			}
