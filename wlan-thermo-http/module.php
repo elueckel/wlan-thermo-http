@@ -39,16 +39,20 @@ if (!defined('vtBoolean')) {
 			
 
 			if (IPS_VariableProfileExists("WT.Channel_Status") == false){
-					IPS_CreateVariableProfile("WT.Channel_Status", 1);
-					IPS_SetVariableProfileValues("WT.Channel_Status", 0, 0, 1);
-					IPS_SetVariableProfileDigits("WT.Channel_Status", 1);
-					IPS_SetVariableProfileIcon("WT.Channel_Status",  "WindSpeed");
-					IPS_SetVariableProfileAssociation("WT.Channel_Status", 0, "Not Found", "",-1);
-					IPS_SetVariableProfileAssociation("WT.Channel_Status", 1, "OK","",-1);
-					IPS_SetVariableProfileAssociation("WT.Channel_Status", 2, "Warming Up","",-1);
-					IPS_SetVariableProfileAssociation("WT.Channel_Status", 3, "Too Cold","",-1);
-					IPS_SetVariableProfileAssociation("WT.Channel_Status", 4, "Too Hot","",-1);
-				}
+				IPS_CreateVariableProfile("WT.Channel_Status", 1);
+				IPS_SetVariableProfileValues("WT.Channel_Status", 0, 0, 1);
+				IPS_SetVariableProfileDigits("WT.Channel_Status", 1);
+				IPS_SetVariableProfileIcon("WT.Channel_Status",  "WindSpeed");
+				IPS_SetVariableProfileAssociation("WT.Channel_Status", 0, "Not Found", "",-1);
+				IPS_SetVariableProfileAssociation("WT.Channel_Status", 1, "OK","",-1);
+				IPS_SetVariableProfileAssociation("WT.Channel_Status", 2, "Warming Up","",-1);
+				IPS_SetVariableProfileAssociation("WT.Channel_Status", 3, "Too Cold","",-1);
+				IPS_SetVariableProfileAssociation("WT.Channel_Status", 4, "Too Hot","",-1);
+			}
+
+			//Fixed Variables
+
+			$this->RegisterVariableBoolean('Active', $this->Translate('Active'),"~Switch");
 
 
 
@@ -61,6 +65,11 @@ if (!defined('vtBoolean')) {
 			
 		//Never delete this line!
 		parent::ApplyChanges();
+
+		$ActiveID= @IPS_GetObjectIDByIdent('Active', $this->InstanceID);	
+		if (IPS_GetObject($ActiveID)['ObjectType'] == 2) {
+				$this->RegisterMessage($ActiveID, VM_UPDATE);
+		}
 
 		$vpos = 10;
 		$this->MaintainVariable('WT_SOC', $this->Translate('Batterie Charge'), vtInteger, "~Battery.100", $vpos++, $this->ReadPropertyBoolean("System_Data") == 1);
@@ -221,7 +230,12 @@ if (!defined('vtBoolean')) {
 			//$this->SetResetTimerInterval();
 			$IP = $this->ReadPropertyString("IP");
 
-			if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget")) OR ($this->GetIDForIdent("Channel1_HigherTarget"))) {
+			if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget")) OR ($this->GetIDForIdent("Channel1_HigherTarget")) OR 
+					($this->GetIDForIdent("Channel2_LowerTarget")) OR ($this->GetIDForIdent("Channel2_HigherTarget")) OR 
+					($this->GetIDForIdent("Channel3_LowerTarget")) OR ($this->GetIDForIdent("Channel3_HigherTarget")) OR 
+					($this->GetIDForIdent("Channel4_LowerTarget")) OR ($this->GetIDForIdent("Channel4_HigherTarget")) OR 
+					($this->GetIDForIdent("Channel5_LowerTarget")) OR ($this->GetIDForIdent("Channel5_HigherTarget")) OR 
+					($this->GetIDForIdent("Channel6_LowerTarget")) OR ($this->GetIDForIdent("Channel6_HigherTarget"))) {
 				$SenderValue = GetValue($SenderID);
 				$SenderName = IPS_GetName($SenderID);
 
@@ -274,8 +288,18 @@ if (!defined('vtBoolean')) {
 				curl_close($ch);
 	
 			}
+			elseif ($SenderID == ($this->GetIDForIdent("Active"))) {
+				$SenderValue = GetValue($SenderID);
+				if ($SenderValue == 1) {
+					$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
+					$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
+				}
+				else {
+					$this->SetTimerInterval("WLAN BBQ Thermometer",0);
+				}
+			}
 			else {
-				//nix
+
 			}
 
 		}
