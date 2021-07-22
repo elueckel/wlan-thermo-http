@@ -289,13 +289,16 @@ if (!defined('vtBoolean')) {
 	
 			}
 			elseif ($SenderID == ($this->GetIDForIdent("Active"))) {
+				$this->SendDebug("Notifier","1", 0);
 				$SenderValue = GetValue($SenderID);
 				if ($SenderValue == 1) {
+					$this->SendDebug("Notifier","2", 0);
 					$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
 					$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
 				}
 				else {
 					$this->SetTimerInterval("WLAN BBQ Thermometer", "0");
+					$this->SendDebug("Notifier","3", 0);
 				}
 			}
 			else {
