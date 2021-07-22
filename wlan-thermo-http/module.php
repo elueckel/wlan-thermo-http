@@ -226,7 +226,7 @@ if (!defined('vtBoolean')) {
 	}
 
 	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)	{
-			//echo $SenderId." ".$Data;
+			echo $SenderId." ".$Data;
 			//$this->SetResetTimerInterval();
 			$IP = $this->ReadPropertyString("IP");
 
