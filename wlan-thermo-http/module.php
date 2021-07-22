@@ -290,7 +290,7 @@ if (!defined('vtBoolean')) {
 	
 			}
 			
-			if ($SenderID == @IPS_GetObjectIDByIdent('Active')) {
+			if ($SenderID == $this->GetIDForIdent('Active')) {
 				$this->SendDebug("Notifier","1", 0);
 				$SenderValue = GetValue($SenderID);
 				if ($SenderValue == 1) {
