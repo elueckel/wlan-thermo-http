@@ -81,9 +81,14 @@ if (!defined('vtBoolean')) {
 
 		foreach ($Channels as $Channel) {
 			$Channel_LowerTargetID= @IPS_GetObjectIDByIdent('Channel'.$Channel.'_LowerTarget', $this->InstanceID);	
-				if (IPS_GetObject($Channel_LowerTargetID)['ObjectType'] == 2) {
-						$this->RegisterMessage($Channel_LowerTargetID, VM_UPDATE);
-				}
+			if (IPS_GetObject($Channel_LowerTargetID)['ObjectType'] == 2) {
+					$this->RegisterMessage($Channel_LowerTargetID, VM_UPDATE);
+			}
+
+			$Channel_HigherTargetID= @IPS_GetObjectIDByIdent('Channel'.$Channel.'_HigherTarget', $this->InstanceID);	
+			if (IPS_GetObject($Channel_HigherTargetID)['ObjectType'] == 2) {
+					$this->RegisterMessage($Channel_HigherTargetID, VM_UPDATE);
+			}
 /*
 			$BlockVariableID = @IPS_GetObjectIDByIdent("ManualBlock", $this->InstanceID);	
 				if (IPS_GetObject($BlockVariableID)['ObjectType'] == 2) {
