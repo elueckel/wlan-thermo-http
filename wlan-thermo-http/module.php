@@ -23,8 +23,6 @@ if (!defined('vtBoolean')) {
 			
 			$this->RegisterPropertyString("IP","");
 			$this->RegisterPropertyBoolean("System_Data", 0);
-			$this->RegisterPropertyString("UserName","");
-			$this->RegisterPropertyString("Password","");
 			$this->RegisterPropertyInteger("Timer", 0);
 			
 			$this->RegisterPropertyBoolean("Channel1Active", 0);
@@ -33,7 +31,11 @@ if (!defined('vtBoolean')) {
 			$this->RegisterPropertyBoolean("Channel4Active", 0);
 			$this->RegisterPropertyBoolean("Channel5Active", 0);
 			$this->RegisterPropertyBoolean("Channel6Active", 0);
+			$this->RegisterPropertyBoolean("ArchiveTurnedOn", 0);
+			$this->RegisterPropertyBoolean("ArchiveDumpTemperature", 0);
 			
+			$this->RegisterPropertyInteger("EmailVariable", 0);
+			$this->RegisterPropertyInteger("WebfrontVariable", 0);
 			
 
 			if (IPS_VariableProfileExists("WT.Channel_Status") == false){
@@ -51,7 +53,7 @@ if (!defined('vtBoolean')) {
 
 
 			//Component sets timer, but default is OFF
-			$this->RegisterTimer("WLAN BBQ Thermometer",0,"WT_GetReadings(\$_IPS['TARGET']);");
+			$this->RegisterTimer("WLAN BBQ Thermometer",0,"WT_CyclicTask(\$_IPS['TARGET']);");
 					
 		}
 	
@@ -75,48 +77,22 @@ if (!defined('vtBoolean')) {
 			$vpos = 10 * ceil($vpos/10);
 		}
 
-
-/*
-		$vpos = 100;
-		$this->MaintainVariable('Channel1_Temperature', $this->Translate('Channel 1 Current Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel1Active") == 1);
-		$this->MaintainVariable('Channel1_LowerTarget', $this->Translate('Channel 1 Lower Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel1Active") == 1);
-		$this->MaintainVariable('Channel1_HigherTarget', $this->Translate('Channel 1 Higher Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel1Active") == 1);
-		$this->MaintainVariable('Channel1_Status', $this->Translate('Channel 1 Status'), vtInteger, "WT.Channel_Status", $vpos++, $this->ReadPropertyBoolean("Channel1Active") == 1);
-
-		$vpos = 110;
-		$this->MaintainVariable('Channel2_Temperature', $this->Translate('Channel 2 Current Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel2Active") == 1);
-		$this->MaintainVariable('Channel2_LowerTarget', $this->Translate('Channel 2 Lower Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel2Active") == 1);
-		$this->MaintainVariable('Channel2_HigherTarget', $this->Translate('Channel 2 Higher Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel2Active") == 1);
-		$this->MaintainVariable('Channel2_Status', $this->Translate('Channel 2 Status'), vtInteger, "WT.Channel_Status", $vpos++, $this->ReadPropertyBoolean("Channel2Active") == 1);
-		
-		$vpos = 120;
-		$this->MaintainVariable('Channel3_Temperature', $this->Translate('Channel 3 Current Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel3Active") == 1);
-		$this->MaintainVariable('Channel3_LowerTarget', $this->Translate('Channel 3 Lower Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel3Active") == 1);
-		$this->MaintainVariable('Channel3_HigherTarget', $this->Translate('Channel 3 Higher Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel3Active") == 1);
-		$this->MaintainVariable('Channel3_Status', $this->Translate('Channel 3 Status'), vtInteger, "WT.Channel_Status", $vpos++, $this->ReadPropertyBoolean("Channel3Active") == 1);
-
-		$vpos = 130;
-		$this->MaintainVariable('Channel4_Temperature', $this->Translate('Channel 4 Current Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel4Active") == 1);
-		$this->MaintainVariable('Channel4_LowerTarget', $this->Translate('Channel 4 Lower Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel4Active") == 1);
-		$this->MaintainVariable('Channel4_HigherTarget', $this->Translate('Channel 4 Higher Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel4Active") == 1);
-		$this->MaintainVariable('Channel4_Status', $this->Translate('Channel 4 Status'), vtInteger, "WT.Channel_Status", $vpos++, $this->ReadPropertyBoolean("Channel4Active") == 1);
-
-		$vpos = 140;
-		$this->MaintainVariable('Channel5_Temperature', $this->Translate('Channel 5 Current Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel5Active") == 1);
-		$this->MaintainVariable('Channel5_LowerTarget', $this->Translate('Channel 5 Lower Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel5Active") == 1);
-		$this->MaintainVariable('Channel5_HigherTarget', $this->Translate('Channel 5 Higher Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel5Active") == 1);
-		$this->MaintainVariable('Channel5_Status', $this->Translate('Channel 5 Status'), vtInteger, "WT.Channel_Status", $vpos++, $this->ReadPropertyBoolean("Channel5Active") == 1);
-
-		$vpos = 150;
-		$this->MaintainVariable('Channel6_Temperature', $this->Translate('Channel 6 Current Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel6Active") == 1);
-		$this->MaintainVariable('Channel6_LowerTarget', $this->Translate('Channel 6 Lower Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel6Active") == 1);
-		$this->MaintainVariable('Channel6_HigherTarget', $this->Translate('Channel 6 Higher Target Temperature'), vtFloat, "~Temperature", $vpos++, $this->ReadPropertyBoolean("Channel6Active") == 1);
-		$this->MaintainVariable('Channel6_Status', $this->Translate('Channel 6 Status'), vtInteger, "WT.Channel_Status", $vpos++, $this->ReadPropertyBoolean("Channel6Active") == 1);
-		*/
 		$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
 		$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
 					
 	}
+
+	public function CyclicTask() {
+		// This function will run all required modules
+
+		//Ping to see if WLAN Thermometer is there
+
+
+
+
+	}
+
+
 		
 	public function GetReadings() {
 
@@ -164,48 +140,85 @@ if (!defined('vtBoolean')) {
 
 	}
 
-	public function ProcessReadings() {
-
-		$Readings = $this->GetBuffer("Readings");
-		
-		$i = 1;
-		$channels = array(1,2,3,4,5,6);
-
-		foreach ($channels as $channel) {
-
-			$ChannelActive = $this->ReadPropertyBoolean("Channel".$channel."Active");
-			$this->SendDebug(($this->Translate('Channel ').$channel),$ChannelActive,0);
+	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)	{
+			//echo $SenderId." ".$Data;
+			//$this->SetResetTimerInterval();
+			$IP = $this->ReadPropertyString("IP");
 
 
 
-		}
+			if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget") OR ($this->GetIDForIdent("Channel1_HigherTarget"))) {
+				$SenderValue = GetValue($SenderID);
+				$SenderName = IPS_GetName($SenderID);
 
-/*
+				if (str_contains($SenderName, '1')) {
+					$Channel = "1";
+				} elseif (str_contains($SenderName, '2')) {
+					$Channel = "2";
+				}
+				else {
 
-		$Channel1Active = $this->ReadPropertyBoolean("Channel1Active");
-		$Channel2Active = $this->ReadPropertyBoolean("Channel2Active");
-		$Channel3Active = $this->ReadPropertyBoolean("Channel3Active");
-		$Channel4Active = $this->ReadPropertyBoolean("Channel4Active");
-		$Channel5Active = $this->ReadPropertyBoolean("Channel5Active");
-		$Channel6Active = $this->ReadPropertyBoolean("Channel6Active");
+				}
 
-		if ($Channel1Active == 1) {
-			$Channel1Temperature = $Readings->channel[0]->temp;
-			$Channel1LowerTarget = $Readings->channel[0]->min;
-			$Channel1HigherTarget = $Readings->channel[0]->max;
-			
-			if (isset($Channel1Temperature)) {
-				SetValue($this->GetIDForIdent($i.'Pet_LastDetectedBy'), $Pet_LastDetectedByName);
+
+
+				$set_channel = $Channel;
+				$set_temp_max = '40';
+				$set_temp_min = $SenderValue;
+				$set_alarm = '0';
+
+				$data = array(
+					'number' => $set_channel,
+					'max' => $set_temp_max,
+					'min' => $set_temp_min,
+					'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
+				);
+				
+				$payload = json_encode($data);
+				
+				$ch = curl_init('http://'.$IP.'/setchannels');
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+				curl_setopt($ch, CURLOPT_POST, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Content-Length: ' . strlen($payload))
+				);
+				
+				$result = curl_exec($ch);
+				curl_close($ch);
+	
 			}
-			
+
+			elseif ($SenderID == $this->GetIDForIdent("ManualBlock")) {
+
+			}
+
+			else {
+				//nix
+			}
 
 		}
-*/
 
 
 
 
+
+	public function NotifyApp() {
+		$NotifierTitle = $this->GetBuffer("NotifierTitle");
+		$NotifierMessage = $this->GetBuffer("NotifierMessage");
+		$WebFrontMobile = IPS_GetInstanceListByModuleID('{3565B1F2-8F7B-4311-A4B6-1BF1D868F39E}')[0];
+		// to send notifications
+		$this->SendDebug("Notifier","********** App Notifier **********", 0);
+		$this->SendDebug("Notifier","Message: ".$NotifierMessage." was sent", 0);			
+		WFC_PushNotification($WebFrontMobile, $NotifierTitle, $NotifierMessage , "", 0);
 	}
+
+	public function ArchiveCleaning() {
+		
+	}
+
 
 
 }
