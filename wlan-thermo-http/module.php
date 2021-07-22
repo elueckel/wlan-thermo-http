@@ -153,8 +153,11 @@ if (!defined('vtBoolean')) {
 					elseif ($Temperatur < $Temperature_Max) {
 						$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 2",0);
 					}
-					else ($Temperatur >= $Temperature_Max) {
+					elseif ($Temperatur >= $Temperature_Max) {
 						$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 3",0);
+					}
+					else {
+						
 					}
 
 				}
