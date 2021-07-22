@@ -95,12 +95,8 @@ if (!defined('vtBoolean')) {
 	}
 
 	public function CyclicTask() {
-		// This function will run all required modules
-
-		//Ping to see if WLAN Thermometer is there
-
-
-
+		
+		this->GetReadings();
 
 	}
 
@@ -140,6 +136,27 @@ if (!defined('vtBoolean')) {
 					$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature Maximum ".$Temperature_Max,0);
 					SetValue($this->GetIDForIdent("Channel".$Channel."_HigherTarget"), $Temperature_Max);
 					$i++;
+
+					//Actions
+
+					if (isset($Temperature_Min)) {
+						if ($Temperatur < $Temperature_Min) {
+							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Warming Up - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
+						}
+						elseif ($Temperatur >= $Temperature_Min AND $Temperatur < $Temperature_Max) {
+							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
+						}
+						elseif ($Temperatur >= $Temperature_Max) {
+							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 1",0);
+						}
+					}
+					elseif ($Temperatur < $Temperature_Max) {
+						$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 2",0);
+					}
+					else ($Temperatur >= $Temperature_Max) {
+						$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 3",0);
+					}
+
 				}
 
 			}
@@ -215,11 +232,6 @@ if (!defined('vtBoolean')) {
 				curl_close($ch);
 	
 			}
-
-			elseif ($SenderID == $this->GetIDForIdent("ManualBlock")) {
-
-			}
-
 			else {
 				//nix
 			}
