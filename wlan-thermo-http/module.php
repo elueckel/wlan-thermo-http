@@ -125,7 +125,7 @@ if (!defined('vtBoolean')) {
 
 				$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
 				//$this->SendDebug(($this->Translate('Channel ').$Channel),$ChannelActive,0);
-				if ($ChannelActive == 1) {
+				//if ($ChannelActive == 1) {
 					$Temperature = $data->channel[$i]->temp;
 					if ($Temperature != "999") {
 						$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature ".$Temperature,0);
@@ -141,28 +141,40 @@ if (!defined('vtBoolean')) {
 						//Actions
 
 						if ($Temperature_Min> "0") {
-							if ($Temperature < $Temperature_Min) {
+							if ($Temperature < ($Temperature_Min * 0.8) {
 								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Warming Up - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
+								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 2);
+							}
+							elseif (($Temperature < $Temperature_Min) AND ($Temperature > $Temperature_Min 0.8)) {
+								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too Cold - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
+								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 3);
 							}
 							elseif ($Temperature >= $Temperature_Min AND $Temperature < $Temperature_Max) {
 								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
+								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 1);
 							}
 							elseif ($Temperature >= $Temperature_Max) {
 								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 1",0);
+								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 4);
 							}
 						}
 						elseif ($Temperature < $Temperature_Max) {
 							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 2",0);
+							SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 1);
 						}
 						elseif ($Temperature >= $Temperature_Max) {
 							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 3",0);
+							SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 1);
 						}
 						else {
 
 						}
 					}
+					else {
+						SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 0);
+					}
 
-				}
+				//}
 
 			}
 						
