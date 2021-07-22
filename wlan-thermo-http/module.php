@@ -147,7 +147,7 @@ if (!defined('vtBoolean')) {
 
 
 
-			if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget") OR $this->GetIDForIdent("Channel1_HigherTarget"))) {
+			if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget")) /* OR $this->GetIDForIdent("Channel1_HigherTarget")))*/ {
 				$SenderValue = GetValue($SenderID);
 				$SenderName = IPS_GetName($SenderID);
 
