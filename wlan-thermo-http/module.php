@@ -35,9 +35,12 @@ if (!defined('vtBoolean')) {
 			$this->RegisterPropertyBoolean("ArchiveDumpTemperature", 0);
 			
 			$this->RegisterPropertyInteger("EmailVariable", 0);
-			$this->RegisterPropertyInteger("WebfrontVariable", 0);
+			
+			$this->RegisterPropertyBoolean("NotifyByApp", 0);
+			$this->RegisterPropertyBoolean("NotifyByEmail", 0);
+
 			$this->RegisterPropertyBoolean("MessageOK", 0);
-			$this->RegisterPropertyString("MessageOKText","Die Temperatur ist im Zielbereich - alle OK");
+			$this->RegisterPropertyString("MessageOKText","Die Temperatur ist im Zielbereich - alles OK");
 			$this->RegisterPropertyBoolean("MessageWarmingup", 0);
 			$this->RegisterPropertyString("MessageWarmingupText","Der Grill wärmt auf");
 			$this->RegisterPropertyBoolean("MessageTooCold", 0);
@@ -134,6 +137,9 @@ if (!defined('vtBoolean')) {
 
 		$IP = $this->ReadPropertyString("IP");
 
+		$NotifyByApp = $this->ReadPropertyBoolean("NotifyByApp");
+		$NotifyByEmail = $this->ReadPropertyString("NotifyByEmail");
+
 		$MessageOK = $this->ReadPropertyBoolean("MessageOK");
 		$MessageOKText = $this->ReadPropertyString("MessageOKText");
 		$MessageWarmingup = $this->ReadPropertyBoolean("MessageWarmingup");
@@ -207,8 +213,8 @@ if (!defined('vtBoolean')) {
 								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 1",0);
 								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 4);
 								$NewStatus =  "4";
-								if ($MessageTooHot == 1) {
-									$NotifierMessage = $MessageTooHotText." Channel ".$Channel." - ".$Temperature."C";
+								if ($MessageTooHigh == 1) {
+									$NotifierMessage = $MessageTooHighText." Channel ".$Channel." - ".$Temperature."C";
 								}
 							}
 						}
@@ -224,8 +230,8 @@ if (!defined('vtBoolean')) {
 							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 3",0);
 							SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 4);
 							$NewStatus =  "4";
-							if ($MessageTooHot == 1) {
-								$NotifierMessage = $MessageTooHotText." Channel ".$Channel." - ".$Temperature."C";
+							if ($MessageTooHigh == 1) {
+								$NotifierMessage = $MessageTooHighText." Channel ".$Channel." - ".$Temperature."C";
 							}
 						}
 						else {
@@ -244,7 +250,12 @@ if (!defined('vtBoolean')) {
 							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status Changed - Check if message should be send",0);
 							if (isset($NotifierMessage)) {
 									$this->SetBuffer("NotifierMessage",$NotifierMessage);
-									$this->NotifyApp();
+									if ($NotifyByApp == 1) {
+										$this->NotifyApp();
+									}
+									if ($NotifyByEmail == 1) {
+										$this->EmailApp();
+									}
 								}
 						}
 						else {
@@ -349,18 +360,22 @@ if (!defined('vtBoolean')) {
 
 	}
 
-
-
-
-
 	public function NotifyApp() {
 		$NotifierTitle = "BBG Thermometer";
 		$NotifierMessage = $this->GetBuffer("NotifierMessage");
 		$WebFrontMobile = IPS_GetInstanceListByModuleID('{3565B1F2-8F7B-4311-A4B6-1BF1D868F39E}')[0];
-		// to send notifications
 		$this->SendDebug("Notifier","********** App Notifier **********", 0);
 		$this->SendDebug("Notifier","Message: ".$NotifierMessage." was sent", 0);			
 		WFC_PushNotification($WebFrontMobile, $NotifierTitle, $NotifierMessage , "", 0);
+	}
+
+	public function EmailApp() {
+		$EmailVariable = $this->ReadPropertyInteger("EmailVariable"); 
+		$EmailTitle = "BBG Thermometer";
+		$NotifierMessage = $this->GetBuffer("NotifierMessage");
+		$this->SendDebug("Email","********** Email **********", 0);
+		$this->SendDebug("Email","Message: ".$NotifierMessage." was sent", 0);			
+		SMTP_SendMail($EmailVariable, $EmailTitle, $NotifierMessage);
 	}
 
 	public function ArchiveCleaning() {
