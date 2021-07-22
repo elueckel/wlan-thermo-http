@@ -79,6 +79,46 @@
 			"type": "SelectVariable",
 			"name": "WebfrontVariable",
 			"caption": "Webfront Configuration"
+		},
+		{
+			"type": "CheckBox",
+			"name": "MessageOK",
+			"caption": "In Target Temperature Zone"
+		},
+		{
+			"type": "ValidationTextBox",
+			"name": "MessageOKText",
+			"caption": "Text if temperature is OK"
+		},
+		{
+			"type": "CheckBox",
+			"name": "MessageWarmingup",
+			"caption": "Warming Up"
+		},
+		{
+			"type": "ValidationTextBox",
+			"name": "MessageWarmingupText",
+			"caption": "Text when warming up"
+		},
+		{
+			"type": "CheckBox",
+			"name": "MessageTooCold",
+			"caption": "Below Target Temperature"
+		},
+		{
+			"type": "ValidationTextBox",
+			"name": "MessageTooColdText",
+			"caption": "Text if temperature is too low"
+		},
+		{
+			"type": "CheckBox",
+			"name": "MessageTooHigh",
+			"caption": "Above Target Temperature"
+		},
+		{
+			"type": "ValidationTextBox",
+			"name": "MessageTooHighText",
+			"caption": "Text if temperature is too high"
 		}		
     ],
 	  "actions":
