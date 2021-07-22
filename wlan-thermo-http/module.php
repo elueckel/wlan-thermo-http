@@ -157,6 +157,8 @@ if (!defined('vtBoolean')) {
 			//$this->SetResetTimerInterval();
 			$IP = $this->ReadPropertyString("IP");
 
+			$this->SendDebug($this->Translate('Variable Update'),$TimeStamp.$SenderID.$Message.$Data,0);
+
 
 
 			if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget"))) /* OR $this->GetIDForIdent("Channel1_HigherTarget")))*/ {
