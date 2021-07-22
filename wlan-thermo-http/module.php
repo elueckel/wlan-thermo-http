@@ -140,7 +140,7 @@ if (!defined('vtBoolean')) {
 
 						//Actions
 
-						if (isset($Temperature_Min)) {
+						if ($Temperature_Min> "0") {
 							if ($Temperature < $Temperature_Min) {
 								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Warming Up - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
 							}
