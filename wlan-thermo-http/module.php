@@ -195,7 +195,7 @@ if (!defined('vtBoolean')) {
 					
 
 				if (isset($OldStatus)) {
-					if ($OldStatus != $NewStatus) {
+					if ($OldStatus !== $NewStatus) {
 						// check if message should be send
 						$this->SendDebug(($this->Translate('Channel ').$Channel),"Status Changed - Check if message should be send",0);
 					}
