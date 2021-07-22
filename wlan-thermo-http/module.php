@@ -228,7 +228,7 @@ if (!defined('vtBoolean')) {
 	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)	{
 			//echo $SenderId." ".$Data;
 			$this->SendDebug("Sender",$SenderID." ".$Message." ".$Data, 0);
-			
+
 			$IP = $this->ReadPropertyString("IP");
 
 			if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget")) OR ($this->GetIDForIdent("Channel1_HigherTarget")) OR 
@@ -289,7 +289,7 @@ if (!defined('vtBoolean')) {
 				curl_close($ch);
 	
 			}
-			elseif ($SenderID == ($this->GetIDForIdent("Active"))) {
+			elseif ($SenderID == $this->GetIDForIdent("Active")) {
 				$this->SendDebug("Notifier","1", 0);
 				$SenderValue = GetValue($SenderID);
 				if ($SenderValue == 1) {
@@ -303,7 +303,7 @@ if (!defined('vtBoolean')) {
 				}
 			}
 			else {
-
+				$this->SendDebug("Notifier","4", 0);
 			}
 
 		}
