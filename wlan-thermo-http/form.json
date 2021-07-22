@@ -21,6 +21,36 @@
 			"caption": "System Data"
 		},
 		{
+			"type": "CheckBox",
+			"name": "System_BatterieWarning",
+			"caption": "Batterie Warning"
+		},
+		{
+			"type": "NumberSpinner",
+			"name": "System_BatterieThreshold",
+			"caption": "Batterie Threshold",
+			"suffix": "%",
+			"minimum": "0",
+			"maximum": "100" 
+		},
+		{
+			"type": "NumberSpinner",
+			"name": "System_AutoOff",
+			"caption": "Auto off",
+			"suffix": "Cycles",
+			"minimum": "0"
+		},
+		{
+			"type": "CheckBox",
+			"name": "System_AutoOffWarning",
+			"caption": "Auto OffWarning"
+		},
+		{
+			"type": "CheckBox",
+			"name": "System_OffMeesage",
+			"caption": "Offmessage"
+		},
+		{
 			"type": "NumberSpinner",
 			"name": "Timer",
 			"caption": "Update Frequency",
@@ -79,6 +109,16 @@
 			"type": "SelectVariable",
 			"name": "WebfrontVariable",
 			"caption": "Webfront Configuration"
+		},
+		{
+			"type": "CheckBox",
+			"name": "NotifyByApp",
+			"caption": "Notify in Symcon Mobile"
+		},
+		{
+			"type": "CheckBox",
+			"name": "NotifyByEmail",
+			"caption": "Notify by Email"
 		},
 		{
 			"type": "CheckBox",

@@ -243,6 +243,8 @@ if (!defined('vtBoolean')) {
 						$NewStatus =  "0";
 					}
 
+					// Section where a noticiation is trigger if configured 
+
 					$this->SendDebug(($this->Translate('Channel ').$Channel),"Old ".$OldStatus." New ".$NewStatus,0);
 					if (isset($OldStatus)) {
 						if ($OldStatus != $NewStatus) {
@@ -277,7 +279,7 @@ if (!defined('vtBoolean')) {
 	}
 
 	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)	{
-		//echo $SenderId." ".$Data;
+		
 		//$this->SendDebug("Sender",$SenderID." ".$Message." ".$Data, 0);
 
 		$IP = $this->ReadPropertyString("IP");
