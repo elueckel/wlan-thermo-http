@@ -36,6 +36,15 @@ if (!defined('vtBoolean')) {
 			
 			$this->RegisterPropertyInteger("EmailVariable", 0);
 			$this->RegisterPropertyInteger("WebfrontVariable", 0);
+			$this->RegisterPropertyBoolean("MessageOK", 0);
+			$this->RegisterPropertyString("MessageOKText","Die Temperatur ist im Zielbereich - alle OK");
+			$this->RegisterPropertyBoolean("MessageWarmingup", 0);
+			$this->RegisterPropertyString("MessageWarmingupText","Der Grill wärmt auf");
+			$this->RegisterPropertyBoolean("MessageTooCold", 0);
+			$this->RegisterPropertyString("MessageTooColdText","Die Temperatur hat den Minimalwert unterschritten");
+			$this->RegisterPropertyBoolean("MessageTooHigh", 0);
+			$this->RegisterPropertyString("MessageTooHighText","Die Temperatur hat den Maximalwert überschritten");
+			
 			
 
 			if (IPS_VariableProfileExists("WT.Channel_Status") == false){
@@ -124,6 +133,15 @@ if (!defined('vtBoolean')) {
 	public function GetReadings() {
 
 		$IP = $this->ReadPropertyString("IP");
+
+		$MessageOK = $this->ReadPropertyBoolean("MessageOK");
+		$MessageOKText = $this->ReadPropertyString("MessageOKText");
+		$MessageWarmingup = $this->ReadPropertyBoolean("MessageWarmingup");
+		$MessageWarmingupText = $this->ReadPropertyString("MessageWarmingupText");
+		$MessageTooCold = $this->ReadPropertyBoolean("MessageTooCold");
+		$MessageTooColdText = $this->ReadPropertyString("MessageTooColdText");
+		$MessageTooHigh = $this->ReadPropertyBoolean("MessageTooHigh");
+		$MessageTooHighText = $this->ReadPropertyString("MessageTooHighText");
 				
 		if ($IP != "") {
 			
@@ -165,32 +183,50 @@ if (!defined('vtBoolean')) {
 								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Warming Up - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
 								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 2);
 								$NewStatus =  "2";
+								if ($MessageWarmingup == 1) {
+									$NotifierMessage = $MessageWarmingupText." Channel ".$Channel." - ".$Temperature."C";
+								}
 							}
 							elseif (($Temperature < $Temperature_Min) AND ($Temperature > $Temperature_Min * 0.8)) {
 								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too Cold - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
 								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 3);
 								$NewStatus =  "3";
+								if ($MessageTooCold == 1) {
+									$NotifierMessage = $MessageTooColdText." Channel ".$Channel." - ".$Temperature."C";
+								}
 							}
 							elseif ($Temperature >= $Temperature_Min AND $Temperature < $Temperature_Max) {
 								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
 								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 1);
 								$NewStatus =  "1";
+								if ($MessageOK == 1) {
+									$NotifierMessage = $MessageOKText." Channel ".$Channel." - ".$Temperature."C";
+								}
 							}
 							elseif ($Temperature >= $Temperature_Max) {
 								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 1",0);
 								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 4);
 								$NewStatus =  "4";
+								if ($MessageTooHot == 1) {
+									$NotifierMessage = $MessageTooHotText." Channel ".$Channel." - ".$Temperature."C";
+								}
 							}
 						}
 						elseif ($Temperature < $Temperature_Max) {
 							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 2",0);
 							SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 1);
 							$NewStatus =  "1";
+							if ($MessageOK == 1) {
+								$NotifierMessage = $MessageOKText." Channel ".$Channel." - ".$Temperature."C";
+							}
 						}
 						elseif ($Temperature >= $Temperature_Max) {
 							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 3",0);
 							SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 4);
 							$NewStatus =  "4";
+							if ($MessageTooHot == 1) {
+								$NotifierMessage = $MessageTooHotText." Channel ".$Channel." - ".$Temperature."C";
+							}
 						}
 						else {
 
@@ -206,6 +242,10 @@ if (!defined('vtBoolean')) {
 						if ($OldStatus != $NewStatus) {
 							// check if message should be send
 							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status Changed - Check if message should be send",0);
+							if (isset($NotifierMessage)) {
+									$this->SetBuffer("NotifierMessage",$NotifierMessage);
+									$this->NotifyApp();
+								}
 						}
 						else {
 							//do nothing
@@ -226,95 +266,95 @@ if (!defined('vtBoolean')) {
 	}
 
 	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)	{
-			//echo $SenderId." ".$Data;
-			$this->SendDebug("Sender",$SenderID." ".$Message." ".$Data, 0);
+		//echo $SenderId." ".$Data;
+		//$this->SendDebug("Sender",$SenderID." ".$Message." ".$Data, 0);
 
-			$IP = $this->ReadPropertyString("IP");
+		$IP = $this->ReadPropertyString("IP");
 
-			if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget")) OR ($this->GetIDForIdent("Channel1_HigherTarget")) OR 
-					($this->GetIDForIdent("Channel2_LowerTarget")) OR ($this->GetIDForIdent("Channel2_HigherTarget")) OR 
-					($this->GetIDForIdent("Channel3_LowerTarget")) OR ($this->GetIDForIdent("Channel3_HigherTarget")) OR 
-					($this->GetIDForIdent("Channel4_LowerTarget")) OR ($this->GetIDForIdent("Channel4_HigherTarget")) OR 
-					($this->GetIDForIdent("Channel5_LowerTarget")) OR ($this->GetIDForIdent("Channel5_HigherTarget")) OR 
-					($this->GetIDForIdent("Channel6_LowerTarget")) OR ($this->GetIDForIdent("Channel6_HigherTarget"))) {
-				$SenderValue = GetValue($SenderID);
-				$SenderName = IPS_GetName($SenderID);
+		if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget")) OR ($this->GetIDForIdent("Channel1_HigherTarget")) OR 
+				($this->GetIDForIdent("Channel2_LowerTarget")) OR ($this->GetIDForIdent("Channel2_HigherTarget")) OR 
+				($this->GetIDForIdent("Channel3_LowerTarget")) OR ($this->GetIDForIdent("Channel3_HigherTarget")) OR 
+				($this->GetIDForIdent("Channel4_LowerTarget")) OR ($this->GetIDForIdent("Channel4_HigherTarget")) OR 
+				($this->GetIDForIdent("Channel5_LowerTarget")) OR ($this->GetIDForIdent("Channel5_HigherTarget")) OR 
+				($this->GetIDForIdent("Channel6_LowerTarget")) OR ($this->GetIDForIdent("Channel6_HigherTarget"))) {
+			$SenderValue = GetValue($SenderID);
+			$SenderName = IPS_GetName($SenderID);
 
-				if (strpos($SenderName, '1')) {
-					$Channel = "1";
-				} elseif (strpos($SenderName, '2')) {
-					$Channel = "2";
-				} elseif (strpos($SenderName, '3')) {
-					$Channel = "3";
-				} elseif (strpos($SenderName, '4')) {
-					$Channel = "4";
-				} elseif (strpos($SenderName, '5')) {
-					$Channel = "5";
-				} elseif (strpos($SenderName, '6')) {
-					$Channel = "6";
-				} else {
-				}
-
-				if (strpos($SenderName, 'Lower')) {
-					$set_temp_min = $SenderValue;
-				} elseif (strpos($SenderName, 'Higher')) {
-					$set_temp_max = $SenderValue;
-				}
-
-				$set_channel = $Channel;
-				//$set_temp_max = '40';
-				//$set_temp_min = $SenderValue;
-				$set_alarm = '0';
-
-				$data = array(
-					'number' => $set_channel,
-					'max' => $set_temp_max,
-					'min' => $set_temp_min,
-					'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
-				);
-				
-				$payload = json_encode($data);
-				
-				$ch = curl_init('http://'.$IP.'/setchannels');
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-				curl_setopt($ch, CURLOPT_POST, true);
-				curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-					'Content-Type: application/json',
-					'Content-Length: ' . strlen($payload))
-				);
-				
-				$result = curl_exec($ch);
-				curl_close($ch);
-	
+			if (strpos($SenderName, '1')) {
+				$Channel = "1";
+			} elseif (strpos($SenderName, '2')) {
+				$Channel = "2";
+			} elseif (strpos($SenderName, '3')) {
+				$Channel = "3";
+			} elseif (strpos($SenderName, '4')) {
+				$Channel = "4";
+			} elseif (strpos($SenderName, '5')) {
+				$Channel = "5";
+			} elseif (strpos($SenderName, '6')) {
+				$Channel = "6";
+			} else {
 			}
+
+			if (strpos($SenderName, 'Lower')) {
+				$set_temp_min = $SenderValue;
+			} elseif (strpos($SenderName, 'Higher')) {
+				$set_temp_max = $SenderValue;
+			}
+
+			$set_channel = $Channel;
+			//$set_temp_max = '40';
+			//$set_temp_min = $SenderValue;
+			$set_alarm = '0';
+
+			$data = array(
+				'number' => $set_channel,
+				'max' => $set_temp_max,
+				'min' => $set_temp_min,
+				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
+			);
 			
-			if ($SenderID == $this->GetIDForIdent('Active')) {
-				$this->SendDebug("Notifier","1", 0);
-				$SenderValue = GetValue($SenderID);
-				if ($SenderValue == 1) {
-					$this->SendDebug("Notifier","2", 0);
-					$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
-					$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
-				}
-				else {
-					$this->SetTimerInterval("WLAN BBQ Thermometer", "0");
-					$this->SendDebug("Notifier","3", 0);
-				}
-			}
-			else {
-				$this->SendDebug("Notifier","4", 0);
-			}
+			$payload = json_encode($data);
+			
+			$ch = curl_init('http://'.$IP.'/setchannels');
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				'Content-Type: application/json',
+				'Content-Length: ' . strlen($payload))
+			);
+			
+			$result = curl_exec($ch);
+			curl_close($ch);
 
 		}
+		
+		if ($SenderID == $this->GetIDForIdent('Active')) {
+			
+			$SenderValue = GetValue($SenderID);
+			if ($SenderValue == 1) {
+				$this->SendDebug("System","Module activated", 0);
+				$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
+				$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
+			}
+			else {
+				$this->SetTimerInterval("WLAN BBQ Thermometer", "0");
+				$this->SendDebug("System","Switching module off", 0);
+			}
+		}
+		else {
+			
+		}
+
+	}
 
 
 
 
 
 	public function NotifyApp() {
-		$NotifierTitle = $this->GetBuffer("NotifierTitle");
+		$NotifierTitle = "BBG Thermometer";
 		$NotifierMessage = $this->GetBuffer("NotifierMessage");
 		$WebFrontMobile = IPS_GetInstanceListByModuleID('{3565B1F2-8F7B-4311-A4B6-1BF1D868F39E}')[0];
 		// to send notifications
