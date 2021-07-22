@@ -134,9 +134,9 @@ if (!defined('vtBoolean')) {
 			foreach ($Channels as $Channel) {
 
 				$OldStatus = $this->GetIDForIdent("Channel".$Channel."_Status");
-				//$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
+				$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
 				//$this->SendDebug(($this->Translate('Channel ').$Channel),$ChannelActive,0);
-				//if ($ChannelActive == 1) {
+				if ($ChannelActive == 1) {
 					$Temperature = $data->channel[$i]->temp;
 					if ($Temperature != "999") {
 						$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature ".$Temperature,0);
@@ -192,19 +192,21 @@ if (!defined('vtBoolean')) {
 						$NewStatus =  "0";
 					}
 
+					$this->SendDebug(($this->Translate('Channel ').$Channel),"Old ".$OldStatus." New ".$NewStatus,0);
+					if (isset($OldStatus)) {
+						if ($OldStatus !== $NewStatus) {
+							// check if message should be send
+							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status Changed - Check if message should be send",0);
+						}
+						else {
+							//do nothing
+						}
+					}
 					
-
-				if (isset($OldStatus)) {
-					if ($OldStatus !== $NewStatus) {
-						// check if message should be send
-						$this->SendDebug(($this->Translate('Channel ').$Channel),"Status Changed - Check if message should be send",0);
-					}
-					else {
-						//do nothing
-					}
-				}
+				}	
 
 			}
+
 						
 		}
 		else {
