@@ -157,7 +157,7 @@ if (!defined('vtBoolean')) {
 			//$this->SetResetTimerInterval();
 			$IP = $this->ReadPropertyString("IP");
 
-			$this->SendDebug($this->Translate('Variable Update'),$TimeStamp.$SenderID.$Message.$Data,0);
+			$this->SendDebug($this->Translate('Variable Update'),$SenderID." Message ".$Message." Data ".$Data,0);
 
 
 
