@@ -295,7 +295,7 @@ if (!defined('vtBoolean')) {
 					$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
 				}
 				else {
-					$this->SetTimerInterval("WLAN BBQ Thermometer",0);
+					$this->SetTimerInterval("WLAN BBQ Thermometer", "0");
 				}
 			}
 			else {
