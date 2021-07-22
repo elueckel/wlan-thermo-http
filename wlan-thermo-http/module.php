@@ -160,7 +160,7 @@ if (!defined('vtBoolean')) {
 
 				}
 
-
+				$this->SendDebug($this->Translate('Variable Update'),"Channel ".$Channel." Variable ".$SenderName." Value ".$SenderValue,0);
 
 				$set_channel = $Channel;
 				$set_temp_max = '40';
