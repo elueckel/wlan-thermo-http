@@ -289,7 +289,8 @@ if (!defined('vtBoolean')) {
 				curl_close($ch);
 	
 			}
-			elseif ($SenderID == @IPS_GetObjectIDByIdent('Active')) {
+			
+			if ($SenderID == @IPS_GetObjectIDByIdent('Active')) {
 				$this->SendDebug("Notifier","1", 0);
 				$SenderValue = GetValue($SenderID);
 				if ($SenderValue == 1) {
