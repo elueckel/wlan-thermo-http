@@ -69,6 +69,26 @@
 			"type": "CheckBox",
 			"name": "Channel6Active",
 			"caption": "Channel 6"
+		},
+		{
+			"type": "CheckBox",
+			"name": "ArchiveTurnedOn",
+			"caption": "Record Temperature"
+		},
+		{
+			"type": "CheckBox",
+			"name": "ArchiveDumpTemperature",
+			"caption": "Dump Temperature"
+		},
+		{
+			"type": "SelectVariable",
+			"name": "EmailVariable",
+			"caption": "Email Configuration"
+		},
+		{
+			"type": "SelectVariable",
+			"name": "WebfrontVariable",
+			"caption": "Webfront Configuration"
 		}		
     ],
 	  "actions":
