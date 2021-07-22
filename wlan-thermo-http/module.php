@@ -124,7 +124,7 @@ if (!defined('vtBoolean')) {
 			foreach ($Channels as $Channel) {
 
 				$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
-				$this->SendDebug(($this->Translate('Channel ').$Channel),$ChannelActive,0);
+				//$this->SendDebug(($this->Translate('Channel ').$Channel),$ChannelActive,0);
 				if ($ChannelActive == 1) {
 					$Temperature = $data->channel[$i]->temp;
 					if ($Temperature != "999") {
