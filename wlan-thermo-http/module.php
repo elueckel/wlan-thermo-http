@@ -176,7 +176,7 @@ if (!defined('vtBoolean')) {
 			if ($UnreachCounter == ($System_AutoOff / 2)) {
 				//Nachricht
 				$this->SetBuffer("NotifierMessage",$System_OffWarningText);
-				if ($System_Messages == 1 AND $Unreach_WarningStatus == 0;) {
+				if ($System_Messages == 1 AND $Unreach_WarningStatus == 0) {
 					if ($System_Messages == 1) {
 						if ($NotifyByApp == 1) {
 							$Unreach_WarningStatus = 1;
@@ -194,11 +194,11 @@ if (!defined('vtBoolean')) {
 				SetValue($this->GetIDForIdent("Active"), false);
 				
 				$this->SetBuffer("NotifierMessage",$System_OffText);
-				if ($NotifyByApp == 1 AND $Unreach_WarningStatus == 1;) {
+				if ($NotifyByApp == 1 AND $Unreach_WarningStatus == 1) {
 					$Unreach_WarningStatus = 2;
 					$this->NotifyApp();
 				}
-				if ($NotifyByEmail == 1 AND $Unreach_WarningStatus == 1;) {
+				if ($NotifyByEmail == 1 AND $Unreach_WarningStatus == 1) {
 					$Unreach_WarningStatus = 2;
 					$this->EmailApp();
 				}
