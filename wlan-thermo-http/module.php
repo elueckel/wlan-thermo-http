@@ -72,6 +72,9 @@ if (!defined('vtBoolean')) {
 			$this->RegisterVariableBoolean('Active', $this->Translate('Active'),"~Switch");
 			$this->RegisterVariableInteger('Battery', $this->Translate('Battery'),"~Battery.100");
 
+			//In case of an update de-active module - otherwise status is not clear
+			SetValue($this->GetIDForIdent("Active"), false);
+
 
 
 			//Component sets timer, but default is OFF
@@ -415,7 +418,6 @@ if (!defined('vtBoolean')) {
 			
 			$result = curl_exec($ch);
 			curl_close($ch);
-			$this->GetReadings();
 
 		}
 		
