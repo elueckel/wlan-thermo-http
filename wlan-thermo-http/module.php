@@ -151,14 +151,15 @@ if (!defined('vtBoolean')) {
 
 			if ($Battery < $BatteryThreshold) {
 				$this->SetBuffer("NotifierMessage",$MessageBatteryText." ".$Battery."%");
-				
+				$Battery_WarningStatus = $this->GetBuffer("Battery_WarningStatus");
+
 				if ($System_Messages == 1 AND $Battery_WarningStatus == 0) {
 					if ($NotifyByApp == 1) {
-						$Battery_WarningStatus = 1;
+						$this->SetBuffer("Battery_WarningStatus",1);
 						$this->NotifyApp();
 					}
 					if ($NotifyByEmail == 1) {
-						$Battery_WarningStatus = 1;
+						$this->SetBuffer("Battery_WarningStatus",1);
 						$this->EmailApp();
 					}
 				}
@@ -244,12 +245,17 @@ if (!defined('vtBoolean')) {
 			foreach ($Channels as $Channel) {
 
 				$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
+				$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
 				//$this->SendDebug(($this->Translate('Channel ').$Channel),$ChannelActive,0);
 				if ($ChannelActive == 1) {
 					$OldStatus = GetValue($this->GetIDForIdent("Channel".$Channel."_Status"));
 					$Temperature = $data->channel[$i]->temp;
 					if ($Temperature != "999") {
 						$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature ".$Temperature,0);
+
+						//Var Test
+						AC_SetAggregationType($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
+						
 						SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), $Temperature);
 						$Temperature_Min = $data->channel[$i]->min;
 						$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature Minimum ".$Temperature_Min,0);
@@ -457,6 +463,10 @@ if (!defined('vtBoolean')) {
 	}
 
 	public function ArchiveCleaning() {
+
+		$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
+
+		AC_DeleteVariableData ($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0, 0);
 		
 	}
 
