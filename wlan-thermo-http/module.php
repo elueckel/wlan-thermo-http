@@ -24,7 +24,7 @@ if (!defined('vtBoolean')) {
 			$this->RegisterPropertyString("IP","");
 			$this->RegisterPropertyBoolean("System_Messages", 0);
 			$this->RegisterPropertyInteger("Timer", "60");
-			$this->RegisterPropertyInteger("System_BatteryThreshold", "15");
+			$this->RegisterPropertyInteger("System_BatteryThreshold", 15);
 			$this->RegisterPropertyString("System_BatteryText", "Die Batterie ist fast leer");
 			$this->RegisterPropertyInteger("System_AutoOff", 0);
 			$this->RegisterPropertyString("System_OffWarningText", "Das Thermometer ist nicht erreichbar - prüfen?");

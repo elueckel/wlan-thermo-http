@@ -16,44 +16,12 @@
 			"caption": "IP Adress or Network Name"
 		},
 		{
-			"type": "CheckBox",
-			"name": "System_Data",
-			"caption": "System Data"
-		},
-		{
 			"type": "NumberSpinner",
 			"name": "System_BatterieThreshold",
 			"caption": "Batterie Threshold",
 			"suffix": "%",
 			"minimum": "0",
 			"maximum": "100" 
-		},
-		{
-			"type": "ValidationTextBox",
-			"name": "System_BatteryText",
-			"caption": "Text if battery is running getting empty"
-		},
-		{
-			"type": "NumberSpinner",
-			"name": "System_AutoOff",
-			"caption": "Auto off Cycles",
-			"suffix": "Cycles",
-			"minimum": "0"
-		},
-		{
-			"type": "ValidationTextBox",
-			"name": "System_OffWarningText",
-			"caption": "Warning if thermometer is not reachable"
-		},
-		{
-			"type": "ValidationTextBox",
-			"name": "System_OffText",
-			"caption": "Text thermometer is shut off"
-		},
-		{
-			"type": "CheckBox",
-			"name": "System_Messages",
-			"caption": "System_Messages"
 		},
 		{
 			"type": "NumberSpinner",
@@ -116,65 +84,109 @@
 			]
 		},
 		{
-			"type": "SelectVariable",
-			"name": "EmailVariable",
-			"caption": "Email Configuration"
+			"type": "ExpansionPanel",
+			"caption": "System Config",
+			"items": [
+				{
+					"type": "Label",
+					"label": "System settings for notifications and auto turn off of the module."
+				},
+				{
+					"type": "ValidationTextBox",
+					"name": "System_BatteryText",
+					"caption": "Text if battery is running getting empty"
+				},
+				{
+					"type": "NumberSpinner",
+					"name": "System_AutoOff",
+					"caption": "Auto off Cycles",
+					"suffix": "Cycles",
+					"minimum": "0"
+				},
+				{
+					"type": "ValidationTextBox",
+					"name": "System_OffWarningText",
+					"caption": "Warning if thermometer is not reachable"
+				},
+				{
+					"type": "ValidationTextBox",
+					"name": "System_OffText",
+					"caption": "Text thermometer is shut off"
+				}
+			]
 		},
 		{
-			"type": "SelectVariable",
-			"name": "WebfrontVariable",
-			"caption": "Webfront Configuration"
-		},
-		{
-			"type": "CheckBox",
-			"name": "NotifyByApp",
-			"caption": "Notify in Symcon Mobile"
-		},
-		{
-			"type": "CheckBox",
-			"name": "NotifyByEmail",
-			"caption": "Notify by Email"
-		},
-		{
-			"type": "CheckBox",
-			"name": "MessageOK",
-			"caption": "In Target Temperature Zone"
-		},
-		{
-			"type": "ValidationTextBox",
-			"name": "MessageOKText",
-			"caption": "Text if temperature is OK"
-		},
-		{
-			"type": "CheckBox",
-			"name": "MessageWarmingup",
-			"caption": "Warming Up"
-		},
-		{
-			"type": "ValidationTextBox",
-			"name": "MessageWarmingupText",
-			"caption": "Text when warming up"
-		},
-		{
-			"type": "CheckBox",
-			"name": "MessageTooCold",
-			"caption": "Below Target Temperature"
-		},
-		{
-			"type": "ValidationTextBox",
-			"name": "MessageTooColdText",
-			"caption": "Text if temperature is too low"
-		},
-		{
-			"type": "CheckBox",
-			"name": "MessageTooHigh",
-			"caption": "Above Target Temperature"
-		},
-		{
-			"type": "ValidationTextBox",
-			"name": "MessageTooHighText",
-			"caption": "Text if temperature is too high"
-		}		
+			"type": "ExpansionPanel",
+			"caption": "System Config",
+			"items": [			
+			{
+				"type": "CheckBox",
+				"name": "System_Messages",
+				"caption": "System_Messages"
+			},
+			{
+				"type": "SelectVariable",
+				"name": "EmailVariable",
+				"caption": "Email Configuration"
+			},
+			{
+				"type": "SelectVariable",
+				"name": "WebfrontVariable",
+				"caption": "Webfront Configuration"
+			},
+			{
+				"type": "CheckBox",
+				"name": "NotifyByApp",
+				"caption": "Notify in Symcon Mobile"
+			},
+			{
+				"type": "CheckBox",
+				"name": "NotifyByEmail",
+				"caption": "Notify by Email"
+			},
+			{
+				"type": "CheckBox",
+				"name": "MessageOK",
+				"caption": "In Target Temperature Zone"
+			},
+			{
+				"type": "ValidationTextBox",
+				"name": "MessageOKText",
+				"caption": "Text if temperature is OK"
+			},
+			{
+				"type": "CheckBox",
+				"name": "MessageWarmingup",
+				"caption": "Warming Up"
+			},
+			{
+				"type": "ValidationTextBox",
+				"name": "MessageWarmingupText",
+				"caption": "Text when warming up"
+			},
+			{
+				"type": "CheckBox",
+				"name": "MessageTooCold",
+				"caption": "Below Target Temperature"
+			},
+			{
+				"type": "ValidationTextBox",
+				"name": "MessageTooColdText",
+				"caption": "Text if temperature is too low"
+			},
+			{
+				"type": "CheckBox",
+				"name": "MessageTooHigh",
+				"caption": "Above Target Temperature"
+			},
+			{
+				"type": "ValidationTextBox",
+				"name": "MessageTooHighText",
+				"caption": "Text if temperature is too high",
+				"width": "100%"
+			}
+		]
+	}		
     ],
 	  "actions":
 	  [
