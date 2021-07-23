@@ -182,7 +182,7 @@ if (!defined('vtBoolean')) {
 			}
 			elseif ($UnreachCounter == $System_AutoOff) {
 				//Nachricht + Aus
-				SetValue($this->GetIDForIdent("Active"), 0);
+				SetValue($this->GetIDForIdent("Active"), false);
 				
 				$this->SetBuffer("NotifierMessage",$System_OffText);
 				if ($NotifyByApp == 1) {
