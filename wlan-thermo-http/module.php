@@ -148,17 +148,24 @@ if (!defined('vtBoolean')) {
 
 			if ($Battery < $BatteryThreshold) {
 				$this->SetBuffer("NotifierMessage",$MessageBatteryText." ".$Battery."%");
-				if ($System_Messages == 1) {
+				
+				if ($System_Messages == 1 AND $Battery_WarningStatus == 0) {
 					if ($NotifyByApp == 1) {
+						$Battery_WarningStatus = 1;
 						$this->NotifyApp();
 					}
 					if ($NotifyByEmail == 1) {
+						$Battery_WarningStatus = 1;
 						$this->EmailApp();
 					}
 				}
 			}
+			else {
+				$Battery_WarningStatus = 0;
+			}
 
 			$UnreachCounter = 0;
+			$Unreach_WarningStatus = 0;
 			$this->GetReadings();
 		} 
 		else {
@@ -169,12 +176,14 @@ if (!defined('vtBoolean')) {
 			if ($UnreachCounter == ($System_AutoOff / 2)) {
 				//Nachricht
 				$this->SetBuffer("NotifierMessage",$System_OffWarningText);
-				if ($System_Messages == 1) {
+				if ($System_Messages == 1 AND $Unreach_WarningStatus == 0;) {
 					if ($System_Messages == 1) {
 						if ($NotifyByApp == 1) {
+							$Unreach_WarningStatus = 1;
 							$this->NotifyApp();
 						}
 						if ($NotifyByEmail == 1) {
+							$Unreach_WarningStatus = 1;
 							$this->EmailApp();
 						}
 					}
@@ -185,13 +194,14 @@ if (!defined('vtBoolean')) {
 				SetValue($this->GetIDForIdent("Active"), false);
 				
 				$this->SetBuffer("NotifierMessage",$System_OffText);
-				if ($NotifyByApp == 1) {
+				if ($NotifyByApp == 1 AND $Unreach_WarningStatus == 1;) {
+					$Unreach_WarningStatus = 2;
 					$this->NotifyApp();
 				}
-				if ($NotifyByEmail == 1) {
+				if ($NotifyByEmail == 1 AND $Unreach_WarningStatus == 1;) {
+					$Unreach_WarningStatus = 2;
 					$this->EmailApp();
 				}
-
 			}
 
 		} 
@@ -311,7 +321,7 @@ if (!defined('vtBoolean')) {
 
 					// Section where a noticiation is trigger if configured 
 
-					$this->SendDebug(($this->Translate('Channel ').$Channel),"Old ".$OldStatus." New ".$NewStatus,0);
+					// $this->SendDebug(($this->Translate('Channel ').$Channel),"Old ".$OldStatus." New ".$NewStatus,0);
 					if (isset($OldStatus)) {
 						if ($OldStatus != $NewStatus) {
 							// check if message should be send
@@ -414,6 +424,7 @@ if (!defined('vtBoolean')) {
 				$this->SendDebug("System","Module activated", 0);
 				$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
 				$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
+				$this->GetReadings();
 			}
 			else {
 				$this->SetTimerInterval("WLAN BBQ Thermometer", "0");
