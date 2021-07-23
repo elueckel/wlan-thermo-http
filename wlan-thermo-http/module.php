@@ -257,39 +257,57 @@ if (!defined('vtBoolean')) {
 				//$this->SendDebug(($this->Translate('Channel ').$Channel),$ChannelActive,0);
 				if ($ChannelActive == 1) {
 					$OldStatus = GetValue($this->GetIDForIdent("Channel".$Channel."_Status"));
-					$Temperature = $data->channel[$i]->temp;
-					if ($Temperature != "999") {
-						$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature ".$Temperature,0);
-						SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), $Temperature);
-						$Temperature_Min = $data->channel[$i]->min;
-						$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature Minimum ".$Temperature_Min,0);
-						SetValue($this->GetIDForIdent("Channel".$Channel."_LowerTarget"), $Temperature_Min);
-						$Temperature_Max = $data->channel[$i]->max;
-						$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature Maximum ".$Temperature_Max,0);
-						SetValue($this->GetIDForIdent("Channel".$Channel."_HigherTarget"), $Temperature_Max);
-						$i++;
+					if (isset($data)) {
+						$Temperature = $data->channel[$i]->temp;
+						if ($Temperature != "999") {
+							$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature ".$Temperature,0);
+							SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), $Temperature);
+							$Temperature_Min = $data->channel[$i]->min;
+							$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature Minimum ".$Temperature_Min,0);
+							SetValue($this->GetIDForIdent("Channel".$Channel."_LowerTarget"), $Temperature_Min);
+							$Temperature_Max = $data->channel[$i]->max;
+							$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature Maximum ".$Temperature_Max,0);
+							SetValue($this->GetIDForIdent("Channel".$Channel."_HigherTarget"), $Temperature_Max);
+							$i++;
 
-						//Actions
+							//Actions
 
-						if ($Temperature_Min> "0") {
-							if ($Temperature < ($Temperature_Min * 0.8)) {
-								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Warming Up - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
-								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 2);
-								$NewStatus =  "2";
-								if ($MessageWarmingup == 1) {
-									$NotifierMessage = $MessageWarmingupText." Channel ".$Channel." - ".$Temperature."C";
+							if ($Temperature_Min> "0") {
+								if ($Temperature < ($Temperature_Min * 0.8)) {
+									$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Warming Up - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
+									SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 2);
+									$NewStatus =  "2";
+									if ($MessageWarmingup == 1) {
+										$NotifierMessage = $MessageWarmingupText." Channel ".$Channel." - ".$Temperature."C";
+									}
+								}
+								elseif (($Temperature < $Temperature_Min) AND ($Temperature > $Temperature_Min * 0.8)) {
+									$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too Cold - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
+									SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 3);
+									$NewStatus =  "3";
+									if ($MessageTooCold == 1) {
+										$NotifierMessage = $MessageTooColdText." Channel ".$Channel." - ".$Temperature."C";
+									}
+								}
+								elseif ($Temperature >= $Temperature_Min AND $Temperature < $Temperature_Max) {
+									$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
+									SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 1);
+									$NewStatus =  "1";
+									if ($MessageOK == 1) {
+										$NotifierMessage = $MessageOKText." Channel ".$Channel." - ".$Temperature."C";
+									}
+								}
+								elseif ($Temperature >= $Temperature_Max) {
+									$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 1",0);
+									SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 4);
+									$NewStatus =  "4";
+									if ($MessageTooHigh == 1) {
+										$NotifierMessage = $MessageTooHighText." Channel ".$Channel." - ".$Temperature."C";
+									}
 								}
 							}
-							elseif (($Temperature < $Temperature_Min) AND ($Temperature > $Temperature_Min * 0.8)) {
-								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too Cold - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
-								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 3);
-								$NewStatus =  "3";
-								if ($MessageTooCold == 1) {
-									$NotifierMessage = $MessageTooColdText." Channel ".$Channel." - ".$Temperature."C";
-								}
-							}
-							elseif ($Temperature >= $Temperature_Min AND $Temperature < $Temperature_Max) {
-								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Minimum Temperature ".$Temperature_Min." C - 1",0);
+							elseif ($Temperature < $Temperature_Max) {
+								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 2",0);
 								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 1);
 								$NewStatus =  "1";
 								if ($MessageOK == 1) {
@@ -297,58 +315,42 @@ if (!defined('vtBoolean')) {
 								}
 							}
 							elseif ($Temperature >= $Temperature_Max) {
-								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 1",0);
+								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 3",0);
 								SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 4);
 								$NewStatus =  "4";
 								if ($MessageTooHigh == 1) {
 									$NotifierMessage = $MessageTooHighText." Channel ".$Channel." - ".$Temperature."C";
 								}
 							}
-						}
-						elseif ($Temperature < $Temperature_Max) {
-							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Heat OK - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 2",0);
-							SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 1);
-							$NewStatus =  "1";
-							if ($MessageOK == 1) {
-								$NotifierMessage = $MessageOKText." Channel ".$Channel." - ".$Temperature."C";
-							}
-						}
-						elseif ($Temperature >= $Temperature_Max) {
-							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status: Too hot - Current Temperature ".$Temperature." C - Maximum Temperature ".$Temperature_Min." C - 3",0);
-							SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 4);
-							$NewStatus =  "4";
-							if ($MessageTooHigh == 1) {
-								$NotifierMessage = $MessageTooHighText." Channel ".$Channel." - ".$Temperature."C";
+							else {
+
 							}
 						}
 						else {
-
+							SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 0);
+							$NewStatus =  "0";
 						}
-					}
-					else {
-						SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 0);
-						$NewStatus =  "0";
-					}
 
-					// Section where a noticiation is trigger if configured 
+						// Section where a noticiation is trigger if configured 
 
-					// $this->SendDebug(($this->Translate('Channel ').$Channel),"Old ".$OldStatus." New ".$NewStatus,0);
-					if (isset($OldStatus)) {
-						if ($OldStatus != $NewStatus) {
-							// check if message should be send
-							$this->SendDebug(($this->Translate('Channel ').$Channel),"Status Changed - Check if message should be send",0);
-							if (isset($NotifierMessage)) {
-								$this->SetBuffer("NotifierMessage",$NotifierMessage);
-								if ($NotifyByApp == 1) {
-									$this->NotifyApp();
-								}
-								if ($NotifyByEmail == 1) {
-									$this->EmailApp();
+						// $this->SendDebug(($this->Translate('Channel ').$Channel),"Old ".$OldStatus." New ".$NewStatus,0);
+						if (isset($OldStatus)) {
+							if ($OldStatus != $NewStatus) {
+								// check if message should be send
+								$this->SendDebug(($this->Translate('Channel ').$Channel),"Status Changed - Check if message should be send",0);
+								if (isset($NotifierMessage)) {
+									$this->SetBuffer("NotifierMessage",$NotifierMessage);
+									if ($NotifyByApp == 1) {
+										$this->NotifyApp();
+									}
+									if ($NotifyByEmail == 1) {
+										$this->EmailApp();
+									}
 								}
 							}
-						}
-						else {
-							//do nothing
+							else {
+								//do nothing
+							}
 						}
 					}
 
