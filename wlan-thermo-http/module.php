@@ -113,14 +113,17 @@ if (!defined('vtBoolean')) {
 					$this->RegisterMessage($Channel_HigherTargetID, VM_UPDATE);
 			}
 
-			$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
-			$ArchiveTurnedOn = $this->ReadPropertyBoolean("ArchiveTurnedOn");
-			if ($ArchiveTurnedOn == 1) {
-				AC_SetLoggingStatus($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), true);
-				AC_SetAggregationType($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
+			$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
+			if ($ChannelActive == 1) {
+				$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
+				$ArchiveTurnedOn = $this->ReadPropertyBoolean("ArchiveTurnedOn");
+				if ($ArchiveTurnedOn == 1) {
+					AC_SetLoggingStatus($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), true);
+					AC_SetAggregationType($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
+				}
 			}
 		}
-		
+
 		//$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
 		//$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
 					
