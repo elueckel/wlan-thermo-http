@@ -174,24 +174,19 @@ if (!defined('vtBoolean')) {
 		else {
 			$this->SendDebug($this->Translate('System'),$this->Translate('Thermometer not reachable on IP ').$IP,0);
 			
-			$UnreachCounter = $this->GetBuffer("UnreachCounter");
-			$this->SendDebug('Unreach before',$UnreachCounter,0);
-			
+			//Starts a counter so the module can be switch off once automatic shutdown value is reached
+			$UnreachCounter = $this->GetBuffer("UnreachCounter");		
 			$this->SetBuffer("UnreachCounter",$UnreachCounter + 1);
-			$this->SendDebug('Unreach after',$UnreachCounter,0);
-			
-			$this->SendDebug('AutoOff',($System_AutoOff / 2),0);
+
 			if ($UnreachCounter == ($System_AutoOff / 2)) {
 				//Nachricht
 				$this->SetBuffer("NotifierMessage",$System_OffWarningText);
-				if ($System_Messages == 1 AND $Unreach_WarningStatus == 0) {
+				if ($System_Messages == 1) {
 					if ($System_Messages == 1) {
 						if ($NotifyByApp == 1) {
-							$Unreach_WarningStatus = 1;
 							$this->NotifyApp();
 						}
 						if ($NotifyByEmail == 1) {
-							$Unreach_WarningStatus = 1;
 							$this->EmailApp();
 						}
 					}
@@ -202,12 +197,10 @@ if (!defined('vtBoolean')) {
 				SetValue($this->GetIDForIdent("Active"), false);
 				
 				$this->SetBuffer("NotifierMessage",$System_OffText);
-				if ($NotifyByApp == 1 AND $Unreach_WarningStatus == 1) {
-					$Unreach_WarningStatus = 2;
+				if ($NotifyByApp == 1) {
 					$this->NotifyApp();
 				}
 				if ($NotifyByEmail == 1 AND $Unreach_WarningStatus == 1) {
-					$Unreach_WarningStatus = 2;
 					$this->EmailApp();
 				}
 			}
