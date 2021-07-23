@@ -11,23 +11,20 @@
 			"label": "Please enter the basic Login Information"
 		},
 		{
-			"type": "ValidationTextBox",
-			"name": "IP",
-			"caption": "IP Adress or Network Name"
-		},
-		{
-			"type": "NumberSpinner",
-			"name": "System_BatterieThreshold",
-			"caption": "Batterie Threshold",
-			"suffix": "%",
-			"minimum": "0",
-			"maximum": "100" 
-		},
-		{
-			"type": "NumberSpinner",
-			"name": "Timer",
-			"caption": "Update Frequency",
-			"suffix": "seconds - 0 is off"
+			"type": "RowLayout",
+			"items": [
+				{
+					"type": "ValidationTextBox",
+					"name": "IP",
+					"caption": "IP Adress or Network Name"
+				},
+				{
+					"type": "NumberSpinner",
+					"name": "Timer",
+					"caption": "Update Frequency",
+					"suffix": "seconds"
+				}
+			]
 		},
 		{
 			"type": "ExpansionPanel",
@@ -35,7 +32,7 @@
 			"items": [
 				{
 					"type": "Label",
-					"label": "Please select which channels should be read."
+					"label": "Please select which channels should be read. This section is mainly used to make sure all variables are persistent when e.g. used in a webfront."
 				},
 				{
 					"type": "RowLayout",
@@ -92,9 +89,12 @@
 					"label": "System settings for notifications and auto turn off of the module."
 				},
 				{
-					"type": "ValidationTextBox",
-					"name": "System_BatteryText",
-					"caption": "Text if battery is running getting empty"
+					"type": "NumberSpinner",
+					"name": "System_BatterieThreshold",
+					"caption": "Batterie Threshold",
+					"suffix": "%",
+					"minimum": "0",
+					"maximum": "100"
 				},
 				{
 					"type": "NumberSpinner",
@@ -102,27 +102,16 @@
 					"caption": "Auto off Cycles",
 					"suffix": "Cycles",
 					"minimum": "0"
-				},
-				{
-					"type": "ValidationTextBox",
-					"name": "System_OffWarningText",
-					"caption": "Warning if thermometer is not reachable"
-				},
-				{
-					"type": "ValidationTextBox",
-					"name": "System_OffText",
-					"caption": "Text thermometer is shut off"
 				}
 			]
 		},
 		{
 			"type": "ExpansionPanel",
-			"caption": "System Config",
+			"caption": "Notification settings and templates",
 			"items": [			
 			{
-				"type": "CheckBox",
-				"name": "System_Messages",
-				"caption": "System_Messages"
+				"type": "Label",
+				"label": "Basic messaging communication"
 			},
 			{
 				"type": "SelectVariable",
@@ -145,6 +134,34 @@
 				"caption": "Notify by Email"
 			},
 			{
+				"type": "Label",
+				"label": "Settings for system messages"
+			},
+			{
+				"type": "CheckBox",
+				"name": "System_Messages",
+				"caption": "System_Messages"
+			},
+			{
+				"type": "ValidationTextBox",
+				"name": "System_BatteryText",
+				"caption": "Text if battery is running getting empty"
+			},
+			{
+				"type": "ValidationTextBox",
+				"name": "System_OffWarningText",
+				"caption": "Warning if thermometer is not reachable"
+			},
+			{
+				"type": "ValidationTextBox",
+				"name": "System_OffText",
+				"caption": "Text thermometer is shut off"
+			},
+			{
+				"type": "Label",
+				"label": "Settings for temerature related messages"
+			},
+			{
 				"type": "CheckBox",
 				"name": "MessageOK",
 				"caption": "In Target Temperature Zone"
@@ -152,7 +169,8 @@
 			{
 				"type": "ValidationTextBox",
 				"name": "MessageOKText",
-				"caption": "Text if temperature is OK"
+				"caption": "Text if temperature is OK",
+				"width": "100%"
 			},
 			{
 				"type": "CheckBox",
@@ -162,7 +180,8 @@
 			{
 				"type": "ValidationTextBox",
 				"name": "MessageWarmingupText",
-				"caption": "Text when warming up"
+				"caption": "Text when warming up",
+				"width": "100%"
 			},
 			{
 				"type": "CheckBox",
@@ -172,7 +191,8 @@
 			{
 				"type": "ValidationTextBox",
 				"name": "MessageTooColdText",
-				"caption": "Text if temperature is too low"
+				"caption": "Text if temperature is too low",
+				"width": "100%"
 			},
 			{
 				"type": "CheckBox",
