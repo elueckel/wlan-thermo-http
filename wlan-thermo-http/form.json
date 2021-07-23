@@ -135,6 +135,10 @@
 			},
 			{
 				"type": "Label",
+				"label": "------------------------------------------------------------------------------"
+			},
+			{
+				"type": "Label",
 				"label": "Settings for system messages"
 			},
 			{
@@ -159,12 +163,16 @@
 			},
 			{
 				"type": "Label",
+				"label": "------------------------------------------------------------------------------"
+			},
+			{
+				"type": "Label",
 				"label": "Settings for temerature related messages"
 			},
 			{
 				"type": "CheckBox",
 				"name": "MessageOK",
-				"caption": "In Target Temperature Zone"
+				"caption": "Send message when OK in Temperature Zone (between minimum and maximum)"
 			},
 			{
 				"type": "ValidationTextBox",
@@ -175,7 +183,7 @@
 			{
 				"type": "CheckBox",
 				"name": "MessageWarmingup",
-				"caption": "Warming Up"
+				"caption": "Send message when WARMING UP (temperature below minimum)"
 			},
 			{
 				"type": "ValidationTextBox",
@@ -186,7 +194,7 @@
 			{
 				"type": "CheckBox",
 				"name": "MessageTooCold",
-				"caption": "Below Target Temperature"
+				"caption": "Send message when BELOW Target Temperature (temperature below minimum - 20%)"
 			},
 			{
 				"type": "ValidationTextBox",
@@ -197,7 +205,7 @@
 			{
 				"type": "CheckBox",
 				"name": "MessageTooHigh",
-				"caption": "Above Target Temperature"
+				"caption": "Send message when ABOVE Target Temperature"
 			},
 			{
 				"type": "ValidationTextBox",
