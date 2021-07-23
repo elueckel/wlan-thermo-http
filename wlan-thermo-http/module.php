@@ -25,7 +25,7 @@ if (!defined('vtBoolean')) {
 			$this->RegisterPropertyBoolean("System_Messages", 0);
 			$this->RegisterPropertyInteger("Timer", "60");
 			$this->RegisterPropertyInteger("System_BatteryThreshold", "15");
-			$this->RegisterPropertyString("SystemBatteryText", "Die Batterie ist fast leer");
+			$this->RegisterPropertyString("System_BatteryText", "Die Batterie ist fast leer");
 			$this->RegisterPropertyInteger("System_AutoOff", 0);
 			$this->RegisterPropertyString("System_OffWarningText", "Das Thermometer ist nicht erreichbar - prüfen?");
 			$this->RegisterPropertyString("System_OffText", "Das Thermometer Modul wurde ausgeschaltet");
@@ -70,7 +70,7 @@ if (!defined('vtBoolean')) {
 			//Fixed Variables
 
 			$this->RegisterVariableBoolean('Active', $this->Translate('Active'),"~Switch");
-			$this->RegisterVariableInteger('Battery', $this->Translate('Active'),"~Battery.100");
+			$this->RegisterVariableInteger('Battery', $this->Translate('Battery'),"~Battery.100");
 
 
 
@@ -120,15 +120,15 @@ if (!defined('vtBoolean')) {
 
 	public function CyclicTask() {
 
-		$BatteryThreshold = $this->ReadPropertyInteger("BatteryThreshold");
-		$SystemBatteryText = $this->ReadPropertyString("SystemBatteryText");
+		$BatteryThreshold = $this->ReadPropertyInteger("System_BatteryThreshold");
+		$SystemBatteryText = $this->ReadPropertyString("System_SystemBatteryText");
 		$System_AutoOff = $this->ReadPropertyInteger("System_AutoOff");
 		$System_OffWarningText = $this->ReadPropertyString("System_OffWarningText");
 		$System_OffText = $this->ReadPropertyString("System_OffText");
 		$System_Messages = $this->ReadPropertyBoolean("System_Messages");
 
 		$NotifyByApp = $this->ReadPropertyBoolean("NotifyByApp");
-		$NotifyByEmail = $this->ReadPropertyString("NotifyByEmail");
+		$NotifyByEmail = $this->ReadPropertyBoolean("NotifyByEmail");
 
 		$IP = $this->ReadPropertyString("IP");
 		$Port = 80;
@@ -204,7 +204,7 @@ if (!defined('vtBoolean')) {
 		$IP = $this->ReadPropertyString("IP");
 
 		$NotifyByApp = $this->ReadPropertyBoolean("NotifyByApp");
-		$NotifyByEmail = $this->ReadPropertyString("NotifyByEmail");
+		$NotifyByEmail = $this->ReadPropertyBoolean("NotifyByEmail");
 
 		$MessageOK = $this->ReadPropertyBoolean("MessageOK");
 		$MessageOKText = $this->ReadPropertyString("MessageOKText");
