@@ -149,17 +149,20 @@
 			{
 				"type": "ValidationTextBox",
 				"name": "System_BatteryText",
-				"caption": "Text if battery is running getting empty"
+				"caption": "Text if battery is running getting empty",
+				"width": "100%"
 			},
 			{
 				"type": "ValidationTextBox",
 				"name": "System_OffWarningText",
-				"caption": "Warning if thermometer is not reachable"
+				"caption": "Warning if thermometer is not reachable",
+				"width": "100%"
 			},
 			{
 				"type": "ValidationTextBox",
 				"name": "System_OffText",
-				"caption": "Text thermometer is shut off"
+				"caption": "Text thermometer is shut off",
+				"width": "100%"
 			},
 			{
 				"type": "Label",
