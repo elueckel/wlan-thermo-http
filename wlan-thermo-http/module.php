@@ -232,10 +232,10 @@ if (!defined('vtBoolean')) {
 
 			foreach ($Channels as $Channel) {
 
-				$OldStatus = GetValue($this->GetIDForIdent("Channel".$Channel."_Status"));
 				$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
 				//$this->SendDebug(($this->Translate('Channel ').$Channel),$ChannelActive,0);
 				if ($ChannelActive == 1) {
+					$OldStatus = GetValue($this->GetIDForIdent("Channel".$Channel."_Status"));
 					$Temperature = $data->channel[$i]->temp;
 					if ($Temperature != "999") {
 						$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature ".$Temperature,0);
