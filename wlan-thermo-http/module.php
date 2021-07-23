@@ -145,7 +145,7 @@ if (!defined('vtBoolean')) {
 		$Port = 80;
 		$WaitTimeoutInSeconds = 1;
 
-		if($fp = fsockopen($IP,$Port,$errCode,$errStr,$WaitTimeoutInSeconds)){
+		if($fp = fsockopen($IP,$Port,$WaitTimeoutInSeconds)){
 			
 			$curl = curl_init("http://".$IP."/data");
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
