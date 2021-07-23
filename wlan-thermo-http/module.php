@@ -254,6 +254,7 @@ if (!defined('vtBoolean')) {
 						$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature ".$Temperature,0);
 
 						//Var Test
+						AC_SetLoggingStatus($archiveID, $energyID, true);
 						AC_SetAggregationType($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
 						
 						SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), $Temperature);
