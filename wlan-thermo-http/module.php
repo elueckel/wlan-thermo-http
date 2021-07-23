@@ -116,6 +116,13 @@ if (!defined('vtBoolean')) {
 
 		}
 
+		$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
+		$ArchiveTurnedOn = $this->ReadPropertyBoolean("ArchiveTurnedOn");
+		if ($ArchiveTurnedOn == 1) {
+			AC_SetLoggingStatus($ArchiveID, $energyID, true);
+			AC_SetAggregationType($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
+		}
+
 		//$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
 		//$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
 					
@@ -217,6 +224,7 @@ if (!defined('vtBoolean')) {
 
 		$NotifyByApp = $this->ReadPropertyBoolean("NotifyByApp");
 		$NotifyByEmail = $this->ReadPropertyBoolean("NotifyByEmail");
+		
 
 		$MessageOK = $this->ReadPropertyBoolean("MessageOK");
 		$MessageOKText = $this->ReadPropertyString("MessageOKText");
@@ -245,18 +253,12 @@ if (!defined('vtBoolean')) {
 			foreach ($Channels as $Channel) {
 
 				$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
-				$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
 				//$this->SendDebug(($this->Translate('Channel ').$Channel),$ChannelActive,0);
 				if ($ChannelActive == 1) {
 					$OldStatus = GetValue($this->GetIDForIdent("Channel".$Channel."_Status"));
 					$Temperature = $data->channel[$i]->temp;
 					if ($Temperature != "999") {
 						$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature ".$Temperature,0);
-
-						//Var Test
-						AC_SetLoggingStatus($archiveID, $energyID, true);
-						AC_SetAggregationType($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
-						
 						SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), $Temperature);
 						$Temperature_Min = $data->channel[$i]->min;
 						$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature Minimum ".$Temperature_Min,0);
@@ -436,6 +438,7 @@ if (!defined('vtBoolean')) {
 			}
 			else {
 				$this->SetTimerInterval("WLAN BBQ Thermometer", "0");
+				$this->ArchiveCleaning();
 				$this->SendDebug("System","Switching module off", 0);
 			}
 		}
@@ -466,7 +469,6 @@ if (!defined('vtBoolean')) {
 	public function ArchiveCleaning() {
 
 		$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
-
 		AC_DeleteVariableData ($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0, 0);
 		
 	}
