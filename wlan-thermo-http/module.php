@@ -170,9 +170,10 @@ if (!defined('vtBoolean')) {
 		} 
 		else {
 			$this->SendDebug($this->Translate('System'),$this->Translate('Thermometer not reachable on IP ').$IP,0);
-
+			$this->SendDebug('Unreach before',$UnreachCounter,0);
 			$UnreachCounter = $UnreachCounter + 1;
-			
+			$this->SendDebug('Unreach after',$UnreachCounter,0);
+			$this->SendDebug('AutoOff',($System_AutoOff / 2),0);
 			if ($UnreachCounter == ($System_AutoOff / 2)) {
 				//Nachricht
 				$this->SetBuffer("NotifierMessage",$System_OffWarningText);
@@ -414,6 +415,7 @@ if (!defined('vtBoolean')) {
 			
 			$result = curl_exec($ch);
 			curl_close($ch);
+			$this->GetReadings();
 
 		}
 		
