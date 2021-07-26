@@ -509,5 +509,6 @@ if (!defined('vtBoolean')) {
 			SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 0);
 
 		}
+	}
 
 }
