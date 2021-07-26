@@ -60,11 +60,11 @@ if (!defined('vtBoolean')) {
 				IPS_SetVariableProfileValues("WT.Channel_Status", 0, 0, 1);
 				IPS_SetVariableProfileDigits("WT.Channel_Status", 1);
 				IPS_SetVariableProfileIcon("WT.Channel_Status",  "WindSpeed");
-				IPS_SetVariableProfileAssociation("WT.Channel_Status", 0, $this->Translate("Not Found"), "",-1);
-				IPS_SetVariableProfileAssociation("WT.Channel_Status", 1, $this->Translate("OK"),"",-1);
-				IPS_SetVariableProfileAssociation("WT.Channel_Status", 2, $this->Translate("Warming Up"),"",-1);
-				IPS_SetVariableProfileAssociation("WT.Channel_Status", 3, $this->Translate("Too Cold"),"",-1);
-				IPS_SetVariableProfileAssociation("WT.Channel_Status", 4, $this->Translate("Too Hot"),"",-1);
+				IPS_SetVariableProfileAssociation("WT.Channel_Status", 0, $this->Translate("Not Found"), 0x808080,-1);
+				IPS_SetVariableProfileAssociation("WT.Channel_Status", 1, $this->Translate("OK"),0x00ff00,-1);
+				IPS_SetVariableProfileAssociation("WT.Channel_Status", 2, $this->Translate("Warming Up"),0x00ffff,-1);
+				IPS_SetVariableProfileAssociation("WT.Channel_Status", 3, $this->Translate("Too Cold"),0x0000ff,-1);
+				IPS_SetVariableProfileAssociation("WT.Channel_Status", 4, $this->Translate("Too Hot"),0xff0000,-1);
 			}
 
 			//Fixed Variables
