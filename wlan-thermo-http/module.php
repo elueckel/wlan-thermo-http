@@ -127,7 +127,7 @@ if (!defined('vtBoolean')) {
 
 				//$this->EnableAction('Channel'.$Channel.'_LowerTarget');
 				//$this->EnableAction('Channel'.$Channel.'_HigherTarget');
-				IPS_SetVariableCustomAction($Channel_LowerTargetID,1);
+				IPS_SetVariableCustomAction($Channel_LowerTargetID);
 				
 				//Add archiving if activated by channel
 				$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
