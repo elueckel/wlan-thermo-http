@@ -24,9 +24,9 @@ if (!defined('vtBoolean')) {
 			$this->RegisterPropertyString("IP","");
 			$this->RegisterPropertyBoolean("System_Messages", 0);
 			$this->RegisterPropertyInteger("Timer", "60");
-			$this->RegisterPropertyInteger("System_BatteryThreshold", 15);
+			$this->RegisterPropertyInteger("System_BatteryThreshold", "15");
 			$this->RegisterPropertyString("System_BatteryText", "Die Batterie ist fast leer");
-			$this->RegisterPropertyInteger("System_AutoOff", 0);
+			$this->RegisterPropertyInteger("System_AutoOff", "5");
 			$this->RegisterPropertyString("System_OffWarningText", "Das Thermometer ist nicht erreichbar - prüfen?");
 			$this->RegisterPropertyString("System_OffText", "Das Thermometer Modul wurde ausgeschaltet");
 
@@ -442,6 +442,7 @@ if (!defined('vtBoolean')) {
 			else {
 				$this->SetTimerInterval("WLAN BBQ Thermometer", "0");
 				$this->ArchiveCleaning();
+				$this->UnsetValuesAtShutdown();
 				$this->SendDebug("System","Switching module off", 0);
 			}
 		}
@@ -493,9 +494,20 @@ if (!defined('vtBoolean')) {
 						AC_SetAggregationType($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
 					}
 			}
-		}
-
-		
+		}		
 	}
+
+	public function UnsetValuesAtShutdown() {
+
+		$Channels = array(1,2,3,4,5,6);
+
+		foreach ($Channels as $Channel) {
+			$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature ".$Temperature,0);
+			SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
+			SetValue($this->GetIDForIdent("Channel".$Channel."_LowerTarget"), 0);
+			SetValue($this->GetIDForIdent("Channel".$Channel."_HigherTarget"), 0);
+			SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 0);
+
+		}
 
 }

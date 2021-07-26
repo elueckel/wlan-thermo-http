@@ -114,14 +114,17 @@
 				"label": "Basic messaging communication"
 			},
 			{
+				"type": "Label",
+				"label": "Please select an instance which should be used to send emails"
+			},
+			{
 				"type": "SelectInstance",
 				"name": "EmailVariable",
 				"caption": "Email Configuration"
 			},
 			{
-				"type": "SelectVariable",
-				"name": "WebfrontVariable",
-				"caption": "Webfront Configuration"
+				"type": "Label",
+				"label": "App Notifications are send via the standard webfront"
 			},
 			{
 				"type": "CheckBox",
@@ -144,7 +147,7 @@
 			{
 				"type": "CheckBox",
 				"name": "System_Messages",
-				"caption": "System_Messages"
+				"caption": "System Messages"
 			},
 			{
 				"type": "ValidationTextBox",
@@ -222,19 +225,24 @@
 	  "actions":
 	  [
 		{
-			"type": "Button",
-			"label": "Get Readings",
-			"onClick": "WT_GetReadings($id);"
-		},
-		{
-			"type": "Button",
-			"label": "Test Email Notification",
-			"onClick": "WT_EmailApp($id);"
-		},
-		{
-			"type": "Button",
-			"label": "Test App Notification",
-			"onClick": "WT_NotifyApp($id);"
+			"type": "RowLayout",
+			"items": [
+				{
+					"type": "Button",
+					"label": "Get Readings",
+					"onClick": "WT_GetReadings($id);"
+				},
+				{
+					"type": "Button",
+					"label": "Test Email Notification",
+					"onClick": "WT_EmailApp($id);"
+				},
+				{
+					"type": "Button",
+					"label": "Test App Notification",
+					"onClick": "WT_NotifyApp($id);"
+				}
+			]
 		}
-  	]
+	]
 }
