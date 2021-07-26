@@ -1,10 +1,10 @@
-# wlan-thermo-http
+# WLAN Thermo BBQ Modul 
 
-Das WLAN Thermo Modul für Symcon basiert auf der HTTP Webservice Schnittstelle und ermöglich die Komfortable Nutzung der WLANThermo Grill Thermometer in 
-Verbindung mit Symcon. Das Modul kann 
+Das WLAN Thermo Modul für Symcon basiert auf der HTTP Webservice Schnittstelle des WLAN Thermo BBQ Thermometers (https://wlanthermo.de/) und ermöglich die komfortable Nutzung der WLANThermo Grill Thermometer in Verbindung mit Symcon. Das Modul kann 
 
-* bis zu 8 Sensoren abfragen
+* bis zu 6 Sensoren abfragen
 * jeder Sensor kann einzeln aktiviert werden 
-* zentraler Timer für alle Sensoren
+* zentraler Timer für alle Sensoren (definitiert die Häufigkeit der Abfrage)
 * einzelne Alarme für min/max
-* Warnung via Message Control
+* Warnung via Message Control und Email bei zu hoher/niedriger Temperatur, wie auch "nicht Erreichbarkeit"
+* das Modul deaktiviert sich nach einer bestimmten Anzahl von Zyklen und schickt, wenn aktivert, Warnungen bei der Hälfte bez. beim ausschalten
