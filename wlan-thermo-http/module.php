@@ -110,12 +110,12 @@ if (!defined('vtBoolean')) {
 			$this->MaintainVariable('Channel'.$Channel.'_Status', $this->Translate('Channel '.$Channel.' Status'), vtInteger, 'WT.Channel_Status', $vpos++, $this->ReadPropertyBoolean('Channel'.$Channel.'Active') == 1);
 			$vpos = 10 * ceil($vpos/10);
 
-			$Channel_LowerTargetID= @IPS_GetObjectIDByIdent('Channel'.$Channel.'_LowerTarget', $this->InstanceID);	
+			$Channel_LowerTargetID = @IPS_GetObjectIDByIdent('Channel'.$Channel.'_LowerTarget', $this->InstanceID);	
 			if (IPS_GetObject($Channel_LowerTargetID)['ObjectType'] == 2) {
 					$this->RegisterMessage($Channel_LowerTargetID, VM_UPDATE);
 			}
 
-			$Channel_HigherTargetID= @IPS_GetObjectIDByIdent('Channel'.$Channel.'_HigherTarget', $this->InstanceID);
+			$Channel_HigherTargetID = @IPS_GetObjectIDByIdent('Channel'.$Channel.'_HigherTarget', $this->InstanceID);
 			if (IPS_GetObject($Channel_HigherTargetID)['ObjectType'] == 2) {
 					$this->RegisterMessage($Channel_HigherTargetID, VM_UPDATE);
 						
@@ -125,8 +125,9 @@ if (!defined('vtBoolean')) {
 			if ($ChannelActive == 1) {
 				//Add actions for Webfront when channel is active
 
-				$this->EnableAction('Channel'.$Channel.'_LowerTarget');
-				$this->EnableAction('Channel'.$Channel.'_HigherTarget');
+				//$this->EnableAction('Channel'.$Channel.'_LowerTarget');
+				//$this->EnableAction('Channel'.$Channel.'_HigherTarget');
+				IPS_SetVariableCustomAction($Channel_LowerTargetID,0);
 				
 				//Add archiving if activated by channel
 				$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
