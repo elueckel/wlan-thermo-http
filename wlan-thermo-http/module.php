@@ -146,7 +146,7 @@ if (!defined('vtBoolean')) {
 	public function CyclicTask() {
 
 		$BatteryThreshold = $this->ReadPropertyInteger("System_BatteryThreshold");
-		$SystemBatteryText = $this->ReadPropertyString("System_SystemBatteryText");
+		$SystemBatteryText = $this->ReadPropertyString("System_BatteryText");
 		$System_AutoOff = $this->ReadPropertyInteger("System_AutoOff");
 		$System_OffWarningText = $this->ReadPropertyString("System_OffWarningText");
 		$System_OffText = $this->ReadPropertyString("System_OffText");
