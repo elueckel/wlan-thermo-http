@@ -409,9 +409,9 @@ if (!defined('vtBoolean')) {
 			} else {
 			}
 
-			if (strpos($SenderName, 'Lower')) {
+			if (strpos($SenderName, 'Lower') == True) {
 				$set_temp_min = $SenderValue;
-			} elseif (strpos($SenderName, 'Higher')) {
+			} elseif (strpos($SenderName, 'Higher') == True) {
 				$set_temp_max = $SenderValue;
 			}
 
