@@ -8,7 +8,7 @@
 		},
 		{
 			"type": "Label",
-			"label": "Please enter the basic Login Information"
+			"label": "To connect to the Thermometer please provide the IP address or network name"
 		},
 		{
 			"type": "RowLayout",
@@ -92,7 +92,7 @@
 				{
 					"type": "NumberSpinner",
 					"name": "System_BatteryThreshold",
-					"caption": "Batterie Threshold",
+					"caption": "Battery Threshold",
 					"suffix": "%",
 					"minimum": "0",
 					"maximum": "100"
@@ -190,7 +190,7 @@
 			{
 				"type": "CheckBox",
 				"name": "MessageWarmingup",
-				"caption": "Send message when WARMING UP (temperature below minimum)"
+				"caption": "Send message when WARMING UP (temperature below minimum -20%)"
 			},
 			{
 				"type": "ValidationTextBox",
@@ -201,7 +201,7 @@
 			{
 				"type": "CheckBox",
 				"name": "MessageTooCold",
-				"caption": "Send message when BELOW Target Temperature (temperature below minimum - 20%)"
+				"caption": "Send message when BELOW Target Temperature (temperature below minimum)"
 			},
 			{
 				"type": "ValidationTextBox",
