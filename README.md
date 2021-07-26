@@ -8,3 +8,6 @@ Das WLAN Thermo Modul für Symcon basiert auf der HTTP Webservice Schnittstelle 
 * einzelne Alarme für min/max
 * Warnung via Message Control und Email bei zu hoher/niedriger Temperatur, wie auch "nicht Erreichbarkeit"
 * das Modul deaktiviert sich nach einer bestimmten Anzahl von Zyklen und schickt, wenn aktivert, Warnungen bei der Hälfte bez. beim ausschalten
+* alle Variablen werden persistent angelegt und können so über das Webfront eingebunden werden
+* wenn man "die Active Variable" mit einer Aktion verbindet, die mit einem Präsenzmelder (z.B. im Unifi Modul) gekoppelt ist, schaltet sich das Modul selbst ein
+
