@@ -409,6 +409,7 @@ if (!defined('vtBoolean')) {
 			} else {
 			}
 
+			$this->SendDebug($this->Translate('Sender'),$SenderName,0);
 			$set_channel = $Channel;
 			$set_alarm = '0';
 
