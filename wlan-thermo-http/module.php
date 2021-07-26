@@ -453,6 +453,9 @@ if (!defined('vtBoolean')) {
 
 	public function NotifyApp() {
 		$NotifierTitle = "BBG Thermometer";
+		if ($NotifierMessage == "") {
+			$NotifierMessage = "Test Message";
+		}
 		$NotifierMessage = $this->GetBuffer("NotifierMessage");
 		$WebFrontMobile = IPS_GetInstanceListByModuleID('{3565B1F2-8F7B-4311-A4B6-1BF1D868F39E}')[0];
 		$this->SendDebug("Notifier","********** App Notifier **********", 0);
@@ -463,6 +466,9 @@ if (!defined('vtBoolean')) {
 	public function EmailApp() {
 		$EmailVariable = $this->ReadPropertyInteger("EmailVariable"); 
 		$EmailTitle = "BBG Thermometer";
+		if ($NotifierMessage == "") {
+			$NotifierMessage = "Test Message";
+		}
 		$NotifierMessage = $this->GetBuffer("NotifierMessage");
 		$this->SendDebug("Email","********** Email **********", 0);
 		$this->SendDebug("Email","Message: ".$NotifierMessage." was sent", 0);			

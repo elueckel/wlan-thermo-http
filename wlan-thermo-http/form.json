@@ -114,7 +114,7 @@
 				"label": "Basic messaging communication"
 			},
 			{
-				"type": "SelectVariable",
+				"type": "SelectInstance",
 				"name": "EmailVariable",
 				"caption": "Email Configuration"
 			},
@@ -225,6 +225,16 @@
 			"type": "Button",
 			"label": "Get Readings",
 			"onClick": "WT_GetReadings($id);"
+		},
+		{
+			"type": "Button",
+			"label": "Test Email Notification",
+			"onClick": "WT_EmailApp()($id);"
+		},
+		{
+			"type": "Button",
+			"label": "Test App Notification",
+			"onClick": "WT_NotifyApp()($id);"
 		}
   	]
 }
