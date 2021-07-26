@@ -411,21 +411,34 @@ if (!defined('vtBoolean')) {
 
 			if (strpos($SenderName, 'Lower') == True) {
 				$set_temp_min = $SenderValue;
+				
+				$data = array(
+				'number' => $set_channel,
+				'min' => $set_temp_min,
+				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
+				);
 			} elseif (strpos($SenderName, 'Higher') == True) {
 				$set_temp_max = $SenderValue;
+
+				$data = array(
+				'number' => $set_channel,
+				'max' => $set_temp_max,
+				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
+				);
 			}
 
 			$set_channel = $Channel;
 			//$set_temp_max = '40';
 			//$set_temp_min = $SenderValue;
 			$set_alarm = '0';
-
+			/*
 			$data = array(
 				'number' => $set_channel,
 				'max' => $set_temp_max,
 				'min' => $set_temp_min,
 				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
 			);
+			*/
 			
 			$payload = json_encode($data);
 			
