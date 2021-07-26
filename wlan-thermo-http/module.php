@@ -465,11 +465,11 @@ if (!defined('vtBoolean')) {
 
 	public function EmailApp() {
 		$EmailVariable = $this->ReadPropertyInteger("EmailVariable"); 
+		$NotifierMessage = $this->GetBuffer("NotifierMessage");
 		$EmailTitle = "BBG Thermometer";
 		if ($NotifierMessage == "") {
 			$NotifierMessage = "Test Message";
 		}
-		$NotifierMessage = $this->GetBuffer("NotifierMessage");
 		$this->SendDebug("Email","********** Email **********", 0);
 		$this->SendDebug("Email","Message: ".$NotifierMessage." was sent", 0);			
 		SMTP_SendMail($EmailVariable, $EmailTitle, $NotifierMessage);
