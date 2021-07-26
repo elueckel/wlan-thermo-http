@@ -104,15 +104,15 @@ if (!defined('vtBoolean')) {
 			$vpos = 10 * ceil($vpos/10);
 
 			$Channel_LowerTargetID= @IPS_GetObjectIDByIdent('Channel'.$Channel.'_LowerTarget', $this->InstanceID);	
-			$this->EnableAction($Channel_LowerTargetID);
 			if (IPS_GetObject($Channel_LowerTargetID)['ObjectType'] == 2) {
 					$this->RegisterMessage($Channel_LowerTargetID, VM_UPDATE);
+					$this->EnableAction($Channel_LowerTargetID);
 			}
 
 			$Channel_HigherTargetID= @IPS_GetObjectIDByIdent('Channel'.$Channel.'_HigherTarget', $this->InstanceID);
-			$this->EnableAction($Channel_HigherTargetID);	
 			if (IPS_GetObject($Channel_HigherTargetID)['ObjectType'] == 2) {
 					$this->RegisterMessage($Channel_HigherTargetID, VM_UPDATE);
+					$this->EnableAction($Channel_HigherTargetID);	
 			}
 
 			$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
