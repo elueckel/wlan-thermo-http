@@ -419,7 +419,7 @@ if (!defined('vtBoolean')) {
 				$data = array(
 				'number' => $set_channel,
 				'min' => $set_temp_min,
-				'max' => '',
+				//'max' => '',
 				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
 				);
 			} elseif (strpos($SenderName, 'Higher') == True OR strpos($SenderName, 'Obere') == True) {
@@ -427,7 +427,7 @@ if (!defined('vtBoolean')) {
 
 				$data = array(
 				'number' => $set_channel,
-				'min' => '',
+				//'min' => '',
 				'max' => $set_temp_max,
 				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
 				);
