@@ -418,6 +418,7 @@ if (!defined('vtBoolean')) {
 				$data = array(
 				'number' => $set_channel,
 				'min' => $set_temp_min,
+				'max' => '',
 				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
 				);
 			} elseif (strpos($SenderName, 'Higher') == True) {
@@ -425,6 +426,7 @@ if (!defined('vtBoolean')) {
 
 				$data = array(
 				'number' => $set_channel,
+				'min' => '',
 				'max' => $set_temp_max,
 				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
 				);
