@@ -117,8 +117,9 @@ if (!defined('vtBoolean')) {
 			$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
 			if ($ChannelActive == 1) {
 				//Add actions for Webfront when channel is active
-				$this->EnableAction($Channel_LowerTargetID);
-				$this->EnableAction($Channel_HigherTargetID);
+
+				$this->EnableAction('Channel'.$Channel.'_LowerTarget');
+				$this->EnableAction('Channel'.$Channel.'_HigherTarget');
 				
 				//Add archiving if activated by channel
 				$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
