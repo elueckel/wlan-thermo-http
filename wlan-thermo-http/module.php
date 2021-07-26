@@ -422,8 +422,8 @@ if (!defined('vtBoolean')) {
 
 			$data = array(
 				'number' => $set_channel,
-				'max' => $set_temp_max,
-				'min' => $set_temp_min,
+				'max' => isset($set_temp_max),
+				'min' => isset($set_temp_min),
 				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
 			);
 			
