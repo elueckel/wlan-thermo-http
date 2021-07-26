@@ -106,17 +106,21 @@ if (!defined('vtBoolean')) {
 			$Channel_LowerTargetID= @IPS_GetObjectIDByIdent('Channel'.$Channel.'_LowerTarget', $this->InstanceID);	
 			if (IPS_GetObject($Channel_LowerTargetID)['ObjectType'] == 2) {
 					$this->RegisterMessage($Channel_LowerTargetID, VM_UPDATE);
-					$this->EnableAction($Channel_LowerTargetID);
 			}
 
 			$Channel_HigherTargetID= @IPS_GetObjectIDByIdent('Channel'.$Channel.'_HigherTarget', $this->InstanceID);
 			if (IPS_GetObject($Channel_HigherTargetID)['ObjectType'] == 2) {
 					$this->RegisterMessage($Channel_HigherTargetID, VM_UPDATE);
-					$this->EnableAction($Channel_HigherTargetID);	
+						
 			}
 
 			$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
 			if ($ChannelActive == 1) {
+				//Add actions for Webfront when channel is active
+				$this->EnableAction($Channel_LowerTargetID);
+				$this->EnableAction($Channel_HigherTargetID);
+				
+				//Add archiving if activated by channel
 				$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
 				$ArchiveTurnedOn = $this->ReadPropertyBoolean("ArchiveTurnedOn");
 				if ($ArchiveTurnedOn == 1) {
