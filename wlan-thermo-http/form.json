@@ -76,7 +76,8 @@
 				{
 					"type": "CheckBox",
 					"name": "ArchiveTurnedOn",
-					"caption": "Record Temperature"
+					"caption": "Record Temperature",
+					"confirm": "When activated all temperature changes will be recorded as long as the module is on. Once the component deactivated all values will be dumped!"
 				}		
 			]
 		},
@@ -90,9 +91,11 @@
 				},
 				{
 					"type": "NumberSpinner",
-					"name": "System_BatterieThreshold",
+					"name": "System_BatteryThreshold",
 					"caption": "Batterie Threshold",
-					"suffix": "%"
+					"suffix": "%",
+					"minimum": "0",
+					"maximum": "100"
 				},
 				{
 					"type": "NumberSpinner",
