@@ -68,7 +68,7 @@ if (!defined('vtBoolean')) {
 			}
 
 			if (IPS_VariableProfileExists("WT.BBQ_Temperature") == false){
-				IPS_CreateVariableProfile("WT.BBQ_Temperature", 1);
+				IPS_CreateVariableProfile("WT.BBQ_Temperature", 2);
 				IPS_SetVariableProfileValues("WT.BBQ_Temperature", 0, 400, 1);
 				IPS_SetVariableProfileDigits("WT.BBQ_Temperature", 0);
 				IPS_SetVariableProfileIcon("WT.BBQ_Temperature",  "Temperature");
