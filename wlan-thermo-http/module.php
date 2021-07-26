@@ -125,9 +125,8 @@ if (!defined('vtBoolean')) {
 			if ($ChannelActive == 1) {
 				//Add actions for Webfront when channel is active
 
-				//$this->EnableAction('Channel'.$Channel.'_LowerTarget');
-				//$this->EnableAction('Channel'.$Channel.'_HigherTarget');
-				IPS_SetVariableCustomAction($Channel_LowerTargetID);
+				$this->EnableAction("Channel'.$Channel.'_LowerTarget");
+				$this->EnableAction('Channel'.$Channel.'_HigherTarget');				
 				
 				//Add archiving if activated by channel
 				$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
@@ -529,6 +528,18 @@ if (!defined('vtBoolean')) {
 			SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 0);
 
 		}
+	}
+
+	public function RequestAction($Ident, $Value) {
+		
+		$this->SetValue($Ident, $Value);
+		/*switch($Ident) {
+			case "TestVariable":
+				$this->SetValue($Ident, $Value);
+				break;
+			default:
+				throw new Exception("Invalid ident");
+		}*/
 	}
 
 }
