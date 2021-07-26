@@ -412,7 +412,7 @@ if (!defined('vtBoolean')) {
 			$set_channel = $Channel;
 			$set_alarm = '0';
 
-			if ((strpos($SenderName, 'Lower') == True) OR (strpos($SenderName, 'Untere') == True)) {
+			if (strpos($SenderName, 'Lower' == True)) {
 				$set_temp_min = $SenderValue;
 				
 				$data = array(
@@ -420,7 +420,7 @@ if (!defined('vtBoolean')) {
 				'min' => $set_temp_min,
 				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
 				);
-			} elseif ((strpos($SenderName, 'Higher') == True) OR (strpos($SenderName, 'Obere') == True)) {
+			} elseif (strpos($SenderName, 'Higher'== True)) {
 				$set_temp_max = $SenderValue;
 
 				$data = array(
