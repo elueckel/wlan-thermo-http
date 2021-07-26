@@ -187,7 +187,7 @@ if (!defined('vtBoolean')) {
 			$UnreachCounter = $this->GetBuffer("UnreachCounter");		
 			$this->SetBuffer("UnreachCounter",$UnreachCounter + 1);
 
-			if ($UnreachCounter == ($System_AutoOff / 2)) {
+			if ($UnreachCounter >= ($System_AutoOff / 2)) {
 				//Nachricht
 				$this->SetBuffer("NotifierMessage",$System_OffWarningText);
 				if ($System_Messages == 1) {
