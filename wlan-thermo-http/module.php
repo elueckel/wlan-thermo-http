@@ -409,6 +409,9 @@ if (!defined('vtBoolean')) {
 			} else {
 			}
 
+			$set_channel = $Channel;
+			$set_alarm = '0';
+
 			if (strpos($SenderName, 'Lower') == True) {
 				$set_temp_min = $SenderValue;
 				
