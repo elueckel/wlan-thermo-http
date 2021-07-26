@@ -59,12 +59,19 @@ if (!defined('vtBoolean')) {
 				IPS_CreateVariableProfile("WT.Channel_Status", 1);
 				IPS_SetVariableProfileValues("WT.Channel_Status", 0, 0, 1);
 				IPS_SetVariableProfileDigits("WT.Channel_Status", 1);
-				IPS_SetVariableProfileIcon("WT.Channel_Status",  "WindSpeed");
+				IPS_SetVariableProfileIcon("WT.Channel_Status",  "Temperature");
 				IPS_SetVariableProfileAssociation("WT.Channel_Status", 0, $this->Translate("Not Found"),"",0x808080);
 				IPS_SetVariableProfileAssociation("WT.Channel_Status", 1, $this->Translate("OK"),"",0x00ff00);
 				IPS_SetVariableProfileAssociation("WT.Channel_Status", 2, $this->Translate("Warming Up"),"",0x00ffff);
 				IPS_SetVariableProfileAssociation("WT.Channel_Status", 3, $this->Translate("Too Cold"),"",0x0000ff);
 				IPS_SetVariableProfileAssociation("WT.Channel_Status", 4, $this->Translate("Too Hot"),"",0xff0000);
+			}
+
+			if (IPS_VariableProfileExists("WT.BBQ_Temperature") == false){
+				IPS_CreateVariableProfile("WT.BBQ_Temperature", 1);
+				IPS_SetVariableProfileValues("WT.BBQ_Temperature", 0, 400, 1);
+				IPS_SetVariableProfileDigits("WT.BBQ_Temperature", 0);
+				IPS_SetVariableProfileIcon("WT.BBQ_Temperature",  "Temperature");
 			}
 
 			//Fixed Variables
@@ -97,9 +104,9 @@ if (!defined('vtBoolean')) {
 
 		foreach ($Channels as $Channel) {
 			$vpos = $vpos;
-			$this->MaintainVariable('Channel'.$Channel.'_Temperature', $this->Translate('Channel '.$Channel.' Current Temperature'), vtFloat, '~Temperature', $vpos++, $this->ReadPropertyBoolean('Channel'.$Channel.'Active') == 1);
-			$this->MaintainVariable('Channel'.$Channel.'_LowerTarget', $this->Translate('Channel '.$Channel.' Lower Target Temperature'), vtFloat, '~Temperature', $vpos++, $this->ReadPropertyBoolean('Channel'.$Channel.'Active') == 1);
-			$this->MaintainVariable('Channel'.$Channel.'_HigherTarget', $this->Translate('Channel '.$Channel.' Higher Target Temperature'), vtFloat, '~Temperature', $vpos++, $this->ReadPropertyBoolean('Channel'.$Channel.'Active') == 1);
+			$this->MaintainVariable('Channel'.$Channel.'_Temperature', $this->Translate('Channel '.$Channel.' Current Temperature'), vtFloat, 'WT.BBQ_Temperature', $vpos++, $this->ReadPropertyBoolean('Channel'.$Channel.'Active') == 1);
+			$this->MaintainVariable('Channel'.$Channel.'_LowerTarget', $this->Translate('Channel '.$Channel.' Lower Target Temperature'), vtFloat, 'WT.BBQ_Temperature', $vpos++, $this->ReadPropertyBoolean('Channel'.$Channel.'Active') == 1);
+			$this->MaintainVariable('Channel'.$Channel.'_HigherTarget', $this->Translate('Channel '.$Channel.' Higher Target Temperature'), vtFloat, 'WT.BBQ_Temperature', $vpos++, $this->ReadPropertyBoolean('Channel'.$Channel.'Active') == 1);
 			$this->MaintainVariable('Channel'.$Channel.'_Status', $this->Translate('Channel '.$Channel.' Status'), vtInteger, 'WT.Channel_Status', $vpos++, $this->ReadPropertyBoolean('Channel'.$Channel.'Active') == 1);
 			$vpos = 10 * ceil($vpos/10);
 
