@@ -229,12 +229,12 @@
 		{
 			"type": "Button",
 			"label": "Test Email Notification",
-			"onClick": "WT_EmailApp()($id);"
+			"onClick": "WT_EmailApp($id);"
 		},
 		{
 			"type": "Button",
 			"label": "Test App Notification",
-			"onClick": "WT_NotifyApp()($id);"
+			"onClick": "WT_NotifyApp($id);"
 		}
   	]
 }
