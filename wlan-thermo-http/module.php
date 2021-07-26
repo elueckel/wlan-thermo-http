@@ -429,12 +429,12 @@ if (!defined('vtBoolean')) {
 				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
 				);
 			}
-
+/*
 			$set_channel = $Channel;
 			//$set_temp_max = '40';
 			//$set_temp_min = $SenderValue;
 			$set_alarm = '0';
-			/*
+			
 			$data = array(
 				'number' => $set_channel,
 				'max' => $set_temp_max,

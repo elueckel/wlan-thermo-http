@@ -1,6 +1,11 @@
 {
 	"translations": {
-		"de": { 
+		"de": {
+			"Channel": "Kanal",
+			"Active": "Active",
+			" Current Temperature": " Aktuelle Temperatur",
+			" Lower Target Temperature": " Untere Zieltemperatur",
+			" Higher Target Temperatur": " Obere Zieltemperatur",
 			"WLAN Thermo Configuration": "WLAN Thermo Konfiguration",
 			"To connect to the Thermometer please provide the IP address or network name": "Um sich mit dem Thermometer zu verbinden muss die IP Adresse oder der Netzwerkname angegeben werden.",
 			"IP Adress or Network Name": "IP Addresse oder Netzwerkname",
