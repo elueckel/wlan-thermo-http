@@ -92,9 +92,7 @@
 					"type": "NumberSpinner",
 					"name": "System_BatterieThreshold",
 					"caption": "Batterie Threshold",
-					"suffix": "%",
-					"minimum": "0",
-					"maximum": "100"
+					"suffix": "%"
 				},
 				{
 					"type": "NumberSpinner",
