@@ -164,6 +164,7 @@ if (!defined('vtBoolean')) {
 
 		//if($fp = @fsockopen($IP,$Port,$WaitTimeoutInSeconds)){
 		$fp = @fsockopen($IP,$Port,$WaitTimeoutInSeconds);
+		fclose($fp);
 		if (is_resource($fp)) {
 			
 			$curl = curl_init("http://".$IP."/data");
@@ -235,8 +236,6 @@ if (!defined('vtBoolean')) {
 			}
 
 		} 
-		fclose($fp);
-
 	}
 		
 	public function GetReadings() {
@@ -512,21 +511,25 @@ if (!defined('vtBoolean')) {
 
 	public function ArchiveCleaning() {
 
-		$Channels = array(1,2,3,4,5,6);
+		$ArchiveTurnedOn = $this->ReadPropertyBoolean("ArchiveTurnedOn");
+		if ($ArchiveTurnedOn == 1) {
 
-		foreach ($Channels as $Channel) {
-			$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
-			AC_DeleteVariableData ($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0, 0);
+			$Channels = array(1,2,3,4,5,6);
 
-			$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
-		
-			if ($ChannelActive == 1) {
-					$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
-					$ArchiveTurnedOn = $this->ReadPropertyBoolean("ArchiveTurnedOn");
-					if ($ArchiveTurnedOn == 1) {
-						AC_SetLoggingStatus($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), true);
-						AC_SetAggregationType($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
-					}
+			foreach ($Channels as $Channel) {
+				$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
+				AC_DeleteVariableData ($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0, 0);
+
+				$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
+			
+				if ($ChannelActive == 1) {
+						$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
+						$ArchiveTurnedOn = $this->ReadPropertyBoolean("ArchiveTurnedOn");
+						if ($ArchiveTurnedOn == 1) {
+							AC_SetLoggingStatus($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), true);
+							AC_SetAggregationType($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
+						}
+				}
 			}
 		}		
 	}
