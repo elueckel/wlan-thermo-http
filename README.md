@@ -1,4 +1,4 @@
-# WLAN Thermo BBQ Modul 
+# WLAN Thermo (HTTP) BBQ Controller 
 
 Das WLAN Thermo Modul für Symcon basiert auf der HTTP Webservice Schnittstelle des WLAN Thermo BBQ Thermometers (https://wlanthermo.de/) und ermöglich die komfortable Nutzung der WLANThermo Grill Thermometer in Verbindung mit Symcon. Das Modul kann 
 
