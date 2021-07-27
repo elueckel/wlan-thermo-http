@@ -122,6 +122,8 @@ if (!defined('vtBoolean')) {
 						
 			}
 
+			$this->EnableAction("Active");
+
 			$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
 			if ($ChannelActive == 1) {
 				//Add actions for Webfront when channel is active
