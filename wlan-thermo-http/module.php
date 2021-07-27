@@ -169,7 +169,7 @@ if (!defined('vtBoolean')) {
 			$data = json_decode($json);
 			
 			$Battery = $data->system->soc;
-			SetValue($this->GetIDForIdent("Battery",$Battery));
+			SetValue($this->GetIDForIdent("Battery"),$Battery);
 
 			if ($Battery < $BatteryThreshold) {
 				$this->SetBuffer("NotifierMessage",$MessageBatteryText." ".$Battery."%");
@@ -200,6 +200,7 @@ if (!defined('vtBoolean')) {
 			//Starts a counter so the module can be switch off once automatic shutdown value is reached
 			$UnreachCounter = $this->GetBuffer("UnreachCounter");		
 			$this->SetBuffer("UnreachCounter",$UnreachCounter + 1);
+			echo $UnreachCounter;
 
 			if ($UnreachCounter >= round(($System_AutoOff / 2))) {
 				//Nachricht
@@ -432,19 +433,6 @@ if (!defined('vtBoolean')) {
 				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
 				);
 			}
-/*
-			$set_channel = $Channel;
-			//$set_temp_max = '40';
-			//$set_temp_min = $SenderValue;
-			$set_alarm = '0';
-			
-			$data = array(
-				'number' => $set_channel,
-				'max' => $set_temp_max,
-				'min' => $set_temp_min,
-				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
-			);
-			*/
 			
 			$payload = json_encode($data);
 			
@@ -475,7 +463,7 @@ if (!defined('vtBoolean')) {
 			else {
 				$this->SetTimerInterval("WLAN BBQ Thermometer", "0");
 				$this->ArchiveCleaning();
-				$this->UnsetValuesAtShutdown();
+				//$this->UnsetValuesAtShutdown();
 				$this->SendDebug("System","Switching module off", 0);
 			}
 		}
@@ -552,13 +540,7 @@ if (!defined('vtBoolean')) {
 	public function RequestAction($Ident, $Value) {
 		
 		$this->SetValue($Ident, $Value);
-		/*switch($Ident) {
-			case "TestVariable":
-				$this->SetValue($Ident, $Value);
-				break;
-			default:
-				throw new Exception("Invalid ident");
-		}*/
+		
 	}
 
 }
