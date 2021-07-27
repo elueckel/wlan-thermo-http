@@ -10,6 +10,7 @@ Das WLAN Thermo Modul für Symcon basiert auf der HTTP Webservice Schnittstelle 
 * das Modul deaktiviert sich nach einer bestimmten Anzahl von Zyklen und schickt, wenn aktivert, Warnungen bei der Hälfte bez. beim Ausschalten
 * alle Variablen werden persistent angelegt und können so über das Webfront eingebunden werden
 * wenn man "die Active Variable" mit einer Aktion verbindet, die mit einem Präsenzmelder (z.B. im Unifi Modul) gekoppelt ist, schaltet sich das Modul selbst ein
+* Kerntemperaturen für diverse Fleischarten im Modul als Variablen hinterlegt - diese können z.B. im Webfront eingebunden werden um Werte nachzuschlagen. Eine automatische Übernahme ist nicht geplant - ebenso sind die Texte nur in Deutsch.
 
 ## Setup
 Die Einrichtung des Moduls ist sehr einfach. 
@@ -30,13 +31,13 @@ Die Variable Status zeigt an, wie sich die Temperatur verhält bez. ob es z.B. a
 ## Nachrichten
 Ein wichtiger Punkt bei der Entwicklung war, umfangreiche Benachrichtigungen zu ermöglichen. So ist es möglich Nachrichten in der Symcon App aber auch als Email zu erhalten, wenn die Temperatur genau richtig (zwischen Min/Max oder unter Max), zu warm oder kalt ist. 
 Weiterhin werden Nachrichten bei Auto An/Aus oder leerer Batterie versendet, wenn gewünscht. 
-Alle Text können frei vergeben werden - somit kann auch die Mehrsprachigkeit dargestellt werden. 
+Alle Texte können frei vergeben werden - somit kann auch die Mehrsprachigkeit dargestellt werden. 
 
 ## Archivfunktion
-Da man beim Grillen evtl. auch den Temperaturverlauf sehen will, kann man die Aufzeichnung aktivieren. Diese zeichnet dann den Temperaturverlauf pro Kanal auf. Beim Beenden werden alle Daten aber wieder gelöscht.
+Da man beim Grillen evtl. auch den Temperaturverlauf sehen will, kann man die Aufzeichnung aktivieren. Diese zeichnet dann den Temperaturverlauf pro Kanal auf. Beim Deaktivieren des Moduls werden alle Daten aber wieder automatisch gelöscht!
 
 ## Auto An/Aus
-Das Modul wird über die Aktiv Variable aktiviert. Dies kann natürlich im Webfront oder der App passieren. Sollte man z.B. ein Unifi Gateway und das Modul nutzen, so kann man aber auch die Anwesenheit (über die IP) des Thermometers erfassen und das Modul so aktivieren. 
+Das Modul wird über die "Aktiv" Variable aktiviert. Dies kann natürlich im Webfront oder der App passieren. Sollte man z.B. ein Unifi Gateway und das Modul nutzen, so kann man aber auch die Anwesenheit (über die IP) des Thermometers erfassen und das Modul so aktivieren. 
 Das Modul deaktiviert sich, wenn es für eine bestimmte Anzahl von Zyklen das Thermometer nicht erreichen kann. Zyklen sind hier die Abfrageintervalle (also wären 5 Zyklen bei 60 Sekunden - 3 Minuten). Das Modul wird bei Erreichen von 50% der Zyklen eine Email oder Nachricht senden, dass das Thermometer nicht zu erreichen ist. Damit soll sichergestellt werden, dass z.B. bei leerer Batterie Gegenmaßnahmen ergreifen werden können. 
 
 
@@ -45,5 +46,6 @@ Das Modul deaktiviert sich, wenn es für eine bestimmte Anzahl von Zyklen das Th
 * Erstes Release
 * Unterstützung von 6 Kanälen 
 * Auto An/Aus
-* Nachrichten via Webfront und Email
+* Nachrichten via Webfront und Email (Temperatur, Erreichbarkeit)
 * Temporäre Aufzeichnung von Variablen
+* Kerntemperaturen für Schwein, Rind, Lamm, Wild, Kalb und Fisch
