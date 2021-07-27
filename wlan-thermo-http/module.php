@@ -162,9 +162,9 @@ if (!defined('vtBoolean')) {
 		$Port = 80;
 		$WaitTimeoutInSeconds = 1;
 
-		//if($fp = fsockopen($IP,$Port,$WaitTimeoutInSeconds)){
-		$fp = fsockopen($IP,$Port,$WaitTimeoutInSeconds);
-		if (is_resource($fp)) {
+		if($fp = fsockopen($IP,$Port,$WaitTimeoutInSeconds)){
+		//$fp = fsockopen($IP,$Port,$WaitTimeoutInSeconds);
+		//if (is_resource($fp)) {
 			
 			$curl = curl_init("http://".$IP."/data");
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
