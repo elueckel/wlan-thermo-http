@@ -80,7 +80,7 @@ if (!defined('vtBoolean')) {
 				IPS_CreateVariableProfile("WT.CoreTemp_Pork", 3);
 				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 0, "Bauch, gefüllt vollgar - 70-75°C","","");
 				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 1, "Bauch, vollgar 80-85°C","","");
-				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 2, "Hackfleisch 75°C"),"","");
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 2, "Hackfleisch 75°C","","");
 				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 3, "Haxe gebraten, vollgar 80-85°C","","");
 				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 4, "Haxe gepökelt, vollgar 75-80°C","","");
 			}
