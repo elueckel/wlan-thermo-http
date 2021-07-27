@@ -72,6 +72,7 @@ if (!defined('vtBoolean')) {
 				IPS_SetVariableProfileValues("WT.BBQ_Temperature", 0, 400, 1);
 				IPS_SetVariableProfileDigits("WT.BBQ_Temperature", 0);
 				IPS_SetVariableProfileIcon("WT.BBQ_Temperature",  "Temperature");
+				IPS_SetVariableProfileText("WT.BBQ_Temperature", "", "°C");
 			}
 
 			//Fixed Variables
@@ -202,7 +203,7 @@ if (!defined('vtBoolean')) {
 			$this->SetBuffer("UnreachCounter",$UnreachCounter + 1);
 			echo $UnreachCounter;
 
-			if ($UnreachCounter >= round(($System_AutoOff / 2))) {
+			if ($UnreachCounter == round(($System_AutoOff / 2))) {
 				//Nachricht
 				$this->SetBuffer("NotifierMessage",$System_OffWarningText);
 				if ($System_Messages == 1) {
@@ -463,7 +464,7 @@ if (!defined('vtBoolean')) {
 			else {
 				$this->SetTimerInterval("WLAN BBQ Thermometer", "0");
 				$this->ArchiveCleaning();
-				//$this->UnsetValuesAtShutdown();
+				$this->UnsetValuesAtShutdown();
 				$this->SendDebug("System","Switching module off", 0);
 			}
 		}
