@@ -390,31 +390,31 @@ if (!defined('vtBoolean')) {
 		$IP = $this->ReadPropertyString("IP");
 		$UnreachCounter = $this->GetBuffer("UnreachCounter");
 
-		if ($UnreachCounter == 0) {
+		if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget")) OR ($this->GetIDForIdent("Channel1_HigherTarget")) OR 
+				($this->GetIDForIdent("Channel2_LowerTarget")) OR ($this->GetIDForIdent("Channel2_HigherTarget")) OR 
+				($this->GetIDForIdent("Channel3_LowerTarget")) OR ($this->GetIDForIdent("Channel3_HigherTarget")) OR 
+				($this->GetIDForIdent("Channel4_LowerTarget")) OR ($this->GetIDForIdent("Channel4_HigherTarget")) OR 
+				($this->GetIDForIdent("Channel5_LowerTarget")) OR ($this->GetIDForIdent("Channel5_HigherTarget")) OR 
+				($this->GetIDForIdent("Channel6_LowerTarget")) OR ($this->GetIDForIdent("Channel6_HigherTarget"))) {
+			$SenderValue = GetValue($SenderID);
+			$SenderName = IPS_GetName($SenderID);
 
-			if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget")) OR ($this->GetIDForIdent("Channel1_HigherTarget")) OR 
-					($this->GetIDForIdent("Channel2_LowerTarget")) OR ($this->GetIDForIdent("Channel2_HigherTarget")) OR 
-					($this->GetIDForIdent("Channel3_LowerTarget")) OR ($this->GetIDForIdent("Channel3_HigherTarget")) OR 
-					($this->GetIDForIdent("Channel4_LowerTarget")) OR ($this->GetIDForIdent("Channel4_HigherTarget")) OR 
-					($this->GetIDForIdent("Channel5_LowerTarget")) OR ($this->GetIDForIdent("Channel5_HigherTarget")) OR 
-					($this->GetIDForIdent("Channel6_LowerTarget")) OR ($this->GetIDForIdent("Channel6_HigherTarget"))) {
-				$SenderValue = GetValue($SenderID);
-				$SenderName = IPS_GetName($SenderID);
+			if (strpos($SenderName, '1')) {
+				$Channel = "1";
+			} elseif (strpos($SenderName, '2')) {
+				$Channel = "2";
+			} elseif (strpos($SenderName, '3')) {
+				$Channel = "3";
+			} elseif (strpos($SenderName, '4')) {
+				$Channel = "4";
+			} elseif (strpos($SenderName, '5')) {
+				$Channel = "5";
+			} elseif (strpos($SenderName, '6')) {
+				$Channel = "6";
+			} else {
+			}
 
-				if (strpos($SenderName, '1')) {
-					$Channel = "1";
-				} elseif (strpos($SenderName, '2')) {
-					$Channel = "2";
-				} elseif (strpos($SenderName, '3')) {
-					$Channel = "3";
-				} elseif (strpos($SenderName, '4')) {
-					$Channel = "4";
-				} elseif (strpos($SenderName, '5')) {
-					$Channel = "5";
-				} elseif (strpos($SenderName, '6')) {
-					$Channel = "6";
-				} else {
-				}
+			if ($UnreachCounter == 0) {
 
 				//$this->SendDebug($this->Translate('Sender'),$SenderName,0);
 				$set_channel = $Channel;
@@ -454,30 +454,31 @@ if (!defined('vtBoolean')) {
 				
 				$result = curl_exec($ch);
 				curl_close($ch);
-
 			}
+
+		}
+		
+		if ($SenderID == $this->GetIDForIdent('Active')) {
 			
-			if ($SenderID == $this->GetIDForIdent('Active')) {
-				
-				$SenderValue = GetValue($SenderID);
-				if ($SenderValue == 1) {
-					$this->SendDebug("System","Module activated", 0);
-					$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
-					$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
-					$this->SetBuffer("UnreachCounter",0);
-					$this->GetReadings();
-				}
-				else {
-					$this->SetTimerInterval("WLAN BBQ Thermometer", "0");
-					$this->ArchiveCleaning();
-					$this->UnsetValuesAtShutdown();
-					$this->SendDebug("System","Switching module off", 0);
-				}
+			$SenderValue = GetValue($SenderID);
+			if ($SenderValue == 1) {
+				$this->SendDebug("System","Module activated", 0);
+				$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
+				$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
+				$this->SetBuffer("UnreachCounter",0);
+				$this->GetReadings();
 			}
 			else {
-				
+				$this->SetTimerInterval("WLAN BBQ Thermometer", "0");
+				$this->ArchiveCleaning();
+				$this->UnsetValuesAtShutdown();
+				$this->SendDebug("System","Switching module off", 0);
 			}
 		}
+		else {
+			
+		}
+		
 
 	}
 
