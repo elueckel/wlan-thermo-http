@@ -390,7 +390,7 @@ if (!defined('vtBoolean')) {
 		$IP = $this->ReadPropertyString("IP");
 		$UnreachCounter = $this->GetBuffer("UnreachCounter");
 
-		if ($UnreachCounter > 0) {
+		if ($UnreachCounter == 0) {
 
 			if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget")) OR ($this->GetIDForIdent("Channel1_HigherTarget")) OR 
 					($this->GetIDForIdent("Channel2_LowerTarget")) OR ($this->GetIDForIdent("Channel2_HigherTarget")) OR 
