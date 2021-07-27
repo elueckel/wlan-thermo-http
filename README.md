@@ -5,6 +5,7 @@ Das WLAN Thermo Modul für Symcon basiert auf der HTTP Webservice Schnittstelle 
 * bis zu 6 Sensoren abfragen
 * jeder Sensor kann einzeln aktiviert werden 
 * zentraler Timer für alle Sensoren (definitiert die Häufigkeit der Abfrage)
+* Temperaturen für Min/Max werden auf das Thermometer übertragen
 * einzelne Alarme für min/max
 * Warnung via Message Control und Email bei zu hoher/niedriger Temperatur, wie auch "nicht Erreichbarkeit"
 * das Modul deaktiviert sich nach einer bestimmten Anzahl von Zyklen und schickt, wenn aktivert, Warnungen bei der Hälfte bez. beim Ausschalten
@@ -15,7 +16,7 @@ Das WLAN Thermo Modul für Symcon basiert auf der HTTP Webservice Schnittstelle 
 ## Setup
 Die Einrichtung des Moduls ist sehr einfach. 
 1. Download des Moduls via Module Store oder github https://github.com/elueckel/wlan-thermo-http 
-2. Anlegen der Instanz: WLAN BBQ Thermo WLAN
+2. Anlegen der Instanz: WLAN Thermo (HTTP) BBQ Controller
 3. Im Modul die IP-Adresse des Thermometers angeben
 4. Die Kanäle wählen, die genutzt werden sollen
 
