@@ -160,7 +160,9 @@ if (!defined('vtBoolean')) {
 		$Port = 80;
 		$WaitTimeoutInSeconds = 1;
 
-		if($fp = fsockopen($IP,$Port,$WaitTimeoutInSeconds)){
+		//if($fp = fsockopen($IP,$Port,$WaitTimeoutInSeconds)){
+		$fp = fsockopen($IP,$Port,$WaitTimeoutInSeconds);
+		if (is_resource($fp)) {
 			
 			$curl = curl_init("http://".$IP."/data");
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
@@ -386,90 +388,94 @@ if (!defined('vtBoolean')) {
 		//$this->SendDebug("Sender",$SenderID." ".$Message." ".$Data, 0);
 
 		$IP = $this->ReadPropertyString("IP");
+		$UnreachCounter = $this->GetBuffer("UnreachCounter");
 
-		if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget")) OR ($this->GetIDForIdent("Channel1_HigherTarget")) OR 
-				($this->GetIDForIdent("Channel2_LowerTarget")) OR ($this->GetIDForIdent("Channel2_HigherTarget")) OR 
-				($this->GetIDForIdent("Channel3_LowerTarget")) OR ($this->GetIDForIdent("Channel3_HigherTarget")) OR 
-				($this->GetIDForIdent("Channel4_LowerTarget")) OR ($this->GetIDForIdent("Channel4_HigherTarget")) OR 
-				($this->GetIDForIdent("Channel5_LowerTarget")) OR ($this->GetIDForIdent("Channel5_HigherTarget")) OR 
-				($this->GetIDForIdent("Channel6_LowerTarget")) OR ($this->GetIDForIdent("Channel6_HigherTarget"))) {
-			$SenderValue = GetValue($SenderID);
-			$SenderName = IPS_GetName($SenderID);
+		if ($UnreachCounter > 0) {
 
-			if (strpos($SenderName, '1')) {
-				$Channel = "1";
-			} elseif (strpos($SenderName, '2')) {
-				$Channel = "2";
-			} elseif (strpos($SenderName, '3')) {
-				$Channel = "3";
-			} elseif (strpos($SenderName, '4')) {
-				$Channel = "4";
-			} elseif (strpos($SenderName, '5')) {
-				$Channel = "5";
-			} elseif (strpos($SenderName, '6')) {
-				$Channel = "6";
-			} else {
-			}
+			if ($SenderID == ($this->GetIDForIdent("Channel1_LowerTarget")) OR ($this->GetIDForIdent("Channel1_HigherTarget")) OR 
+					($this->GetIDForIdent("Channel2_LowerTarget")) OR ($this->GetIDForIdent("Channel2_HigherTarget")) OR 
+					($this->GetIDForIdent("Channel3_LowerTarget")) OR ($this->GetIDForIdent("Channel3_HigherTarget")) OR 
+					($this->GetIDForIdent("Channel4_LowerTarget")) OR ($this->GetIDForIdent("Channel4_HigherTarget")) OR 
+					($this->GetIDForIdent("Channel5_LowerTarget")) OR ($this->GetIDForIdent("Channel5_HigherTarget")) OR 
+					($this->GetIDForIdent("Channel6_LowerTarget")) OR ($this->GetIDForIdent("Channel6_HigherTarget"))) {
+				$SenderValue = GetValue($SenderID);
+				$SenderName = IPS_GetName($SenderID);
 
-			$this->SendDebug($this->Translate('Sender'),$SenderName,0);
-			$set_channel = $Channel;
-			$set_alarm = '0';
+				if (strpos($SenderName, '1')) {
+					$Channel = "1";
+				} elseif (strpos($SenderName, '2')) {
+					$Channel = "2";
+				} elseif (strpos($SenderName, '3')) {
+					$Channel = "3";
+				} elseif (strpos($SenderName, '4')) {
+					$Channel = "4";
+				} elseif (strpos($SenderName, '5')) {
+					$Channel = "5";
+				} elseif (strpos($SenderName, '6')) {
+					$Channel = "6";
+				} else {
+				}
 
-			if (strpos($SenderName, 'Lower') == True OR strpos($SenderName, 'Untere') == True) {
-				$set_temp_min = $SenderValue;
+				//$this->SendDebug($this->Translate('Sender'),$SenderName,0);
+				$set_channel = $Channel;
+				$set_alarm = '0';
+
+				if (strpos($SenderName, 'Lower') == True OR strpos($SenderName, 'Untere') == True) {
+					$set_temp_min = $SenderValue;
+					
+					$data = array(
+					'number' => $set_channel,
+					'min' => $set_temp_min,
+					//'max' => '',
+					'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
+					);
+				} elseif (strpos($SenderName, 'Higher') == True OR strpos($SenderName, 'Obere') == True) {
+					$set_temp_max = $SenderValue;
+
+					$data = array(
+					'number' => $set_channel,
+					//'min' => '',
+					'max' => $set_temp_max,
+					'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
+					);
+				}
 				
-				$data = array(
-				'number' => $set_channel,
-				'min' => $set_temp_min,
-				//'max' => '',
-				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
+				$payload = json_encode($data);
+				
+				$ch = curl_init('http://'.$IP.'/setchannels');
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+				curl_setopt($ch, CURLOPT_POST, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Content-Length: ' . strlen($payload))
 				);
-			} elseif (strpos($SenderName, 'Higher') == True OR strpos($SenderName, 'Obere') == True) {
-				$set_temp_max = $SenderValue;
+				
+				$result = curl_exec($ch);
+				curl_close($ch);
 
-				$data = array(
-				'number' => $set_channel,
-				//'min' => '',
-				'max' => $set_temp_max,
-				'alarm' => $set_alarm // 0 = off, 1 = push, 2 = buzzer, 3 = push + buzzer
-				);
 			}
 			
-			$payload = json_encode($data);
-			
-			$ch = curl_init('http://'.$IP.'/setchannels');
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-			curl_setopt($ch, CURLOPT_POST, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-				'Content-Type: application/json',
-				'Content-Length: ' . strlen($payload))
-			);
-			
-			$result = curl_exec($ch);
-			curl_close($ch);
-
-		}
-		
-		if ($SenderID == $this->GetIDForIdent('Active')) {
-			
-			$SenderValue = GetValue($SenderID);
-			if ($SenderValue == 1) {
-				$this->SendDebug("System","Module activated", 0);
-				$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
-				$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
-				$this->GetReadings();
+			if ($SenderID == $this->GetIDForIdent('Active')) {
+				
+				$SenderValue = GetValue($SenderID);
+				if ($SenderValue == 1) {
+					$this->SendDebug("System","Module activated", 0);
+					$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
+					$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
+					$this->GetReadings();
+				}
+				else {
+					$this->SetTimerInterval("WLAN BBQ Thermometer", "0");
+					$this->ArchiveCleaning();
+					$this->UnsetValuesAtShutdown();
+					$this->SendDebug("System","Switching module off", 0);
+				}
 			}
 			else {
-				$this->SetTimerInterval("WLAN BBQ Thermometer", "0");
-				$this->ArchiveCleaning();
-				$this->UnsetValuesAtShutdown();
-				$this->SendDebug("System","Switching module off", 0);
+				
 			}
-		}
-		else {
-			
 		}
 
 	}
