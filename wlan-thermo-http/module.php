@@ -258,8 +258,6 @@ if (!defined('vtBoolean')) {
 			
 			$curl = curl_init("http://".$IP."/data");
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-			//curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-			//curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
 			curl_setopt($curl, CURLOPT_TIMEOUT, 5);
 			curl_setopt($curl, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
 
@@ -462,6 +460,7 @@ if (!defined('vtBoolean')) {
 				$SenderValue = GetValue($SenderID);
 				if ($SenderValue == 1) {
 					$this->SendDebug("System","Module activated", 0);
+					$this->SetBuffer("UnreachCounter",0);
 					$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
 					$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
 					$this->GetReadings();
@@ -540,7 +539,7 @@ if (!defined('vtBoolean')) {
 			SetValue($this->GetIDForIdent("Channel".$Channel."_LowerTarget"), 0);
 			SetValue($this->GetIDForIdent("Channel".$Channel."_HigherTarget"), 0);
 			SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 0);
-
+			$this->SetBuffer("UnreachCounter",0);
 		}
 	}
 
