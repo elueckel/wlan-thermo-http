@@ -536,10 +536,11 @@ if (!defined('vtBoolean')) {
 
 	public function UnsetValuesAtShutdown() {
 
+		$this->SendDebug(($this->Translate('System')),"Reseting all values to 0 since system is off".$Temperature,0);
+
 		$Channels = array(1,2,3,4,5,6);
 
 		foreach ($Channels as $Channel) {
-			$this->SendDebug(($this->Translate('System')),"Reseting all values to 0 since system is off".$Temperature,0);
 			SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
 			SetValue($this->GetIDForIdent("Channel".$Channel."_LowerTarget"), 0);
 			SetValue($this->GetIDForIdent("Channel".$Channel."_HigherTarget"), 0);
