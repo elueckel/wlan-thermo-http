@@ -162,9 +162,9 @@ if (!defined('vtBoolean')) {
 		$Port = 80;
 		$WaitTimeoutInSeconds = 1;
 
-		if($fp = @fsockopen($IP,$Port,$WaitTimeoutInSeconds)){
-		//$fp = fsockopen($IP,$Port,$WaitTimeoutInSeconds);
-		//if (is_resource($fp)) {
+		//if($fp = @fsockopen($IP,$Port,$WaitTimeoutInSeconds)){
+		$fp = @fsockopen($IP,$Port,$WaitTimeoutInSeconds);
+		if (is_resource($fp)) {
 			
 			$curl = curl_init("http://".$IP."/data");
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
@@ -205,7 +205,7 @@ if (!defined('vtBoolean')) {
 			//Starts a counter so the module can be switch off once automatic shutdown value is reached
 			$UnreachCounter = $this->GetBuffer("UnreachCounter");		
 			$this->SetBuffer("UnreachCounter",$UnreachCounter + 1);
-			echo $UnreachCounter;
+			//echo $UnreachCounter;
 
 			if ($UnreachCounter == round(($System_AutoOff / 2))) {
 				//Nachricht
@@ -378,7 +378,6 @@ if (!defined('vtBoolean')) {
 		}
 		else {
 			$this->SendDebug($this->Translate('WLAN BBQ Thermometer'),$this->Translate('No IP or Device Name configured'),0);
-			echo 'Login data is missing';
 		}
 
 	}
@@ -414,7 +413,7 @@ if (!defined('vtBoolean')) {
 			} else {
 			}
 
-			if ($UnreachCounter == 0) {
+			if ($UnreachCounter == 0 AND isset($Channel) ) {
 
 				//$this->SendDebug($this->Translate('Sender'),$SenderName,0);
 				$set_channel = $Channel;
