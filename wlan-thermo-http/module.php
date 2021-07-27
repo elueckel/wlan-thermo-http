@@ -78,11 +78,97 @@ if (!defined('vtBoolean')) {
 
 			if (IPS_VariableProfileExists("WT.CoreTemp_Pork") == false){
 				IPS_CreateVariableProfile("WT.CoreTemp_Pork", 3);
-				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 0, "Bauch, gefüllt vollgar - 70-75°C","","");
-				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 1, "Bauch, vollgar 80-85°C","","");
-				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 2, "Hackfleisch 75°C","","");
-				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 3, "Haxe gebraten, vollgar 80-85°C","","");
-				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 4, "Haxe gepökelt, vollgar 75-80°C","","");
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 0, "Bauch, gefüllt vollgar - 70-75°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 1, "Bauch, vollgar 80-85°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 2, "Hackfleisch 75°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 3, "Haxe gebraten, vollgar 80-85°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 4, "Haxe gepökelt, vollgar 75-80°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 5, "Kassler Aufschintt, Buffet rosa, 55-60°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 6, "Kassler, vollgar 60-68°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 7, "Keule, vollgar 75°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 8, "Keule, hellrosa 65-68°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 9, "Kochschinken, sehr saftig 64-68°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 10, "Pulled Pork, 95°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 11, "Rippchen, vollgar 65°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 12, "Schinken im Brotteig, vollgar 65-70°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 13, "Schweinefilet, rosa 63°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 14, "Schweinefilet, vollgar 65°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 15, "Schweinekamm, vollgar 70-75°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 16, "Schweinekopf, vollgar 75-82°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 17, "Schweinerücken, leicht hellrosa 65-70°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 18, "Schweineschulter, vollgar 75°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 19, "Schweinezunge, vollgar 85-90°C","",-1);
+			}
+
+
+			if (IPS_VariableProfileExists("WT.CoreTemp_Beef") == false){
+				IPS_CreateVariableProfile("WT.CoreTemp_Beef", 3);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Beef", 0, "Beef Brisket, 85°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Beef", 1, "Falsches Filet, medium 60-65°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Beef", 2, "Falsches Filet, vollgar 70-75°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Beef", 3, "Rinderfilet/lende, englisch-rosa 38-55°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Beef", 4, "Rinderfilet/lende, medium 55-58°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Beef", 5, "Rinderbraten, vollgar 85-90°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Beef", 6, "Rindergrust, vollgar 90-95°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Beef", 7, "Rindsrose, vollgar 85-90°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Beef", 8, "Roastbeef, medium 55-60°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Beef", 9, "Rouladen aus Filet, 58°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Beef", 10, "Rouladen aus Keule, 70°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Beef", 11, "Tafelspitz, vollgar 90°C","",-1);
+			}
+
+			if (IPS_VariableProfileExists("WT.CoreTemp_Calf") == false){
+				IPS_CreateVariableProfile("WT.CoreTemp_Calf", 3);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Calf", 0, "Kalbsbraten, vollgar 64-74°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Calf", 1, "Kalbsbrust, vollgar 75-78°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Calf", 2, "Kalbsrücken, hellrosa 65-70°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Calf", 3, "Kalbsschulter, vollgar 75-80°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Calf", 4, "Kuele/Oberschalte/Nuss, vollgar 78°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Calf", 5, "Nierenbraten, vollgar 75-80°C","",-1);
+			}
+
+			if (IPS_VariableProfileExists("WT.CoreTemp_Chicken") == false){
+				IPS_CreateVariableProfile("WT.CoreTemp_Chicken", 3);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Chicken", 0, "Ente, vollgar 80-90°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Chicken", 1, "Gans, rosa 75-80°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Chicken", 2, "Gans, vollgar 90-92°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Chicken", 3, "Hähnchen, vollgar 80-90°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Chicken", 4, "Pute, vollgar 80-90°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Chicken", 5, "Strauss, vollgar 58°C","",-1);
+			}
+
+			if (IPS_VariableProfileExists("WT.CoreTemp_Venison") == false){
+				IPS_CreateVariableProfile("WT.CoreTemp_Venison", 3);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Venison", 0, "Gespickter Rehrücken, vollgar 50-56°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Venison", 1, "Rehbraten, rosa 75-80°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Venison", 2, "Wildschweinbraten, vollgar 75-78°C","",-1);
+			}
+
+			if (IPS_VariableProfileExists("WT.CoreTemp_Lamb") == false){
+				IPS_CreateVariableProfile("WT.CoreTemp_Lamb", 3);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Lamb", 0, "Hammelrücken, leicht rosa 70-75°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Lamb", 1, "Hammelrücken, vollgar 80°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Lamb", 2, "Hammelkeule, leicht rosa 75-78°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Lamb", 3, "Hammelkeule, vollgar 82-85°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Lamb", 4, "Lamm, vollgar 79-85°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Lamb", 5, "Lammkarree, rosa 55°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Lamb", 6, "Lammkeule, rosa 60°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Lamb", 7, "Lammkeule, vollgar 70-72°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Lamb", 8, "Lammkoteletts, rosa 55°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Lamb", 9, "Lammrücken, rosa 60-62°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Lamb", 10, "Lammrücken, vollgar 68°C","",-1);
+			}
+
+			if (IPS_VariableProfileExists("WT.CoreTemp_Fish") == false){
+				IPS_CreateVariableProfile("WT.CoreTemp_Fish", 3);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Fish", 0, "Crevetten, 62°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Fish", 1, "Dorade, 65°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Fish", 2, "Hecht, 63°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Fish", 3, "Lachs, 60°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Fish", 4, "Mousse de Poisson, 65°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Fish", 5, "Seeteufel, 62°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Fish", 6, "Thunfisch, 62°C","",-1);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Fish", 7, "Zander, 62C","",-1);
 			}
 
 
@@ -94,7 +180,7 @@ if (!defined('vtBoolean')) {
 			//In case of an update de-active module - otherwise status is not clear
 			SetValue($this->GetIDForIdent("Active"), false);
 
-
+			$this->EnableAction("Active");
 
 			//Component sets timer, but default is OFF
 			$this->RegisterTimer("WLAN BBQ Thermometer",0,"WT_CyclicTask(\$_IPS['TARGET']);");
@@ -107,7 +193,23 @@ if (!defined('vtBoolean')) {
 		parent::ApplyChanges();
 
 		$vpos = 50;
-		$this->MaintainVariable('Coretemp_Pork', $this->Translate('Core Temperature Pork'), vtString, 'WT.CoreTemp_Pork', $vpos++,$this->ReadPropertyBoolean('Coretemp') == 1);
+		$this->MaintainVariable('CoreTemp_Pork', $this->Translate('Core Temperature Pork'), vtString, 'WT.CoreTemp_Pork', $vpos++,$this->ReadPropertyBoolean('CoreTemp') == 1);
+		$this->MaintainVariable('CoreTemp_Beef', $this->Translate('Core Temperature Beef'), vtString, 'WT.CoreTemp_Beef', $vpos++,$this->ReadPropertyBoolean('CoreTemp') == 1);
+		$this->MaintainVariable('CoreTemp_Calf', $this->Translate('Core Temperature Calf'), vtString, 'WT.CoreTemp_Calf', $vpos++,$this->ReadPropertyBoolean('CoreTemp') == 1);
+		$this->MaintainVariable('CoreTemp_Chicken', $this->Translate('Core Temperature Chicken'), vtString, 'WT.CoreTemp_Chicken', $vpos++,$this->ReadPropertyBoolean('CoreTemp') == 1);
+		$this->MaintainVariable('CoreTemp_Venison', $this->Translate('Core Temperature Venison'), vtString, 'WT.CoreTemp_Venison', $vpos++,$this->ReadPropertyBoolean('CoreTemp') == 1);
+		$this->MaintainVariable('CoreTemp_Lamb', $this->Translate('Core Temperature Lamb'), vtString, 'WT.CoreTemp_Lamb', $vpos++,$this->ReadPropertyBoolean('CoreTemp') == 1);
+		$this->MaintainVariable('CoreTemp_Fish', $this->Translate('Core Temperature Fish'), vtString, 'WT.CoreTemp_Fish', $vpos++,$this->ReadPropertyBoolean('CoreTemp') == 1);
+
+		if ($this->ReadPropertyBoolean('CoreTemp') == 1) {
+			$this->EnableAction("CoreTemp_Pork");
+			$this->EnableAction("CoreTemp_Beef");
+			$this->EnableAction("CoreTemp_Calf");
+			$this->EnableAction("CoreTemp_Chicken");
+			$this->EnableAction("CoreTemp_Venison");
+			$this->EnableAction("CoreTemp_Lamb");
+			$this->EnableAction("CoreTemp_Fish");
+		}
 
 		$ActiveID= @IPS_GetObjectIDByIdent('Active', $this->InstanceID);	
 		if (IPS_GetObject($ActiveID)['ObjectType'] == 2) {
@@ -135,8 +237,6 @@ if (!defined('vtBoolean')) {
 					$this->RegisterMessage($Channel_HigherTargetID, VM_UPDATE);
 						
 			}
-
-			$this->EnableAction("Active");
 
 			$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
 			if ($ChannelActive == 1) {
