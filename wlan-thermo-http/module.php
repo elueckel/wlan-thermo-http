@@ -164,7 +164,6 @@ if (!defined('vtBoolean')) {
 
 		//if($fp = @fsockopen($IP,$Port,$WaitTimeoutInSeconds)){
 		$fp = @fsockopen($IP,$Port,$WaitTimeoutInSeconds);
-		fclose($fp);
 		if (is_resource($fp)) {
 			
 			$curl = curl_init("http://".$IP."/data");
