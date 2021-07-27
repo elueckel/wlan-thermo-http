@@ -27,6 +27,15 @@
 			]
 		},
 		{
+			"type": "Label",
+			"label": "The module can display core tempatures for pork, beef, fish and others in a variable "
+		},
+		{
+			"type": "CheckBox",
+			"name": "Coretemp",
+			"caption": "Core Temperature Variables"
+		},
+		{
 			"type": "ExpansionPanel",
 			"caption": "Channel Configuration",
 			"items": [

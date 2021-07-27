@@ -29,6 +29,7 @@ if (!defined('vtBoolean')) {
 			$this->RegisterPropertyInteger("System_AutoOff", "5");
 			$this->RegisterPropertyString("System_OffWarningText", "Das Thermometer ist nicht erreichbar - prüfen?");
 			$this->RegisterPropertyString("System_OffText", "Das Thermometer Modul wurde ausgeschaltet");
+			$this->RegisterPropertyBoolean("Coretemp", 0);
 
 			$this->RegisterPropertyBoolean("Channel1Active", 0);
 			$this->RegisterPropertyBoolean("Channel2Active", 0);
@@ -75,6 +76,16 @@ if (!defined('vtBoolean')) {
 				IPS_SetVariableProfileText("WT.BBQ_Temperature", "", "°C");
 			}
 
+			if (IPS_VariableProfileExists("WT.CoreTemp_Pork") == false){
+				IPS_CreateVariableProfile("WT.CoreTemp_Pork", 3);
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 0, "Bauch, gefüllt vollgar - 70-75°C","","");
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 1, "Bauch, vollgar 80-85°C","","");
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 2, "Hackfleisch 75°C"),"","");
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 3, "Haxe gebraten, vollgar 80-85°C","","");
+				IPS_SetVariableProfileAssociation("WT.CoreTemp_Pork", 4, "Haxe gepökelt, vollgar 75-80°C","","");
+			}
+
+
 			//Fixed Variables
 
 			$this->RegisterVariableBoolean('Active', $this->Translate('Active'),"~Switch");
@@ -94,6 +105,9 @@ if (!defined('vtBoolean')) {
 			
 		//Never delete this line!
 		parent::ApplyChanges();
+
+		$vpos = 50;
+		$this->MaintainVariable('Coretemp_Pork', $this->Translate('Core Temperature Pork'), vtString, 'WT.CoreTemp_Pork', $vpos++,$this->ReadPropertyBoolean('Coretemp') == 1);
 
 		$ActiveID= @IPS_GetObjectIDByIdent('Active', $this->InstanceID);	
 		if (IPS_GetObject($ActiveID)['ObjectType'] == 2) {
@@ -535,7 +549,7 @@ if (!defined('vtBoolean')) {
 
 	public function UnsetValuesAtShutdown() {
 
-		$this->SendDebug(($this->Translate('System')),"Reseting all values to 0 since system is off".$Temperature,0);
+		$this->SendDebug(($this->Translate('System')),"Reseting all values to 0 since system is off",0);
 
 		$Channels = array(1,2,3,4,5,6);
 
