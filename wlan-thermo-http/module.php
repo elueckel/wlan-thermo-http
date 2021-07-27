@@ -162,9 +162,9 @@ if (!defined('vtBoolean')) {
 		$Port = 80;
 		$WaitTimeoutInSeconds = 1;
 
-		if($fp = fsockopen($IP,$Port,$WaitTimeoutInSeconds)){
-		//$fp = fsockopen($IP,$Port,$WaitTimeoutInSeconds);
-		//if (is_resource($fp)) {
+		//if($fp = fsockopen($IP,$Port,$WaitTimeoutInSeconds)){
+		$fp = fsockopen($IP,$Port,$WaitTimeoutInSeconds);
+		if (is_resource($fp)) {
 			
 			$curl = curl_init("http://".$IP."/data");
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
@@ -537,7 +537,7 @@ if (!defined('vtBoolean')) {
 		$Channels = array(1,2,3,4,5,6);
 
 		foreach ($Channels as $Channel) {
-			$this->SendDebug(($this->Translate('Channel ').$Channel),"Temperature ".$Temperature,0);
+			$this->SendDebug(($this->Translate('System')),"Reseting all values to 0 since system is off".$Temperature,0);
 			SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
 			SetValue($this->GetIDForIdent("Channel".$Channel."_LowerTarget"), 0);
 			SetValue($this->GetIDForIdent("Channel".$Channel."_HigherTarget"), 0);
