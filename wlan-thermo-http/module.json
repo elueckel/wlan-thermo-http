@@ -5,7 +5,7 @@
     "vendor": "WLAN Thermo",
     "aliases": 
     [
-        "WLAN BBQ Thermo HTTP"
+        "WLAN Thermo (HTTP) BBQ Controller"
     ],
     "parentRequirements": [],
     "childRequirements": [],
