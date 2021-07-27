@@ -594,7 +594,7 @@ if (!defined('vtBoolean')) {
 	}
 
 	public function NotifyApp() {
-		$NotifierTitle = "BBG Thermometer";
+		$NotifierTitle = "BBQ Thermometer";
 		$NotifierMessage = $this->GetBuffer("NotifierMessage");
 		if ($NotifierMessage == "") {
 			$NotifierMessage = "Test Message";
@@ -609,7 +609,7 @@ if (!defined('vtBoolean')) {
 		$EmailVariable = $this->ReadPropertyInteger("EmailVariable"); 
 		if ($EmailVariable != "") {	
 			$NotifierMessage = $this->GetBuffer("NotifierMessage");
-			$EmailTitle = "BBG Thermometer";
+			$EmailTitle = "BBQ Thermometer";
 			if ($NotifierMessage == "") {
 				$NotifierMessage = "Test Message";
 			}

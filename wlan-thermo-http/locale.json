@@ -51,7 +51,14 @@
 			"Not Found": "Nicht gefunden",
 			"Warming Up": "Wärmt auf",
 			"Too Cold": "Zu kalt",
-			"Too Hot": "Zu heiss"
+			"Too Hot": "Zu heiss",
+			"Core Temperature Pork": "Kertemperatur Schwein",
+			"Core Temperature Beef": "Kerntemperatur Rind",
+			"Core Temperature Calf": "Kerntemperatur Kalb",
+			"Core Temperature Chicken": "Kerntemperatur Geflügel",
+			"Core Temperature Venison": "Kerntemperatur Wild",
+			"Core Temperature Lamb": "Kerntemperatur Lamm",
+			"Core Temperature Fish": "Kerntemperatur Fisch"
 		}
 	}
 }
