@@ -29,7 +29,7 @@ if (!defined('vtBoolean')) {
 			$this->RegisterPropertyInteger("System_AutoOff", "5");
 			$this->RegisterPropertyString("System_OffWarningText", "Das Thermometer ist nicht erreichbar - prüfen?");
 			$this->RegisterPropertyString("System_OffText", "Das Thermometer Modul wurde ausgeschaltet");
-			$this->RegisterPropertyBoolean("Coretemp", 0);
+			$this->RegisterPropertyBoolean("CoreTemp", 0);
 
 			$this->RegisterPropertyBoolean("Channel1Active", 0);
 			$this->RegisterPropertyBoolean("Channel2Active", 0);

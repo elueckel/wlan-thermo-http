@@ -32,7 +32,7 @@
 		},
 		{
 			"type": "CheckBox",
-			"name": "Coretemp",
+			"name": "CoreTemp",
 			"caption": "Core Temperature Variables"
 		},
 		{
