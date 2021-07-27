@@ -462,9 +462,9 @@ if (!defined('vtBoolean')) {
 				$SenderValue = GetValue($SenderID);
 				if ($SenderValue == 1) {
 					$this->SendDebug("System","Module activated", 0);
-					$this->SetBuffer("UnreachCounter",0);
 					$TimerMS = $this->ReadPropertyInteger("Timer") * 1000;
 					$this->SetTimerInterval("WLAN BBQ Thermometer",$TimerMS);
+					$this->SetBuffer("UnreachCounter",0);
 					$this->GetReadings();
 				}
 				else {
