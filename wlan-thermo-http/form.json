@@ -28,7 +28,7 @@
 		},
 		{
 			"type": "Label",
-			"label": "The module can display core tempatures for pork, beef, fish and others in a variable "
+			"label": "The module can display core tempatures for pork, beef, fish and others in a variable."
 		},
 		{
 			"type": "CheckBox",
