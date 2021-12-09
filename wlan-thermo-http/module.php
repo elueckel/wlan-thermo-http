@@ -654,11 +654,16 @@ if (!defined('vtBoolean')) {
 		$Channels = array(1,2,3,4,5,6);
 
 		foreach ($Channels as $Channel) {
-			SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
-			SetValue($this->GetIDForIdent("Channel".$Channel."_LowerTarget"), 0);
-			SetValue($this->GetIDForIdent("Channel".$Channel."_HigherTarget"), 0);
-			SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 0);
-			$this->SetBuffer("UnreachCounter",0);
+			
+			$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
+			
+			if ($ChannelActive == 1) {			
+				SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
+				SetValue($this->GetIDForIdent("Channel".$Channel."_LowerTarget"), 0);
+				SetValue($this->GetIDForIdent("Channel".$Channel."_HigherTarget"), 0);
+				SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 0);
+				$this->SetBuffer("UnreachCounter",0);
+			}
 		}
 	}
 
