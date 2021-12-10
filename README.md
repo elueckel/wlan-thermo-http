@@ -50,3 +50,6 @@ Das Modul deaktiviert sich, wenn es für eine bestimmte Anzahl von Zyklen das Th
 * Nachrichten via Webfront und Email (Temperatur, Erreichbarkeit)
 * Temporäre Aufzeichnung von Variablen
 * Kerntemperaturen für Schwein, Rind, Lamm, Wild, Kalb und Fisch
+
+1.01 - 10-12-2021
+* Fix um nicht genutzte Fühler bei Neustart auszuschliesen
