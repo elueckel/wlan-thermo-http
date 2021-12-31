@@ -630,18 +630,23 @@ if (!defined('vtBoolean')) {
 			$Channels = array(1,2,3,4,5,6);
 
 			foreach ($Channels as $Channel) {
-				$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
-				AC_DeleteVariableData ($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0, 0);
-
+				
 				$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
-			
 				if ($ChannelActive == 1) {
-						$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
-						$ArchiveTurnedOn = $this->ReadPropertyBoolean("ArchiveTurnedOn");
-						if ($ArchiveTurnedOn == 1) {
-							AC_SetLoggingStatus($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), true);
-							AC_SetAggregationType($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
-						}
+				
+					$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
+					AC_DeleteVariableData ($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0, 0);
+
+					$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
+
+					if ($ChannelActive == 1) {
+							$ArchiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
+							$ArchiveTurnedOn = $this->ReadPropertyBoolean("ArchiveTurnedOn");
+							if ($ArchiveTurnedOn == 1) {
+								AC_SetLoggingStatus($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), true);
+								AC_SetAggregationType($ArchiveID, $this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
+							}
+					}
 				}
 			}
 		}		
@@ -654,11 +659,16 @@ if (!defined('vtBoolean')) {
 		$Channels = array(1,2,3,4,5,6);
 
 		foreach ($Channels as $Channel) {
-			SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
-			SetValue($this->GetIDForIdent("Channel".$Channel."_LowerTarget"), 0);
-			SetValue($this->GetIDForIdent("Channel".$Channel."_HigherTarget"), 0);
-			SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 0);
-			$this->SetBuffer("UnreachCounter",0);
+			
+			$ChannelActive = $this->ReadPropertyBoolean("Channel".$Channel."Active");
+			
+			if ($ChannelActive == 1) {			
+				SetValue($this->GetIDForIdent("Channel".$Channel."_Temperature"), 0);
+				SetValue($this->GetIDForIdent("Channel".$Channel."_LowerTarget"), 0);
+				SetValue($this->GetIDForIdent("Channel".$Channel."_HigherTarget"), 0);
+				SetValue($this->GetIDForIdent("Channel".$Channel."_Status"), 0);
+				$this->SetBuffer("UnreachCounter",0);
+			}
 		}
 	}
 
