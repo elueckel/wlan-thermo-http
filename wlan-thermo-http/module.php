@@ -37,6 +37,12 @@ if (!defined('vtBoolean')) {
 			$this->RegisterPropertyBoolean("Channel4Active", 0);
 			$this->RegisterPropertyBoolean("Channel5Active", 0);
 			$this->RegisterPropertyBoolean("Channel6Active", 0);
+			$this->RegisterPropertyBoolean("Channel7Active", 0);
+			$this->RegisterPropertyBoolean("Channel8Active", 0);
+			$this->RegisterPropertyBoolean("Channel9Active", 0);
+			$this->RegisterPropertyBoolean("Channel10Active", 0);
+			$this->RegisterPropertyBoolean("Channel11Active", 0);
+			$this->RegisterPropertyBoolean("Channel12Active", 0);
 			$this->RegisterPropertyBoolean("ArchiveTurnedOn", 0);
 			$this->RegisterPropertyBoolean("ArchiveDumpTemperature", 0);
 			
@@ -216,7 +222,7 @@ if (!defined('vtBoolean')) {
 				$this->RegisterMessage($ActiveID, VM_UPDATE);
 		}
 
-		$Channels = array(1,2,3,4,5,6);
+		$Channels = array(1,2,3,4,5,6,7,8,9,10,11,12);
 		$vpos = 100;
 
 		foreach ($Channels as $Channel) {
